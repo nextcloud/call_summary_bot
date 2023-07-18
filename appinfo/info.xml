@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>call_summary_bot</id>
+	<name>Call summary bot</name>
+	<summary><![CDATA[Call summary bot]]></summary>
+	<description><![CDATA[Call summary bot]]></description>
+
+	<version>1.0.0-dev.1</version>
+	<licence>agpl</licence>
+
+	<author>Joas Schilling</author>
+
+	<namespace>CallSummaryBot</namespace>
+
+	<category>multimedia</category>
+	<category>social</category>
+	<category>workflow</category>
+
+	<website>https://github.com/nextcloud/call_summary_bot</website>
+	<bugs>https://github.com/nextcloud/call_summary_bot/issues</bugs>
+	<repository>https://github.com/nextcloud/call_summary_bot.git</repository>
+
+	<dependencies>
+		<nextcloud min-version="27" max-version="28" />
+	</dependencies>
+</info>
