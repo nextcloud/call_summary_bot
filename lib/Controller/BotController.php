@@ -26,11 +26,15 @@ declare(strict_types=1);
 
 namespace OCA\CallSummaryBot\Controller;
 
+use OCA\CallSummaryBot\Model\LogEntry;
+use OCA\CallSummaryBot\Model\LogEntryMapper;
+use OCA\CallSummaryBot\Service\SummaryService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Http\Client\IClientService;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
@@ -41,6 +45,9 @@ class BotController extends OCSController {
 		string $appName,
 		IRequest $request,
 		protected IClientService $clientService,
+		protected ITimeFactory $timeFactory,
+		protected LogEntryMapper $logEntryMapper,
+		protected SummaryService $summaryService,
 		protected LoggerInterface $logger,
 	) {
 		parent::__construct($appName, $request);
@@ -88,41 +95,116 @@ class BotController extends OCSController {
 		$this->logger->debug($body);
 		$data = json_decode($body, true);
 
-		if ($server) {
-			$message = 'Re: ' . json_decode($data['object']['name'], true)['message'];
-			$body = [
-				'message' => $message,
-				'referenceId' => sha1($random),
-				'replyTo' => (int) $data['object']['id'],
-			];
+		if ($data['type'] === 'Create' && $data['object']['name'] === 'message') {
+			$messageData = json_decode($data['object']['content'], true);
+			$message = $messageData['message'];
 
-			$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
+			$placeholders = $replacements = [];
+			foreach ($messageData['parameters'] as $placeholder => $parameter) {
+				$placeholders[] = '{' . $placeholder . '}';
+				if ($parameter['type'] === 'user') {
+					if (str_contains($parameter['id'], ' ') || str_contains($parameter['id'], '/')) {
+						$replacements[] = '@"' . $parameter['id'] . '"';
+					} else {
+						$replacements[] = '@' . $parameter['id'];
+					}
+				} elseif ($parameter['type'] === 'call') {
+					$replacements[] = '@all';
+				} elseif ($parameter['type'] === 'guest') {
+					$replacements[] = '@' . $parameter['name'];
+				} else {
+					$replacements[] = $parameter['name'];
+				}
+			}
+			$parsedMessage = str_replace($placeholders, $replacements, $message);
 
-			$random = bin2hex(random_bytes(32));
-			$hash = hash_hmac('sha256', $random . $message, $config['secret']);
-			$this->logger->info('Reply: Random ' . $random);
-			$this->logger->info('Reply: Hash ' . $hash);
+			if (str_starts_with($parsedMessage, '-')) {
+				$todos = explode("\n-", $parsedMessage);
+				foreach ($todos as $todo) {
+					$logEntry = new LogEntry();
+					$logEntry->setServer($server);
+					$logEntry->setToken($data['target']['id']);
+					$logEntry->setType(LogEntry::TYPE_TODO);
+					$logEntry->setDetails(trim(ltrim($todo, '-')));
+					if ($logEntry->getDetails()) {
+						// Only store when not empty
+						$this->logEntryMapper->insert($logEntry);
+					}
+				}
+			} elseif (str_starts_with($parsedMessage, '*')) {
+				$todos = explode("\n*", $parsedMessage);
+				foreach ($todos as $todo) {
+					$logEntry = new LogEntry();
+					$logEntry->setServer($server);
+					$logEntry->setToken($data['target']['id']);
+					$logEntry->setType(LogEntry::TYPE_TODO);
+					$logEntry->setDetails(trim(ltrim($todo, '*')));
+					if ($logEntry->getDetails()) {
+						// Only store when not empty
+						$this->logEntryMapper->insert($logEntry);
+					}
+				}
+			}
+		} elseif ($data['type'] === 'Activity') {
+			if ($data['object']['name'] === 'call_joined' || $data['object']['name'] === 'call_started') {
+				$logEntry = new LogEntry();
+				$logEntry->setServer($server);
+				$logEntry->setToken($data['target']['id']);
+				$logEntry->setType(LogEntry::TYPE_START);
+				$logEntry->setDetails((string) $this->timeFactory->now()->getTimestamp());
+				$this->logEntryMapper->insert($logEntry);
 
-			try {
-				$options = [
-					'headers' => [
-						'OCS-APIRequest' => 'true',
-						'Content-Type' => 'application/json',
-						'X-Nextcloud-Talk-Bot-Random' => $random,
-						'X-Nextcloud-Talk-Bot-Signature' => $hash,
-						'User-Agent' => 'nextcloud-call-summary-bot/1.0',
-					],
-					'body' => $jsonBody,
-					'verify' => false, // FIXME
-				];
+				$logEntry = new LogEntry();
+				$logEntry->setServer($server);
+				$logEntry->setToken($data['target']['id']);
+				$logEntry->setType(LogEntry::TYPE_ATTENDEE);
+				$logEntry->setDetails($data['actor']['name']);
+				if ($logEntry->getDetails()) {
+					// Only store when not empty
+					$this->logEntryMapper->insert($logEntry);
+				}
+			} elseif ($data['object']['name'] === 'call_ended' || $data['object']['name'] === 'call_ended_everyone') {
+				$summary = $this->summaryService->summarize($server, $data['target']['id'], $data['target']['name']);
+				if ($summary !== null) {
+					$body = [
+						'message' => $summary,
+						'referenceId' => sha1($random),
+					];
 
-				$client = $this->clientService->newClient();
-				$response = $client->post(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/message', $options);
-				$this->logger->info('Response: ' . $response->getBody());
-			} catch (\Exception $exception) {
-				$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
+					// Generate and post summary
+					$this->sendResponse($server, $config, $body, $data);
+				}
 			}
 		}
 		return new DataResponse();
+	}
+
+	protected function sendResponse(string $server, array $config, array $body, array $data): void {
+		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
+
+		$random = bin2hex(random_bytes(32));
+		$hash = hash_hmac('sha256', $random . $body['message'], $config['secret']);
+		$this->logger->info('Reply: Random ' . $random);
+		$this->logger->info('Reply: Hash ' . $hash);
+
+		try {
+			$options = [
+				'headers' => [
+					'OCS-APIRequest' => 'true',
+					'Content-Type' => 'application/json',
+					'X-Nextcloud-Talk-Bot-Random' => $random,
+					'X-Nextcloud-Talk-Bot-Signature' => $hash,
+					'User-Agent' => 'nextcloud-call-summary-bot/1.0',
+				],
+				'body' => $jsonBody,
+				'verify' => false, // FIXME
+			];
+
+			$client = $this->clientService->newClient();
+			$response = $client->post(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/message', $options);
+			$this->logger->info('Response: ' . $response->getBody());
+		} catch (\Exception $exception) {
+			$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
+		}
 	}
 }
