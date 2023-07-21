@@ -24,4 +24,10 @@
 	<dependencies>
 		<nextcloud min-version="27" max-version="28" />
 	</dependencies>
+
+	<commands>
+		<command>OCA\CallSummaryBot\Command\CreateSecret</command>
+		<command>OCA\CallSummaryBot\Command\DeleteSecret</command>
+		<command>OCA\CallSummaryBot\Command\ListSecret</command>
+	</commands>
 </info>

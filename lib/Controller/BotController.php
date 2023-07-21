@@ -36,6 +36,7 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Http\Client\IClientService;
+use OCP\IConfig;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
@@ -48,6 +49,7 @@ class BotController extends OCSController {
 		protected ITimeFactory $timeFactory,
 		protected LogEntryMapper $logEntryMapper,
 		protected SummaryService $summaryService,
+		protected IConfig $config,
 		protected LoggerInterface $logger,
 	) {
 		parent::__construct($appName, $request);
@@ -63,24 +65,24 @@ class BotController extends OCSController {
 	#[BruteForceProtection(action: 'webhook')]
 	#[PublicPage]
 	public function receiveWebhook(): DataResponse {
-		$configData = file_get_contents(__DIR__ . '/webhook.json');
+		$signature = $this->request->getHeader('X_NEXTCLOUD_TALK_SIGNATURE');
+		$random = $this->request->getHeader('X_NEXTCLOUD_TALK_RANDOM');
+		$server = rtrim($this->request->getHeader('X_NEXTCLOUD_TALK_BACKEND'), '/') . '/';
 
-		if ($configData === false) {
-			$this->logger->error('Could not read config');
-			return new DataResponse(null, Http::STATUS_INTERNAL_SERVER_ERROR);
+		$secretData = $this->config->getAppValue('call_summary_bot', 'secret_' . sha1($server));
+		if ($secretData === '') {
+			$this->logger->warning('Message signature could not be verified');
+			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
+			$response->throttle(['action' => 'webhook']);
+			return $response;
 		}
 
-		$config = json_decode($configData, true);
-
-		if ($config === null) {
+		try {
+			$config = json_decode($secretData, true, 512, JSON_THROW_ON_ERROR);
+		} catch (\JsonException) {
 			$this->logger->error('Could not json_decode config');
 			return new DataResponse(null, Http::STATUS_INTERNAL_SERVER_ERROR);
 		}
-
-
-		$signature = $this->request->getHeader('X_NEXTCLOUD_TALK_SIGNATURE');
-		$random = $this->request->getHeader('X_NEXTCLOUD_TALK_RANDOM');
-		$server = $this->request->getHeader('X_NEXTCLOUD_TALK_BACKEND');
 
 		$body = $this->getInputStream();
 		$generatedDigest = hash_hmac('sha256', $random . $body, $config['secret']);
