@@ -79,26 +79,21 @@ class SummaryService {
 		$startTime = $this->dateTimeFormatter->formatTime($startTimestamp, 'short', null, $libL10N);
 		$endTime = $this->dateTimeFormatter->formatTime($endTimestamp, 'short', null, $libL10N);
 
-		$placeholders = [
-			'{title}',
-			'{date}',
-		];
-		$replacements = [
-			$roomName,
-			$startDate,
-		];
 
-		$summary = '# ' . str_replace($placeholders, $replacements, $l->t('Call summary - {title} - {date}')) . "\n\n";
+		$summary = '# ' . str_replace('{title}', $roomName, $l->t('Call summary - {title} - {date}')) . "\n\n";
+		$summary .= '**' . $l->t('Date:') . '** ' . $startDate . "\n";
 		$summary .= '**' . $l->t('Start:') . '** ' . $startTime . "\n";
 		$summary .= '**' . $l->t('End:') . '** ' . $endTime . "\n\n";
 
-		$summary .= '**' . $l->t('Attendees:') . "**\n\n";
+		$summary .= "\n";
+		$summary .= '## ' . $l->t('Attendees') . "\n";
 		foreach ($attendees as $attendee) {
 			$summary .= '- ' . $attendee . "\n";
 		}
 
 		if (!empty($todos)) {
-			$summary .= "\n" . '**' . $l->t('Todos:') . "**\n\n";
+			$summary .= "\n";
+			$summary .= '## ' . $l->t('Tasks') . "\n";
 			foreach ($todos as $todo) {
 				$summary .= '- ' . $todo . "\n";
 			}
