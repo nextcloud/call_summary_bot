@@ -71,7 +71,7 @@ class BotController extends OCSController {
 
 		$secretData = $this->config->getAppValue('call_summary_bot', 'secret_' . sha1($server));
 		if ($secretData === '') {
-			$this->logger->warning('Message signature could not be verified');
+			$this->logger->warning('No matching secret found for server: ' . $server);
 			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 			$response->throttle(['action' => 'webhook']);
 			return $response;

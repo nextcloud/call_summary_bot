@@ -6,7 +6,7 @@
 	<summary><![CDATA[Call summary bot]]></summary>
 	<description><![CDATA[Call summary bot]]></description>
 
-	<version>1.0.0-dev.1</version>
+	<version>1.0.0-dev.2</version>
 	<licence>agpl</licence>
 
 	<author>Joas Schilling</author>
@@ -24,6 +24,12 @@
 	<dependencies>
 		<nextcloud min-version="27" max-version="28" />
 	</dependencies>
+
+	<repair-steps>
+		<install>
+			<step>OCA\CallSummaryBot\Migration\InstallBot</step>
+		</install>
+	</repair-steps>
 
 	<commands>
 		<command>OCA\CallSummaryBot\Command\CreateSecret</command>

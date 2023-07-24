@@ -80,10 +80,8 @@ class SummaryService {
 		$endTime = $this->dateTimeFormatter->formatTime($endTimestamp, 'short', null, $libL10N);
 
 
-		$summary = '# ' . str_replace('{title}', $roomName, $l->t('Call summary - {title} - {date}')) . "\n\n";
-		$summary .= '**' . $l->t('Date:') . '** ' . $startDate . "\n";
-		$summary .= '**' . $l->t('Start:') . '** ' . $startTime . "\n";
-		$summary .= '**' . $l->t('End:') . '** ' . $endTime . "\n\n";
+		$summary = '# ' . str_replace('{title}', $roomName, $l->t('Call summary - {title}')) . "\n\n";
+		$summary .= $startDate . ' · ' . $startTime  . ' – ' . $endTime . "\n";
 
 		$summary .= "\n";
 		$summary .= '## ' . $l->t('Attendees') . "\n";
