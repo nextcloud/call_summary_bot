@@ -48,7 +48,13 @@ class InstallBot implements IRepairStep {
 	}
 
 	public function run(IOutput $output): void {
-		$secret = $this->random->generate(64, ISecureRandom::CHAR_HUMAN_READABLE);
+		$backend = $this->url->getAbsoluteURL('');
+		$id = sha1($backend);
+
+		$secret = $this->config->getAppValue('call_summary_bot', 'secret_' . $id);
+		if ($secret === '') {
+			$secret = $this->random->generate(64, ISecureRandom::CHAR_HUMAN_READABLE);
+		}
 
 		$event = new BotInstallEvent(
 			'Call summary', # FIXME translate
@@ -57,9 +63,6 @@ class InstallBot implements IRepairStep {
 			'', # FIXME add and translate
 		);
 		$this->dispatcher->dispatchTyped($event);
-
-		$backend = $this->url->getAbsoluteURL('');
-		$id = sha1($backend);
 
 		$this->config->setAppValue('call_summary_bot', 'secret_' . $id, json_encode([
 			'id' => $id,
