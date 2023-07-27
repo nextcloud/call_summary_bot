@@ -29,11 +29,13 @@ namespace OCA\CallSummaryBot\Service;
 use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
 use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\IConfig;
 use OCP\IDateTimeFormatter;
 use OCP\L10N\IFactory;
 
 class SummaryService {
 	public function __construct(
+		protected IConfig $config,
 		protected LogEntryMapper $logEntryMapper,
 		protected ITimeFactory $timeFactory,
 		protected IDateTimeFormatter $dateTimeFormatter,
@@ -67,8 +69,8 @@ class SummaryService {
 			}
 		}
 
-		if (($endTimestamp - $startTimestamp) < 60) { // FIXME
-			// No call summary for calls below 1 minute
+		if (($endTimestamp - $startTimestamp) < (int) $this->config->getAppValue('call_summary_bot', 'min-length', '60')) {
+			// No call summary for short calls
 			return null;
 		}
 
