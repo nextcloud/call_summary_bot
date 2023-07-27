@@ -48,6 +48,11 @@ class InstallBot implements IRepairStep {
 	}
 
 	public function run(IOutput $output): void {
+		if (!class_exists(BotInstallEvent::class)) {
+			$output->warning('Talk not found, not installing the bot');
+			return;
+		}
+
 		$backend = $this->url->getAbsoluteURL('');
 		$id = sha1($backend);
 
