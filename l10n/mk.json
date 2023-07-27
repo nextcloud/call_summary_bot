@@ -1,0 +1,4 @@
+{ "translations": {
+    "__language_name__" : "Македонски"
+},"pluralForm" :"nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;"
+}
