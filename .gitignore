@@ -1,0 +1,69 @@
+# just sane ignores
+.*.sw[po]
+*.bak
+*.BAK
+*~
+*.orig
+*.class
+.cvsignore
+Thumbs.db
+*.py[co]
+_darcs/*
+CVS/*
+.svn/*
+RCS/*
+*.backup*
+
+# kdevelop
+.kdev
+*.kdev4
+*.kate-swp
+
+# Lokalize
+*lokalize*
+
+# eclipse
+.project
+.settings
+
+# netbeans
+nbproject
+
+# phpStorm
+.idea
+*.iml
+
+# geany
+*.geany
+
+# Cloud9IDE
+.settings.xml
+.c9revisions
+
+# vim ex mode
+.vimrc
+
+# Mac OS
+.DS_Store
+
+# WebFinger
+.well-known
+/.buildpath
+
+# WebPack
+/node_modules
+
+# Tests - auto-generated files
+/tests/Unit/coverage*
+/tests/Unit/clover.xml
+/tests/Unit/js/node_modules
+/tests/Unit/.phpunit.result.cache
+/.php-cs-fixer.cache
+
+/tests/Integration/output
+/tests/Integration/vendor
+
+# Build related files
+/npm-debug.log
+/build
+/vendor
