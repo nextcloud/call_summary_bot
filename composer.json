@@ -1,0 +1,34 @@
+{
+	"autoload-dev": {
+		"psr-4": {
+			"OCP\\": "vendor/nextcloud/ocp/OCP",
+			"OCA\\CallSummaryBot\\": "lib/"
+		}
+	},
+	"name": "nextcloud/call_summary_bot",
+	"description": "Call summary bot",
+	"license": "AGPL",
+	"require-dev": {
+		"nextcloud/coding-standard": "^1.1",
+		"nextcloud/ocp": "dev-master",
+		"psalm/phar": "^5.13"
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"classmap-authoritative": true,
+		"platform": {
+			"php": "8.0"
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
+		"cs:check": "php-cs-fixer fix --dry-run --diff",
+		"cs:fix": "php-cs-fixer fix",
+		"psalm": "psalm.phar --threads=1",
+		"psalm:update-baseline": "psalm.phar --threads=1 --update-baseline --set-baseline=tests/psalm-baseline.xml",
+		"psalm:clear": "psalm.phar --clear-cache && psalm.phar --clear-global-cache",
+		"psalm:fix": "psalm.phar --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
+		"test:unit": "echo 'Only testing installation of the app'"
+	}
+}
