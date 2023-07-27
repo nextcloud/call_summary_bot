@@ -26,6 +26,6 @@ declare(strict_types=1);
 return [
 	'ocs' => [
 		/** @see \OCA\CallSummaryBot\Controller\BotController::receiveWebhook() */
-		['name' => 'Bot#receiveWebhook', 'url' => '/api/v1/bot', 'verb' => 'POST'],
+		['name' => 'Bot#receiveWebhook', 'url' => '/api/v1/bot/{lang}', 'verb' => 'POST'],
 	],
 ];

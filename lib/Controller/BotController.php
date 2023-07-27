@@ -64,7 +64,7 @@ class BotController extends OCSController {
 
 	#[BruteForceProtection(action: 'webhook')]
 	#[PublicPage]
-	public function receiveWebhook(): DataResponse {
+	public function receiveWebhook(string $lang): DataResponse {
 		$signature = $this->request->getHeader('X_NEXTCLOUD_TALK_SIGNATURE');
 		$random = $this->request->getHeader('X_NEXTCLOUD_TALK_RANDOM');
 		$server = rtrim($this->request->getHeader('X_NEXTCLOUD_TALK_BACKEND'), '/') . '/';
@@ -166,7 +166,7 @@ class BotController extends OCSController {
 					$this->logEntryMapper->insert($logEntry);
 				}
 			} elseif ($data['object']['name'] === 'call_ended' || $data['object']['name'] === 'call_ended_everyone') {
-				$summary = $this->summaryService->summarize($server, $data['target']['id'], $data['target']['name']);
+				$summary = $this->summaryService->summarize($server, $data['target']['id'], $data['target']['name'], $lang);
 				if ($summary !== null) {
 					$body = [
 						'message' => $summary,

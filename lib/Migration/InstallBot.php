@@ -29,7 +29,9 @@ namespace OCA\CallSummaryBot\Migration;
 use OCA\Talk\Events\BotInstallEvent;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
+use OCP\IL10N;
 use OCP\IURLGenerator;
+use OCP\L10N\IFactory;
 use OCP\Migration\IOutput;
 use OCP\Migration\IRepairStep;
 use OCP\Security\ISecureRandom;
@@ -40,6 +42,7 @@ class InstallBot implements IRepairStep {
 		protected IEventDispatcher $dispatcher,
 		protected ISecureRandom $random,
 		protected IURLGenerator $url,
+		protected IFactory $l10nFactory,
 	) {
 	}
 
@@ -56,23 +59,39 @@ class InstallBot implements IRepairStep {
 		$backend = $this->url->getAbsoluteURL('');
 		$id = sha1($backend);
 
-		$secret = $this->config->getAppValue('call_summary_bot', 'secret_' . $id);
-		if ($secret === '') {
+		$secretData = $this->config->getAppValue('call_summary_bot', 'secret_' . $id);
+		if ($secretData) {
+			$secretArray = json_decode($secretData, true, 512, JSON_THROW_ON_ERROR);
+			$secret = $secretArray['secret'] ?? $this->random->generate(64, ISecureRandom::CHAR_HUMAN_READABLE);
+		} else {
 			$secret = $this->random->generate(64, ISecureRandom::CHAR_HUMAN_READABLE);
 		}
 
-		$event = new BotInstallEvent(
-			'Call summary', # FIXME translate
-			$secret,
-			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook'),
-			'', # FIXME add and translate
-		);
-		$this->dispatcher->dispatchTyped($event);
+		$this->installLanguage($secret, 'en');
+		$this->installLanguage($secret, 'de');
 
 		$this->config->setAppValue('call_summary_bot', 'secret_' . $id, json_encode([
 			'id' => $id,
 			'secret' => $secret,
 			'backend' => $backend,
 		], JSON_THROW_ON_ERROR));
+	}
+
+	protected function installLanguage(string $secret, string $lang): void {
+		$libL10n = $this->l10nFactory->get('lib', $lang);
+		$langName = $libL10n->t('__language_name__');
+		if ($langName === '__language_name__') {
+			$langName = $lang === 'en' ? 'British English' : $lang;
+		}
+
+		$l = $this->l10nFactory->get('call_summary_bot', $lang);
+
+		$event = new BotInstallEvent(
+			$l->t('Call summary (%s)', $langName),
+			$secret,
+			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
+			$l->t('The call summary bot posts a overview message after the call listing all participants and outlining tasks'),
+		);
+		$this->dispatcher->dispatchTyped($event);
 	}
 }

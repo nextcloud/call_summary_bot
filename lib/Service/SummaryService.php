@@ -43,14 +43,15 @@ class SummaryService {
 	) {
 	}
 
-	public function summarize(string $server, string $token, string $roomName, string $language = 'en'): ?string {
+	public function summarize(string $server, string $token, string $roomName, string $lang = 'en'): ?string {
 		$logEntries = $this->logEntryMapper->findByConversation($server, $token);
 		$this->logEntryMapper->deleteByConversation($server, $token);
 
-		$libL10N = $this->l10nFactory->get('lib', $language);
-		$l = $this->l10nFactory->get('call_summary_bot', $language);
+		$libL10N = $this->l10nFactory->get('lib', $lang);
+		$l = $this->l10nFactory->get('call_summary_bot', $lang);
 
-		$endTimestamp = $this->timeFactory->now()->getTimestamp();
+		$endDateTime = $this->timeFactory->now();
+		$endTimestamp = $endDateTime->getTimestamp();
 		$startTimestamp = $endTimestamp;
 
 		$attendees = [];
@@ -83,7 +84,8 @@ class SummaryService {
 
 
 		$summary = '# ' . str_replace('{title}', $roomName, $l->t('Call summary - {title}')) . "\n\n";
-		$summary .= $startDate . ' · ' . $startTime  . ' – ' . $endTime . "\n";
+		$summary .= $startDate . ' · ' . $startTime  . ' – ' . $endTime
+			. ' (' . $endDateTime->getTimezone()->getName() . ")\n";
 
 		$summary .= "\n";
 		$summary .= '## ' . $l->t('Attendees') . "\n";
