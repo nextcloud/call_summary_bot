@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Ελληνικά"
+    "__language_name__" : "Ελληνικά",
+    "Attendees" : "Συμμετέχοντες",
+    "Tasks" : "Εργασίες"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

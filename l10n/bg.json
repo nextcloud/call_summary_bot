@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Български"
+    "__language_name__" : "Български",
+    "Attendees" : "Участници",
+    "Tasks" : "Задачи"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

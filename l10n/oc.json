@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Occitan"
+    "__language_name__" : "Occitan",
+    "Attendees" : "Convidats",
+    "Tasks" : "Prètzfaches"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

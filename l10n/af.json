@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Afrikaans"
+    "__language_name__" : "Afrikaans",
+    "Attendees" : "Bywoners",
+    "Tasks" : "Take"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "sardu"
+    "__language_name__" : "sardu",
+    "Attendees" : "Partetzipantes",
+    "Tasks" : "Fainas"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

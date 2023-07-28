@@ -1,4 +1,5 @@
 { "translations": {
-    "__language_name__" : "хэлний нэр"
+    "__language_name__" : "хэлний нэр",
+    "Attendees" : "Оролцогчид"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

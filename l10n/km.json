@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "ភាសាខ្មែរ"
+    "__language_name__" : "ភាសាខ្មែរ",
+    "Attendees" : "អ្នក​ចូលរួម",
+    "Tasks" : "ភារកិច្ច"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

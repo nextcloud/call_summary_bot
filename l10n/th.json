@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "ภาษาไทย"
+    "__language_name__" : "ภาษาไทย",
+    "Attendees" : "ผู้เข้าร่วมกิจกรรม",
+    "Tasks" : "งาน"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

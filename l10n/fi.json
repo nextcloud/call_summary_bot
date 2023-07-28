@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "suomi"
+    "__language_name__" : "suomi",
+    "Attendees" : "Osallistujat",
+    "Tasks" : "Tehtävät"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

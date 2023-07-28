@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Magyar"
+    "__language_name__" : "Magyar",
+    "Attendees" : "Résztvevők",
+    "Tasks" : "Feladatok"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

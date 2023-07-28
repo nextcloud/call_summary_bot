@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Galego"
+    "__language_name__" : "Galego",
+    "Attendees" : "Asistentes",
+    "Tasks" : "Tarefas"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

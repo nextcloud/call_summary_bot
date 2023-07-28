@@ -1,4 +1,5 @@
 { "translations": {
-    "__language_name__" : "Interlingua de IALA"
+    "__language_name__" : "Interlingua de IALA",
+    "Attendees" : "Participantes"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Türkçe"
+    "__language_name__" : "Türkçe",
+    "Attendees" : "Katılanlar",
+    "Tasks" : "Görevler"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

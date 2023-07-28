@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "বাংলা ভাষা"
+    "__language_name__" : "বাংলা ভাষা",
+    "Attendees" : "অংশগ্রহণকারীবৃন্দ",
+    "Tasks" : "কর্ম"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Svenska"
+    "__language_name__" : "Svenska",
+    "Attendees" : "Deltagare",
+    "Tasks" : "Uppgifter"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

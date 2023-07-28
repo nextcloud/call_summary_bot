@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "English (British English)"
+    "__language_name__" : "English (British English)",
+    "Attendees" : "Attendees",
+    "Tasks" : "Tasks"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

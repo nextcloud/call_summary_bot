@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "فارسى"
+    "__language_name__" : "فارسى",
+    "Attendees" : "شرکت کنندگان",
+    "Tasks" : "وظایف"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

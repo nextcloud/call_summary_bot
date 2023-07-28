@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Euskara"
+    "__language_name__" : "Euskara",
+    "Attendees" : "Partaideak",
+    "Tasks" : "Zereginak"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

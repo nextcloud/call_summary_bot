@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Shqip"
+    "__language_name__" : "Shqip",
+    "Attendees" : "Pjesëmarrës",
+    "Tasks" : "Detyra"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

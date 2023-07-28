@@ -1,5 +1,6 @@
 { "translations": {
     "__language_name__" : "Tiếng Việt",
+    "Attendees" : "Người tham gia",
     "Tasks" : "Nhiệm vụ"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

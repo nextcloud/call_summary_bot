@@ -1,4 +1,5 @@
 { "translations": {
-    "__language_name__" : "Bahasa Melayu"
+    "__language_name__" : "Bahasa Melayu",
+    "Attendees" : "Jemputan"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Esperanto"
+    "__language_name__" : "Esperanto",
+    "Attendees" : "Ĉeestontoj",
+    "Tasks" : "Taskoj"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

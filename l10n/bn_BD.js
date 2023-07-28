@@ -1,6 +1,8 @@
 OC.L10N.register(
     "call_summary_bot",
     {
-    "__language_name__" : "বাংলা ভাষা"
+    "__language_name__" : "বাংলা ভাষা",
+    "Attendees" : "অংশগ্রহণকারীবৃন্দ",
+    "Tasks" : "কর্ম"
 },
 "nplurals=2; plural=(n != 1);");

@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "__language_name__"
+    "__language_name__" : "__language_name__",
+    "Attendees" : "参加者",
+    "Tasks" : "タスク"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

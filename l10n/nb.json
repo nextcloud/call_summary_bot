@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Norsk bokmål"
+    "__language_name__" : "Norsk bokmål",
+    "Attendees" : "Deltakere",
+    "Tasks" : "Oppgaver"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

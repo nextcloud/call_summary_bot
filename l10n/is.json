@@ -1,4 +1,6 @@
 { "translations": {
-    "__language_name__" : "Íslenska"
+    "__language_name__" : "Íslenska",
+    "Attendees" : "Þátttakendur",
+    "Tasks" : "Verkefni"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }
