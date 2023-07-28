@@ -90,7 +90,7 @@ class InstallBot implements IRepairStep {
 			$l->t('Call summary (%s)', $langName),
 			$secret,
 			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
-			$l->t('The call summary bot posts a overview message after the call listing all participants and outlining tasks'),
+			$l->t('The call summary bot posts an overview message after the call listing all participants and outlining tasks'),
 		);
 		$this->dispatcher->dispatchTyped($event);
 	}
