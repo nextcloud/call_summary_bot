@@ -1,10 +1,9 @@
 { "translations": {
     "__language_name__" : "Deutsch (Förmlich: Sie)",
-    "Call summary (%s)" : "Unterhaltungs-Zusammenfassung  (%s)",
-    "The call summary bot posts a overview message after the call listing all participants and outlining tasks" : "Der Unetrhaltungs-Zusammenfassungs-Bot veröffentlicht nach dder Unterhaltung eine Übersichtsnachricht, in der alle Teilnehmer aufgeführt und die Aufgaben aufgeführt sind",
-    "Call summary - {title}" : "Unterhaltungs-Zusammenfassung - {title}",
+    "Call summary (%s)" : "Zusammenfassung des Anrufs (%s)",
+    "Call summary - {title}" : "Zusammenfassung des Anrufs - {title}",
     "Attendees" : "Teilnehmer",
     "Tasks" : "Aufgaben",
-    "Call summary bot" : "Unterhaltungs-Zusammenfassungs-Bot"
+    "Call summary bot" : "Anruf-Zusammenfassungs-Bot"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
