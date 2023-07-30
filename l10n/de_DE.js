@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "__language_name__" : "Deutsch (Förmlich: Sie)",
     "Call summary (%s)" : "Zusammenfassung des Anrufs (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Der Anruf-Zusammenfassungs-Bot veröffentlicht nach der Unterhaltung eine Übersichtsnachricht, in der alle Teilnehmer und die Aufgaben aufgeführt sind",
     "Call summary - {title}" : "Zusammenfassung des Anrufs - {title}",
     "Attendees" : "Teilnehmer",
     "Tasks" : "Aufgaben",
