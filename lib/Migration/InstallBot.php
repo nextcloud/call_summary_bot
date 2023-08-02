@@ -87,10 +87,10 @@ class InstallBot implements IRepairStep {
 		$l = $this->l10nFactory->get('call_summary_bot', $lang);
 
 		$event = new BotInstallEvent(
-			$l->t('Call summary (%s)', $langName),
+			$l->t('Call summary'),
 			$secret,
 			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
-			$l->t('The call summary bot posts an overview message after the call listing all participants and outlining tasks'),
+			$l->t('Call summary (%s)', $langName) . ' - ' . $l->t('The call summary bot posts an overview message after the call listing all participants and outlining tasks'),
 		);
 		$this->dispatcher->dispatchTyped($event);
 	}
