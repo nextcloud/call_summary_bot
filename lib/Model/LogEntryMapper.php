@@ -52,6 +52,21 @@ class LogEntryMapper extends QBMapper {
 		return $this->findEntities($query);
 	}
 
+	public function hasActiveCall(string $server, string $token): bool {
+		$query = $this->db->getQueryBuilder();
+		$query->select($query->expr()->literal(1))
+			->from($this->getTableName())
+			->where($query->expr()->eq('server', $query->createNamedParameter($server)))
+			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
+			->andWhere($query->expr()->eq('type', $query->createNamedParameter(LogEntry::TYPE_ATTENDEE)))
+			->setMaxResults(1);
+		$result = $query->executeQuery();
+		$hasAttendee = (bool) $result->fetchOne();
+		$result->closeCursor();
+
+		return $hasAttendee;
+	}
+
 	public function deleteByConversation(string $server, string $token): void {
 		$query = $this->db->getQueryBuilder();
 		$query->delete($this->getTableName())

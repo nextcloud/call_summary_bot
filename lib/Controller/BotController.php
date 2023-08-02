@@ -101,6 +101,14 @@ class BotController extends OCSController {
 			$messageData = json_decode($data['object']['content'], true);
 			$message = $messageData['message'];
 
+			if (!str_starts_with($message, '-') && !str_starts_with($message, '*')) {
+				return new DataResponse();
+			}
+
+			if (!$this->logEntryMapper->hasActiveCall($server, $data['target']['id'])) {
+				return new DataResponse();
+			}
+
 			$placeholders = $replacements = [];
 			foreach ($messageData['parameters'] as $placeholder => $parameter) {
 				$placeholders[] = '{' . $placeholder . '}';
