@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "__language_name__" : "اللغة العربية",
+    "Call summary" : "ملخص المكالمة",
     "Call summary (%s)" : "ملخص المكالمة (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "يقوم روبوت \"ملخص المكالمة\"بنشر رسالة عامة بعد المكالمة يسرد فيها جميع المشاركين و يحدد المهام",
     "Call summary - {title}" : "ملخص المكالمة - {title}",

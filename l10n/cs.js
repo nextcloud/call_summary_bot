@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "__language_name__" : "Čeština",
+    "Call summary" : "Shrnutí hovoru",
     "Call summary (%s)" : "Shrnutí hovoru (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Automat pošle po ukončení hovoru souhrnnou zprávu se seznamem všech účastníků a vytyčení úkolů",
     "Call summary - {title}" : "Souhrn hovoru – {title}",
