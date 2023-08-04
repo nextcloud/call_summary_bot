@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "__language_name__" : "Português Brasileiro",
+    "Call summary" : "Resumo da chamada",
     "Call summary (%s)" : "Resumo da chamada (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "O bot de resumo da chamada publica uma mensagem de visão geral após a chamada, listando todos os participantes e descrevendo as tarefas",
     "Call summary - {title}" : "Resumo da chamada - {title}",
