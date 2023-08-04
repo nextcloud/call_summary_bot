@@ -29,7 +29,6 @@ namespace OCA\CallSummaryBot\Migration;
 use OCA\Talk\Events\BotInstallEvent;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
-use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\L10N\IFactory;
 use OCP\Migration\IOutput;
