@@ -141,6 +141,10 @@ class BotController extends OCSController {
 						$this->logEntryMapper->insert($logEntry);
 					}
 				}
+
+				// React with thumbs up as we detected a task
+				$this->sendReaction($server, $config, $data);
+				// Sample: $this->removeReaction($server, $config, $data);
 			} elseif (str_starts_with($parsedMessage, '*')) {
 				$todos = explode("\n*", $parsedMessage);
 				foreach ($todos as $todo) {
@@ -154,6 +158,10 @@ class BotController extends OCSController {
 						$this->logEntryMapper->insert($logEntry);
 					}
 				}
+
+				// React with thumbs up as we detected a task
+				$this->sendReaction($server, $config, $data);
+				// Sample: $this->removeReaction($server, $config, $data);
 			}
 		} elseif ($data['type'] === 'Activity') {
 			if ($data['object']['name'] === 'call_joined' || $data['object']['name'] === 'call_started') {
@@ -202,6 +210,7 @@ class BotController extends OCSController {
 				'headers' => [
 					'OCS-APIRequest' => 'true',
 					'Content-Type' => 'application/json',
+					'Accept' => 'application/json',
 					'X-Nextcloud-Talk-Bot-Random' => $random,
 					'X-Nextcloud-Talk-Bot-Signature' => $hash,
 					'User-Agent' => 'nextcloud-call-summary-bot/1.0',
@@ -212,6 +221,72 @@ class BotController extends OCSController {
 
 			$client = $this->clientService->newClient();
 			$response = $client->post(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/message', $options);
+			$this->logger->info('Response: ' . $response->getBody());
+		} catch (\Exception $exception) {
+			$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
+		}
+	}
+
+	protected function sendReaction(string $server, array $config, array $data): void {
+		$body = [
+			'reaction' => '👍',
+		];
+		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
+
+		$random = bin2hex(random_bytes(32));
+		$hash = hash_hmac('sha256', $random . $body['reaction'], $config['secret']);
+		$this->logger->info('Reply: Random ' . $random);
+		$this->logger->info('Reply: Hash ' . $hash);
+
+		try {
+			$options = [
+				'headers' => [
+					'OCS-APIRequest' => 'true',
+					'Content-Type' => 'application/json',
+					'Accept' => 'application/json',
+					'X-Nextcloud-Talk-Bot-Random' => $random,
+					'X-Nextcloud-Talk-Bot-Signature' => $hash,
+					'User-Agent' => 'nextcloud-call-summary-bot/1.0',
+				],
+				'body' => $jsonBody,
+				'verify' => false, // FIXME
+			];
+
+			$client = $this->clientService->newClient();
+			$response = $client->post(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/reaction/' . $data['object']['id'], $options);
+			$this->logger->info('Response: ' . $response->getBody());
+		} catch (\Exception $exception) {
+			$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
+		}
+	}
+
+	protected function removeReaction(string $server, array $config, array $data): void {
+		$body = [
+			'reaction' => '👍',
+		];
+		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
+
+		$random = bin2hex(random_bytes(32));
+		$hash = hash_hmac('sha256', $random . $body['reaction'], $config['secret']);
+		$this->logger->info('Reply: Random ' . $random);
+		$this->logger->info('Reply: Hash ' . $hash);
+
+		try {
+			$options = [
+				'headers' => [
+					'OCS-APIRequest' => 'true',
+					'Content-Type' => 'application/json',
+					'Accept' => 'application/json',
+					'X-Nextcloud-Talk-Bot-Random' => $random,
+					'X-Nextcloud-Talk-Bot-Signature' => $hash,
+					'User-Agent' => 'nextcloud-call-summary-bot/1.0',
+				],
+				'body' => $jsonBody,
+				'verify' => false, // FIXME
+			];
+
+			$client = $this->clientService->newClient();
+			$response = $client->delete(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/reaction/' . $data['object']['id'], $options);
 			$this->logger->info('Response: ' . $response->getBody());
 		} catch (\Exception $exception) {
 			$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
