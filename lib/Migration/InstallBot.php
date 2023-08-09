@@ -68,6 +68,12 @@ class InstallBot implements IRepairStep {
 
 		$this->installLanguage($secret, 'en');
 		$this->installLanguage($secret, 'de');
+		$this->installLanguage($secret, 'es');
+		$this->installLanguage($secret, 'fr');
+		$this->installLanguage($secret, 'ar');
+		$this->installLanguage($secret, 'pt_BR');
+		$this->installLanguage($secret, 'tr');
+		$this->installLanguage($secret, 'zh_CN');
 
 		$this->config->setAppValue('call_summary_bot', 'secret_' . $id, json_encode([
 			'id' => $id,
