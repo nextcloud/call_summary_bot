@@ -72,7 +72,7 @@ class BotController extends OCSController {
 		$secretData = $this->config->getAppValue('call_summary_bot', 'secret_' . sha1($server));
 		if ($secretData === '') {
 			$this->logger->warning('No matching secret found for server: ' . $server);
-			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
+			$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
 			$response->throttle(['action' => 'webhook']);
 			return $response;
 		}
@@ -81,7 +81,7 @@ class BotController extends OCSController {
 			$config = json_decode($secretData, true, 512, JSON_THROW_ON_ERROR);
 		} catch (\JsonException) {
 			$this->logger->error('Could not json_decode config');
-			return new DataResponse(null, Http::STATUS_INTERNAL_SERVER_ERROR);
+			return new DataResponse([], Http::STATUS_INTERNAL_SERVER_ERROR);
 		}
 
 		$body = $this->getInputStream();
@@ -89,7 +89,7 @@ class BotController extends OCSController {
 
 		if (!hash_equals($generatedDigest, strtolower($signature))) {
 			$this->logger->warning('Message signature could not be verified');
-			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
+			$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
 			$response->throttle(['action' => 'webhook']);
 			return $response;
 		}
