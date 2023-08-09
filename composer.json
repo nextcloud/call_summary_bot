@@ -10,7 +10,7 @@
 	"license": "AGPL",
 	"require-dev": {
 		"nextcloud/coding-standard": "^1.1",
-		"nextcloud/ocp": "dev-master",
+		"nextcloud/ocp": "dev-stable27",
 		"psalm/phar": "^5.13"
 	},
 	"config": {
