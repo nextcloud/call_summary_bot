@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "__language_name__" : "Français",
+    "Call summary" : "Résumé de l'appel",
     "Call summary (%s)" : "Résumé de l'appel (%s)",
     "Call summary - {title}" : "Résumé de l'appel - {title}",
     "Attendees" : "Participants",
