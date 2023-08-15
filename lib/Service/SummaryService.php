@@ -139,6 +139,7 @@ class SummaryService {
 		}
 
 		$attendees = array_unique($attendees);
+		sort($attendees);
 
 		$startDate = $this->dateTimeFormatter->formatDate($startTimestamp, 'full', null, $libL10N);
 		$startTime = $this->dateTimeFormatter->formatTime($startTimestamp, 'short', null, $libL10N);
