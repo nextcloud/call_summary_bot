@@ -34,6 +34,8 @@ use OCP\IDateTimeFormatter;
 use OCP\L10N\IFactory;
 
 class SummaryService {
+	public const TASK_PATTERN = '/(^[-*]\s|^)(to[\s-]?do|task)s?\s*:/mi';
+
 	public function __construct(
 		protected IConfig $config,
 		protected LogEntryMapper $logEntryMapper,
@@ -41,6 +43,67 @@ class SummaryService {
 		protected IDateTimeFormatter $dateTimeFormatter,
 		protected IFactory $l10nFactory,
 	) {
+	}
+
+	public function readTasksFromMessage(string $message, array $messageData, string $server, array $data): bool {
+		$endOfFirstLine = strpos($message, "\n") ?: -1;
+		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
+
+		if (!str_starts_with($firstLowerLine, '- [ ] ')
+			&& !preg_match(self::TASK_PATTERN, $firstLowerLine)) {
+			return false;
+		}
+
+
+		$placeholders = $replacements = [];
+		foreach ($messageData['parameters'] as $placeholder => $parameter) {
+			$placeholders[] = '{' . $placeholder . '}';
+			if ($parameter['type'] === 'user') {
+				if (str_contains($parameter['id'], ' ') || str_contains($parameter['id'], '/')) {
+					$replacements[] = '@"' . $parameter['id'] . '"';
+				} else {
+					$replacements[] = '@' . $parameter['id'];
+				}
+			} elseif ($parameter['type'] === 'call') {
+				$replacements[] = '@all';
+			} elseif ($parameter['type'] === 'guest') {
+				$replacements[] = '@' . $parameter['name'];
+			} else {
+				$replacements[] = $parameter['name'];
+			}
+		}
+
+		$parsedMessage = str_replace($placeholders, $replacements, $message);
+		if (!str_starts_with($firstLowerLine, '- [ ] ')) {
+			$parsedMessage = preg_replace(self::TASK_PATTERN, '- [ ] ', $parsedMessage);
+		}
+
+		if (str_starts_with($parsedMessage, '- [ ] ')) {
+			// Cut of the first `- [ ] `
+			$todos = explode("\n- [ ] ", substr($parsedMessage, 5));
+			foreach ($todos as $todo) {
+				$todoText = trim($todo);
+
+				if ($todoText) {
+					// Only store when not empty
+					$this->saveTask($server, $data['target']['id'], $todoText);
+				}
+			}
+
+			// React with thumbs up as we detected a task
+			return true;
+		}
+
+		return false;
+	}
+
+	protected function saveTask(string $server, string $token, string $text): void {
+		$logEntry = new LogEntry();
+		$logEntry->setServer($server);
+		$logEntry->setToken($token);
+		$logEntry->setType(LogEntry::TYPE_TODO);
+		$logEntry->setDetails($text);
+		$this->logEntryMapper->insert($logEntry);
 	}
 
 	public function summarize(string $server, string $token, string $roomName, string $lang = 'en'): ?string {
@@ -76,7 +139,6 @@ class SummaryService {
 		}
 
 		$attendees = array_unique($attendees);
-		$todos = array_unique($todos);
 
 		$startDate = $this->dateTimeFormatter->formatDate($startTimestamp, 'full', null, $libL10N);
 		$startTime = $this->dateTimeFormatter->formatTime($startTimestamp, 'short', null, $libL10N);
@@ -97,7 +159,7 @@ class SummaryService {
 			$summary .= "\n";
 			$summary .= '## ' . $l->t('Tasks') . "\n";
 			foreach ($todos as $todo) {
-				$summary .= '- ' . $todo . "\n";
+				$summary .= '- [ ] ' . $todo . "\n";
 			}
 		}
 

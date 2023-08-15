@@ -60,6 +60,7 @@ nbproject
 /tests/Unit/.phpunit.result.cache
 /.php-cs-fixer.cache
 
+/tests/.phpunit.result.cache
 /tests/Integration/output
 /tests/Integration/vendor
 
