@@ -98,67 +98,16 @@ class BotController extends OCSController {
 		$data = json_decode($body, true);
 
 		if ($data['type'] === 'Create' && $data['object']['name'] === 'message') {
-			$messageData = json_decode($data['object']['content'], true);
-			$message = $messageData['message'];
-
-			if (!str_starts_with($message, '-') && !str_starts_with($message, '*')) {
-				return new DataResponse();
-			}
-
 			if (!$this->logEntryMapper->hasActiveCall($server, $data['target']['id'])) {
 				return new DataResponse();
 			}
 
-			$placeholders = $replacements = [];
-			foreach ($messageData['parameters'] as $placeholder => $parameter) {
-				$placeholders[] = '{' . $placeholder . '}';
-				if ($parameter['type'] === 'user') {
-					if (str_contains($parameter['id'], ' ') || str_contains($parameter['id'], '/')) {
-						$replacements[] = '@"' . $parameter['id'] . '"';
-					} else {
-						$replacements[] = '@' . $parameter['id'];
-					}
-				} elseif ($parameter['type'] === 'call') {
-					$replacements[] = '@all';
-				} elseif ($parameter['type'] === 'guest') {
-					$replacements[] = '@' . $parameter['name'];
-				} else {
-					$replacements[] = $parameter['name'];
-				}
-			}
-			$parsedMessage = str_replace($placeholders, $replacements, $message);
+			$messageData = json_decode($data['object']['content'], true);
+			$message = $messageData['message'];
 
-			if (str_starts_with($parsedMessage, '-')) {
-				$todos = explode("\n-", $parsedMessage);
-				foreach ($todos as $todo) {
-					$logEntry = new LogEntry();
-					$logEntry->setServer($server);
-					$logEntry->setToken($data['target']['id']);
-					$logEntry->setType(LogEntry::TYPE_TODO);
-					$logEntry->setDetails(trim(ltrim($todo, '-')));
-					if ($logEntry->getDetails()) {
-						// Only store when not empty
-						$this->logEntryMapper->insert($logEntry);
-					}
-				}
+			$taskDetected = $this->summaryService->readTasksFromMessage($message, $messageData, $server, $data);
 
-				// React with thumbs up as we detected a task
-				$this->sendReaction($server, $config, $data);
-				// Sample: $this->removeReaction($server, $config, $data);
-			} elseif (str_starts_with($parsedMessage, '*')) {
-				$todos = explode("\n*", $parsedMessage);
-				foreach ($todos as $todo) {
-					$logEntry = new LogEntry();
-					$logEntry->setServer($server);
-					$logEntry->setToken($data['target']['id']);
-					$logEntry->setType(LogEntry::TYPE_TODO);
-					$logEntry->setDetails(trim(ltrim($todo, '*')));
-					if ($logEntry->getDetails()) {
-						// Only store when not empty
-						$this->logEntryMapper->insert($logEntry);
-					}
-				}
-
+			if ($taskDetected) {
 				// React with thumbs up as we detected a task
 				$this->sendReaction($server, $config, $data);
 				// Sample: $this->removeReaction($server, $config, $data);
