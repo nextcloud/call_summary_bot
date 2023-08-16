@@ -8,7 +8,6 @@ OC.L10N.register(
     "Call summary - {title}" : "通話摘要 - {title}",
     "Attendees" : "參與者",
     "Tasks" : "任務",
-    "Call summary bot" : "通話摘要機器人",
-    "- Any message starting with a `-` or `*` during a call will be recognized as a task, you can also post multiple tasks in a single message, just put each on its own line starting with a `-` or `*`\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "- 通話期間任何以「-」或「*」開頭的消息都將被辨識為一個任務，您也可以在一則訊息中張貼多個任務，只要將每個任務放在以「-」或「*」開頭的單獨行上\n- 通話結束時，機器人將對其進行摘要，並在 Markdown 聊天訊息中列出所有與會者以及任務"
+    "Call summary bot" : "通話摘要機器人"
 },
 "nplurals=1; plural=0;");

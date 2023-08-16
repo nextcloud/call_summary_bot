@@ -8,7 +8,6 @@ OC.L10N.register(
     "Call summary - {title}" : "Call summary - {title}",
     "Attendees" : "Attendees",
     "Tasks" : "Tasks",
-    "Call summary bot" : "Call summary bot",
-    "- Any message starting with a `-` or `*` during a call will be recognized as a task, you can also post multiple tasks in a single message, just put each on its own line starting with a `-` or `*`\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "- Any message starting with a `-` or `*` during a call will be recognized as a task, you can also post multiple tasks in a single message, just put each on its own line starting with a `-` or `*`\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message"
+    "Call summary bot" : "Call summary bot"
 },
 "nplurals=2; plural=(n != 1);");
