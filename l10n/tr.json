@@ -6,6 +6,7 @@
     "Call summary - {title}" : "Çağrı özeti - {title}",
     "Attendees" : "Katılanlar",
     "Tasks" : "Görevler",
-    "Call summary bot" : "Çağrı özeti botu"
+    "Call summary bot" : "Çağrı özeti botu",
+    "- Any message starting with a Markdown todo `- [ ] ` or the keywords `task:` or `todo:` during a call will be recognized as a task\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "- Çağrı sırasında `-[ ]` yapılacak iş markdown kodu ya da `task:` ya da `todo:` anahtar sözcükleri ile başlayan herhangi bir ileti görev olarak kabul edilir.\n- Ayrıca tek bir iletide birden fazla görev gönderebilirsiniz. Her birini bir anahtar sözcük ile başlayan yeni bir satıra koymanız yeterlidir. `\n- Çağrının sonunda, bot görüşmeyi özetler ve tüm katılımcılar ile görevleri bir markdown sohbet iletisinde ​​listeler"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
