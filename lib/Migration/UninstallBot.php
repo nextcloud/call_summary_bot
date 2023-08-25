@@ -27,7 +27,7 @@ declare(strict_types=1);
 namespace OCA\CallSummaryBot\Migration;
 
 use OCA\CallSummaryBot\Model\Bot;
-use OCA\Talk\Events\BotInstallEvent;
+use OCA\Talk\Events\BotUninstallEvent;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\IURLGenerator;
@@ -36,7 +36,7 @@ use OCP\Migration\IOutput;
 use OCP\Migration\IRepairStep;
 use OCP\Security\ISecureRandom;
 
-class InstallBot implements IRepairStep {
+class UninstallBot implements IRepairStep {
 	public function __construct(
 		protected IConfig $config,
 		protected IEventDispatcher $dispatcher,
@@ -47,12 +47,12 @@ class InstallBot implements IRepairStep {
 	}
 
 	public function getName(): string {
-		return 'Install as Talk bot';
+		return 'Uninstall Talk bots';
 	}
 
 	public function run(IOutput $output): void {
-		if (!class_exists(BotInstallEvent::class)) {
-			$output->warning('Talk not found, not installing bots');
+		if (!class_exists(BotUninstallEvent::class)) {
+			$output->warning('Talk not found, not removing the bots');
 			return;
 		}
 
@@ -62,36 +62,28 @@ class InstallBot implements IRepairStep {
 		$secretData = $this->config->getAppValue('call_summary_bot', 'secret_' . $id);
 		if ($secretData) {
 			$secretArray = json_decode($secretData, true, 512, JSON_THROW_ON_ERROR);
-			$secret = $secretArray['secret'] ?? $this->random->generate(64, ISecureRandom::CHAR_HUMAN_READABLE);
-		} else {
-			$secret = $this->random->generate(64, ISecureRandom::CHAR_HUMAN_READABLE);
+			if ($secretArray['secret']) {
+				foreach (Bot::SUPPORTED_LANGUAGES as $lang) {
+					$this->uninstallLanguage($secretArray['secret'], $lang);
+				}
+			}
 		}
-
-		foreach (Bot::SUPPORTED_LANGUAGES as $lang) {
-			$this->installLanguage($secret, $lang);
-		}
-
-		$this->config->setAppValue('call_summary_bot', 'secret_' . $id, json_encode([
-			'id' => $id,
-			'secret' => $secret,
-			'backend' => $backend,
-		], JSON_THROW_ON_ERROR));
 	}
 
-	protected function installLanguage(string $secret, string $lang): void {
-		$libL10n = $this->l10nFactory->get('lib', $lang);
-		$langName = $libL10n->t('__language_name__');
-		if ($langName === '__language_name__') {
-			$langName = $lang === 'en' ? 'British English' : $lang;
-		}
-
-		$l = $this->l10nFactory->get('call_summary_bot', $lang);
-
-		$event = new BotInstallEvent(
-			$l->t('Call summary'),
+	protected function uninstallLanguage(string $secret, string $lang): void {
+		$event = new BotUninstallEvent(
 			$secret . str_replace('_', '', $lang),
 			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
-			$l->t('Call summary (%s)', $langName) . ' - ' . $l->t('The call summary bot posts an overview message after the call listing all participants and outlining tasks'),
+		);
+		try {
+			$this->dispatcher->dispatchTyped($event);
+		} catch (\Throwable $e) {
+		}
+
+		// Also remove legacy secret bots
+		$event = new BotUninstallEvent(
+			$secret,
+			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
 		);
 		try {
 			$this->dispatcher->dispatchTyped($event);

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace OCA\CallSummaryBot\Controller;
 
+use OCA\CallSummaryBot\Model\Bot;
 use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
 use OCA\CallSummaryBot\Service\SummaryService;
@@ -41,6 +42,8 @@ use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
 class BotController extends OCSController {
+
+	protected bool $legacySecret = false;
 
 	public function __construct(
 		string $appName,
@@ -65,6 +68,13 @@ class BotController extends OCSController {
 	#[BruteForceProtection(action: 'webhook')]
 	#[PublicPage]
 	public function receiveWebhook(string $lang): DataResponse {
+		if (!in_array($lang, Bot::SUPPORTED_LANGUAGES, true)) {
+			$this->logger->warning('Request for unsupported language was sent');
+			$response = new DataResponse([], Http::STATUS_BAD_REQUEST);
+			$response->throttle(['action' => 'webhook']);
+			return $response;
+		}
+
 		$signature = $this->request->getHeader('X_NEXTCLOUD_TALK_SIGNATURE');
 		$random = $this->request->getHeader('X_NEXTCLOUD_TALK_RANDOM');
 		$server = rtrim($this->request->getHeader('X_NEXTCLOUD_TALK_BACKEND'), '/') . '/';
@@ -85,13 +95,20 @@ class BotController extends OCSController {
 		}
 
 		$body = $this->getInputStream();
-		$generatedDigest = hash_hmac('sha256', $random . $body, $config['secret']);
+		$secret = $config['secret'] . str_replace('_', '', $lang);
+		$generatedDigest = hash_hmac('sha256', $random . $body, $secret);
 
 		if (!hash_equals($generatedDigest, strtolower($signature))) {
-			$this->logger->warning('Message signature could not be verified');
-			$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
-			$response->throttle(['action' => 'webhook']);
-			return $response;
+			$generatedLegacyDigest = hash_hmac('sha256', $random . $body, $config['secret']);
+			if (!hash_equals($generatedLegacyDigest, strtolower($signature))) {
+				$this->logger->warning('Message signature could not be verified');
+				$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+				$response->throttle(['action' => 'webhook']);
+				return $response;
+			}
+			// Installed before final release, when the secret was not unique
+			$secret = $config['secret'];
+			$this->legacySecret = true;
 		}
 
 		$this->logger->debug($body);
@@ -109,8 +126,8 @@ class BotController extends OCSController {
 
 			if ($taskDetected) {
 				// React with thumbs up as we detected a task
-				$this->sendReaction($server, $config, $data);
-				// Sample: $this->removeReaction($server, $config, $data);
+				$this->sendReaction($server, $secret, $data);
+				// Sample: $this->removeReaction($server, $secret, $data);
 			}
 		} elseif ($data['type'] === 'Activity') {
 			if ($data['object']['name'] === 'call_joined' || $data['object']['name'] === 'call_started') {
@@ -139,20 +156,20 @@ class BotController extends OCSController {
 					];
 
 					// Generate and post summary
-					$this->sendResponse($server, $config, $body, $data);
+					$this->sendResponse($server, $secret, $body, $data);
 				}
 			}
 		}
 		return new DataResponse();
 	}
 
-	protected function sendResponse(string $server, array $config, array $body, array $data): void {
+	protected function sendResponse(string $server, string $secret, array $body, array $data): void {
 		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
 
 		$random = bin2hex(random_bytes(32));
-		$hash = hash_hmac('sha256', $random . $body['message'], $config['secret']);
-		$this->logger->info('Reply: Random ' . $random);
-		$this->logger->info('Reply: Hash ' . $hash);
+		$hash = hash_hmac('sha256', $random . $body['message'], $secret);
+		$this->logger->debug('Reply: Random ' . $random);
+		$this->logger->debug('Reply: Hash ' . $hash);
 
 		try {
 			$options = [
@@ -176,16 +193,16 @@ class BotController extends OCSController {
 		}
 	}
 
-	protected function sendReaction(string $server, array $config, array $data): void {
+	protected function sendReaction(string $server, string $secret, array $data): void {
 		$body = [
 			'reaction' => '👍',
 		];
 		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
 
 		$random = bin2hex(random_bytes(32));
-		$hash = hash_hmac('sha256', $random . $body['reaction'], $config['secret']);
-		$this->logger->info('Reply: Random ' . $random);
-		$this->logger->info('Reply: Hash ' . $hash);
+		$hash = hash_hmac('sha256', $random . $body['reaction'], $secret);
+		$this->logger->debug('Reaction: Random ' . $random);
+		$this->logger->debug('Reaction: Hash ' . $hash);
 
 		try {
 			$options = [
@@ -209,16 +226,16 @@ class BotController extends OCSController {
 		}
 	}
 
-	protected function removeReaction(string $server, array $config, array $data): void {
+	protected function removeReaction(string $server, string $secret, array $data): void {
 		$body = [
 			'reaction' => '👍',
 		];
 		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
 
 		$random = bin2hex(random_bytes(32));
-		$hash = hash_hmac('sha256', $random . $body['reaction'], $config['secret']);
-		$this->logger->info('Reply: Random ' . $random);
-		$this->logger->info('Reply: Hash ' . $hash);
+		$hash = hash_hmac('sha256', $random . $body['reaction'], $secret);
+		$this->logger->debug('RemoveReaction: Random ' . $random);
+		$this->logger->debug('RemoveReaction: Hash ' . $hash);
 
 		try {
 			$options = [
