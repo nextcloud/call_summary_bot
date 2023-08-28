@@ -14,4 +14,12 @@ namespace OCA\Talk\Events {
 		public function getDescription(): string {
 		}
 	}
+
+	class BotUninstallEvent extends \OCP\EventDispatcher\Event {
+		public function getSecret(): string {
+		}
+
+		public function getUrl(): string {
+		}
+	}
 }
