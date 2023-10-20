@@ -4,6 +4,7 @@ OC.L10N.register(
     "__language_name__" : "Magyar",
     "Call summary" : "Hívás összeítés",
     "Call summary (%s)" : "Hívás összesítő (%s)",
+    "Call summary - {title}" : "Hívás összesítő - {title}",
     "Attendees" : "Résztvevők",
     "Tasks" : "Feladatok",
     "Call summary bot" : "Hívás összesítő bot"
