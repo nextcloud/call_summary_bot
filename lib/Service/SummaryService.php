@@ -106,7 +106,14 @@ class SummaryService {
 		$this->logEntryMapper->insert($logEntry);
 	}
 
-	public function summarize(string $server, string $token, string $roomName, string $lang = 'en'): ?string {
+	/**
+	 * @param string $server
+	 * @param string $token
+	 * @param string $roomName
+	 * @param string $lang
+	 * @return array{summary: string, elevator: ?int}|null
+	 */
+	public function summarize(string $server, string $token, string $roomName, string $lang = 'en'): ?array {
 		$logEntries = $this->logEntryMapper->findByConversation($server, $token);
 		$this->logEntryMapper->deleteByConversation($server, $token);
 
@@ -119,6 +126,7 @@ class SummaryService {
 
 		$attendees = [];
 		$todos = [];
+		$elevator = null;
 
 		foreach ($logEntries as $logEntry) {
 			if ($logEntry->getType() === LogEntry::TYPE_START) {
@@ -130,6 +138,8 @@ class SummaryService {
 				$attendees[] = $logEntry->getDetails();
 			} elseif ($logEntry->getType() === LogEntry::TYPE_TODO) {
 				$todos[] = $logEntry->getDetails();
+			} elseif ($logEntry->getType() === LogEntry::TYPE_ELEVATOR) {
+				$elevator = (int) $logEntry->getDetails();
 			}
 		}
 
@@ -164,6 +174,6 @@ class SummaryService {
 			}
 		}
 
-		return $summary;
+		return ['summary' => $summary, 'elevator' => $elevator];
 	}
 }
