@@ -40,6 +40,7 @@ use OCP\AppFramework\Db\Entity;
 class LogEntry extends Entity {
 	public const TYPE_ATTENDEE = 'attendee';
 	public const TYPE_START = 'start';
+	public const TYPE_ELEVATOR = 'elevator';
 	public const TYPE_TODO = 'todo';
 
 	/** @var string */

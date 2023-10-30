@@ -131,12 +131,21 @@ class BotController extends OCSController {
 			}
 		} elseif ($data['type'] === 'Activity') {
 			if ($data['object']['name'] === 'call_joined' || $data['object']['name'] === 'call_started') {
-				$logEntry = new LogEntry();
-				$logEntry->setServer($server);
-				$logEntry->setToken($data['target']['id']);
-				$logEntry->setType(LogEntry::TYPE_START);
-				$logEntry->setDetails((string) $this->timeFactory->now()->getTimestamp());
-				$this->logEntryMapper->insert($logEntry);
+				if ($data['object']['name'] === 'call_started') {
+					$logEntry = new LogEntry();
+					$logEntry->setServer($server);
+					$logEntry->setToken($data['target']['id']);
+					$logEntry->setType(LogEntry::TYPE_START);
+					$logEntry->setDetails((string) $this->timeFactory->now()->getTimestamp());
+					$this->logEntryMapper->insert($logEntry);
+
+					$logEntry = new LogEntry();
+					$logEntry->setServer($server);
+					$logEntry->setToken($data['target']['id']);
+					$logEntry->setType(LogEntry::TYPE_ELEVATOR);
+					$logEntry->setDetails((string) $data['object']['id']);
+					$this->logEntryMapper->insert($logEntry);
+				}
 
 				$logEntry = new LogEntry();
 				$logEntry->setServer($server);
@@ -151,9 +160,14 @@ class BotController extends OCSController {
 				$summary = $this->summaryService->summarize($server, $data['target']['id'], $data['target']['name'], $lang);
 				if ($summary !== null) {
 					$body = [
-						'message' => $summary,
+						'message' => $summary['summary'],
 						'referenceId' => sha1($random),
+						'replyTo' => sha1($random),
 					];
+
+					if (!empty($summary['elevator'])) {
+						$body['replyTo'] = $summary['elevator'];
+					}
 
 					// Generate and post summary
 					$this->sendResponse($server, $secret, $body, $data);
