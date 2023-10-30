@@ -31,6 +31,7 @@ use OCA\CallSummaryBot\Model\LogEntryMapper;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
 use OCP\IDateTimeFormatter;
+use OCP\IL10N;
 use OCP\L10N\IFactory;
 
 class SummaryService {
@@ -156,7 +157,7 @@ class SummaryService {
 		$endTime = $this->dateTimeFormatter->formatTime($endTimestamp, 'short', null, $libL10N);
 
 
-		$summary = '# ' . str_replace('{title}', $roomName, $l->t('Call summary - {title}')) . "\n\n";
+		$summary = '# ' . $this->getTitle($l, $roomName) . "\n\n";
 		$summary .= $startDate . ' · ' . $startTime  . ' – ' . $endTime
 			. ' (' . $endDateTime->getTimezone()->getName() . ")\n";
 
@@ -175,5 +176,20 @@ class SummaryService {
 		}
 
 		return ['summary' => $summary, 'elevator' => $elevator];
+	}
+
+	protected function getTitle(IL10N $l, string $roomName): string {
+		try {
+			$data = json_decode($roomName, true, flags: JSON_THROW_ON_ERROR);
+			if (is_array($data) && count($data) === 2 && isset($data[0]) && is_string($data[0]) && isset($data[1]) && is_string($data[1])) {
+				// Seems like the room name is a JSON map with the 2 user IDs of a 1-1 conversation,
+				// so we don't add it to the title to avoid things like:
+				// `Call summary - ["2991c735-4f9e-46e2-a107-7569dd19fdf8","42e6a9c2-a833-43f6-ab47-6b7004094912"]`
+				return $l->t('Call summary');
+			}
+		} catch (\JsonException) {
+		}
+
+		return str_replace('{title}', $roomName, $l->t('Call summary - {title}'));
 	}
 }

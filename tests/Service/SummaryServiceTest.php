@@ -30,6 +30,7 @@ use OCA\CallSummaryBot\Service\SummaryService;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
 use OCP\IDateTimeFormatter;
+use OCP\IL10N;
 use OCP\L10N\IFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
@@ -133,5 +134,53 @@ class SummaryServiceTest extends TestCase {
 		}
 
 		self::assertEquals(!empty($tasks), $service->readTasksFromMessage($message, ['parameters' => []], 'server', ['target' => ['id' => 't0k3n']]));
+	}
+
+	public function dataGetTitle(): array {
+		return [
+			// Default cases
+			[
+				'hi',
+				'Call summary - hi',
+			],
+			[
+				'"hi"',
+				'Call summary - "hi"',
+			],
+			[
+				'0',
+				'Call summary - 0',
+			],
+			[
+				json_encode([1, '2']),
+				'Call summary - ' . json_encode([1, '2']),
+			],
+			[
+				// Not only 2 strings
+				json_encode(['2991c735-4f9e-46e2-a107-7569dd19fdf8', '42e6a9c2-a833-43f6-ab47-6b7004094912', '0964cbe6-598b-4543-bc90-a790131bc768']),
+				'Call summary - ' . json_encode(['2991c735-4f9e-46e2-a107-7569dd19fdf8', '42e6a9c2-a833-43f6-ab47-6b7004094912', '0964cbe6-598b-4543-bc90-a790131bc768']),
+			],
+
+			// Corrected case
+			[
+				json_encode(['2991c735-4f9e-46e2-a107-7569dd19fdf8', '42e6a9c2-a833-43f6-ab47-6b7004094912']),
+				'Call summary',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataGetTitle
+	 */
+	public function testGetTitle(string $roomName, string $title): void {
+		$l = $this->createMock(IL10N::class);
+		$l->method('t')
+			->willReturnCallback(function ($string, $args) {
+				return vsprintf($string, $args);
+			});
+
+		$service = $this->getService();
+
+		self::assertEquals($title, self::invokePrivate($service, 'getTitle', [$l, $roomName]));
 	}
 }
