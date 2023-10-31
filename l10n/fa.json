@@ -3,9 +3,9 @@
     "Call summary" : "خلاصه تماس",
     "Call summary (%s)" : "خلاصه تماس (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "ربات خلاصه تماس یک پیام کلی را پس از تماس ارسال می کند که همه شرکت کنندگان را فهرست می کند و وظایف را مشخص می کند",
-    "Call summary - {title}" : "خلاصه تماس - {title}",
     "Attendees" : "شرکت کنندگان",
     "Tasks" : "وظایف",
+    "Call summary - {title}" : "خلاصه تماس - {title}",
     "Call summary bot" : "ربات خلاصه تماس"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
