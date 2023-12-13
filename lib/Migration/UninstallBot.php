@@ -26,23 +26,18 @@ declare(strict_types=1);
 
 namespace OCA\CallSummaryBot\Migration;
 
-use OCA\CallSummaryBot\Model\Bot;
+use OCA\CallSummaryBot\Service\BotService;
 use OCA\Talk\Events\BotUninstallEvent;
-use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\IURLGenerator;
-use OCP\L10N\IFactory;
 use OCP\Migration\IOutput;
 use OCP\Migration\IRepairStep;
-use OCP\Security\ISecureRandom;
 
 class UninstallBot implements IRepairStep {
 	public function __construct(
 		protected IConfig $config,
-		protected IEventDispatcher $dispatcher,
-		protected ISecureRandom $random,
 		protected IURLGenerator $url,
-		protected IFactory $l10nFactory,
+		protected BotService $service,
 	) {
 	}
 
@@ -63,31 +58,8 @@ class UninstallBot implements IRepairStep {
 		if ($secretData) {
 			$secretArray = json_decode($secretData, true, 512, JSON_THROW_ON_ERROR);
 			if ($secretArray['secret']) {
-				foreach (Bot::SUPPORTED_LANGUAGES as $lang) {
-					$this->uninstallLanguage($secretArray['secret'], $lang);
-				}
+				$this->service->uninstallBot($secretArray['secret'], $backend);
 			}
-		}
-	}
-
-	protected function uninstallLanguage(string $secret, string $lang): void {
-		$event = new BotUninstallEvent(
-			$secret . str_replace('_', '', $lang),
-			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
-		);
-		try {
-			$this->dispatcher->dispatchTyped($event);
-		} catch (\Throwable $e) {
-		}
-
-		// Also remove legacy secret bots
-		$event = new BotUninstallEvent(
-			$secret,
-			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
-		);
-		try {
-			$this->dispatcher->dispatchTyped($event);
-		} catch (\Throwable $e) {
 		}
 	}
 }
