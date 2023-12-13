@@ -52,7 +52,7 @@ class DeleteSecret extends Base {
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int {
-		$this->config->deleteAppValue('call_summary_bot', 'secret_' . $id);
+		$this->config->deleteAppValue('call_summary_bot', 'secret_' . $input->getArgument('id'));
 
 		$output->writeln('Deleted secrect');
 
