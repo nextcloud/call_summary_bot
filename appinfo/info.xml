@@ -42,5 +42,6 @@
 		<command>OCA\CallSummaryBot\Command\CreateSecret</command>
 		<command>OCA\CallSummaryBot\Command\DeleteSecret</command>
 		<command>OCA\CallSummaryBot\Command\ListSecret</command>
+		<command>OCA\CallSummaryBot\Command\Repair</command>
 	</commands>
 </info>
