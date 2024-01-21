@@ -3,6 +3,6 @@ OC.L10N.register(
     {
     "__language_name__" : "Italiano",
     "Attendees" : "Partecipanti",
-    "Tasks" : "Compiti"
+    "Tasks" : "Attività"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
