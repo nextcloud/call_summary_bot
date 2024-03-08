@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.1.0 - 2024-03-08
+### Added
+- Nextcloud 29 compatibility
+
 ## 1.0.1 - 2023-12-13
 ### Added
 - Added an OCC command to repair the bot
