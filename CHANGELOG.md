@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.2.0 - 2024-07-25
+### Added
+- Nextcloud 30 compatibility
+
+### Removed
+- Nextcloud 27 compatibility
+
 ## 1.1.1 - 2024-06-07
 ### Fixed
 - Fix an issue with local domains and self-signed certificates
