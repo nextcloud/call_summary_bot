@@ -1,5 +1,5 @@
 { "translations": {
-    "__language_name__" : "српски",
+    "__language_name__" : "Српски",
     "Call summary" : "Резиме позива",
     "Call summary (%s)" : "Резиме позива (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Бот резимеа позива објављује поруку прегледа након позива у којој исписује све учеснике и истиче задатке",

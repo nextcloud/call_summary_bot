@@ -1,7 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
-    "__language_name__" : "Русский язык",
+    "__language_name__" : "Русский",
     "Attendees" : "Участники",
     "Tasks" : "Задачи"
 },
