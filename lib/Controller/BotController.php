@@ -37,6 +37,7 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Http\Client\IClientService;
+use OCP\ICertificateManager;
 use OCP\IConfig;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
@@ -54,6 +55,7 @@ class BotController extends OCSController {
 		protected SummaryService $summaryService,
 		protected IConfig $config,
 		protected LoggerInterface $logger,
+		protected ICertificateManager $certificateManager,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -196,7 +198,10 @@ class BotController extends OCSController {
 					'User-Agent' => 'nextcloud-call-summary-bot/1.0',
 				],
 				'body' => $jsonBody,
-				'verify' => false, // FIXME
+				'verify' => $this->certificateManager->getAbsoluteBundlePath(),
+				'nextcloud' => [
+					'allow_local_address' => true,
+				],
 			];
 
 			$client = $this->clientService->newClient();
@@ -229,7 +234,10 @@ class BotController extends OCSController {
 					'User-Agent' => 'nextcloud-call-summary-bot/1.0',
 				],
 				'body' => $jsonBody,
-				'verify' => false, // FIXME
+				'verify' => $this->certificateManager->getAbsoluteBundlePath(),
+				'nextcloud' => [
+					'allow_local_address' => true,
+				],
 			];
 
 			$client = $this->clientService->newClient();
@@ -262,7 +270,10 @@ class BotController extends OCSController {
 					'User-Agent' => 'nextcloud-call-summary-bot/1.0',
 				],
 				'body' => $jsonBody,
-				'verify' => false, // FIXME
+				'verify' => $this->certificateManager->getAbsoluteBundlePath(),
+				'nextcloud' => [
+					'allow_local_address' => true,
+				],
 			];
 
 			$client = $this->clientService->newClient();
