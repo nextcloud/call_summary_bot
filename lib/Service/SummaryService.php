@@ -35,6 +35,9 @@ use OCP\IL10N;
 use OCP\L10N\IFactory;
 
 class SummaryService {
+	public const UNCHECKED = '[ ]';
+	public const CHECKED = '[x]';
+	public const LIST_PATTERN = '/^[-*]\s(\[[ x]])\s*/mi';
 	public const TASK_PATTERN = '/(^[-*]\s|^)(to[\s-]?do|task)s?\s*:/mi';
 
 	public function __construct(
@@ -50,7 +53,7 @@ class SummaryService {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
-		if (!str_starts_with($firstLowerLine, '- [ ] ')
+		if (!preg_match(self::LIST_PATTERN, $firstLowerLine)
 			&& !preg_match(self::TASK_PATTERN, $firstLowerLine)) {
 			return false;
 		}
@@ -75,19 +78,23 @@ class SummaryService {
 		}
 
 		$parsedMessage = str_replace($placeholders, $replacements, $message);
-		if (!str_starts_with($firstLowerLine, '- [ ] ')) {
+		if (!preg_match(self::LIST_PATTERN, $firstLowerLine)) {
 			$parsedMessage = preg_replace(self::TASK_PATTERN, '- [ ] ', $parsedMessage);
 		}
 
-		if (str_starts_with($parsedMessage, '- [ ] ')) {
-			// Cut of the first `- [ ] `
-			$todos = explode("\n- [ ] ", substr($parsedMessage, 5));
+		if (str_starts_with($parsedMessage, '- [ ] ') || str_starts_with($parsedMessage, '- [x] ')) {
+			$todos = preg_split(self::LIST_PATTERN, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+			$nextTodoSolved = false;
 			foreach ($todos as $todo) {
-				$todoText = trim($todo);
+				if ($todo === self::UNCHECKED || $todo === self::CHECKED) {
+					$nextTodoSolved = $todo === self::CHECKED;
+					continue;
+				}
 
+				$todoText = trim($todo);
 				if ($todoText) {
 					// Only store when not empty
-					$this->saveTask($server, $data['target']['id'], $todoText);
+					$this->saveTask($server, $data['target']['id'], $todoText, $nextTodoSolved);
 				}
 			}
 
@@ -98,11 +105,11 @@ class SummaryService {
 		return false;
 	}
 
-	protected function saveTask(string $server, string $token, string $text): void {
+	protected function saveTask(string $server, string $token, string $text, bool $solved = false): void {
 		$logEntry = new LogEntry();
 		$logEntry->setServer($server);
 		$logEntry->setToken($token);
-		$logEntry->setType(LogEntry::TYPE_TODO);
+		$logEntry->setType($solved ? LogEntry::TYPE_SOLVED : LogEntry::TYPE_TODO);
 		$logEntry->setDetails($text);
 		$this->logEntryMapper->insert($logEntry);
 	}
@@ -125,8 +132,7 @@ class SummaryService {
 		$endTimestamp = $endDateTime->getTimestamp();
 		$startTimestamp = $endTimestamp;
 
-		$attendees = [];
-		$todos = [];
+		$attendees = $todos = $solved = [];
 		$elevator = null;
 
 		foreach ($logEntries as $logEntry) {
@@ -139,6 +145,8 @@ class SummaryService {
 				$attendees[] = $logEntry->getDetails();
 			} elseif ($logEntry->getType() === LogEntry::TYPE_TODO) {
 				$todos[] = $logEntry->getDetails();
+			} elseif ($logEntry->getType() === LogEntry::TYPE_SOLVED) {
+				$solved[] = $logEntry->getDetails();
 			} elseif ($logEntry->getType() === LogEntry::TYPE_ELEVATOR) {
 				$elevator = (int) $logEntry->getDetails();
 			}
@@ -167,9 +175,12 @@ class SummaryService {
 			$summary .= '- ' . $attendee . "\n";
 		}
 
-		if (!empty($todos)) {
+		if (!empty($todos) || !empty($solved)) {
 			$summary .= "\n";
 			$summary .= '## ' . $l->t('Tasks') . "\n";
+			foreach ($solved as $todo) {
+				$summary .= '- [x] ' . $todo . "\n";
+			}
 			foreach ($todos as $todo) {
 				$summary .= '- [ ] ' . $todo . "\n";
 			}

@@ -83,34 +83,57 @@ class SummaryServiceTest extends TestCase {
 			[
 				'hi',
 				[],
+				[],
 			],
 			[
-				'- [ ] task1',
+				'- [ ] task1' . "\n" . '- [ ] ' . "\n" . '- [x]' . "\t",
 				['task1'],
+				[false],
 			],
 			[
 				'- [ ] task1' . "\n" . '- [ ] task2',
 				['task1', 'task2'],
+				[false, false],
+			],
+			[
+				'- [ ] task1' . "\n" . '- [x] task2',
+				['task1', 'task2'],
+				[false, true],
+			],
+			[
+				'- [x] task1' . "\n" . '- [ ] task2',
+				['task1', 'task2'],
+				[true, false],
 			],
 			[
 				'- [ ] task1',
 				['task1'],
+				[false],
 			],
 			[
 				'* task: task1',
 				['task1'],
+				[false],
 			],
 			[
 				'TODOs: task1',
 				['task1'],
+				[false],
 			],
 			[
 				'to-do: task1',
 				['task1'],
+				[false],
 			],
 			[
 				'- to do : task1',
 				['task1'],
+				[false],
+			],
+			[
+				'- to do : task1' . "\n" . '* task: task2' . "\n" . '* [x] task3',
+				['task1', 'task2', 'task3'],
+				[false, false, true],
 			],
 		];
 	}
@@ -118,14 +141,15 @@ class SummaryServiceTest extends TestCase {
 	/**
 	 * @dataProvider dataReadTasksFromMessage
 	 */
-	public function testReadTasksFromMessage(string $message, array $tasks): void {
+	public function testReadTasksFromMessage(string $message, array $tasks, array $solved): void {
 		$service = $this->getService(['saveTask']);
 
 		if (!empty($tasks)) {
 			$i = 0;
 			$service->method('saveTask')
-				->willReturnCallback(function (string $server, string $token, string $text) use ($tasks, &$i) {
+				->willReturnCallback(function (string $server, string $token, string $text, bool $solvedFlag) use ($tasks, $solved, &$i) {
 					$this->assertEquals($tasks[$i], $text);
+					$this->assertEquals($solved[$i], $solvedFlag);
 					$i++;
 				});
 		} else {
