@@ -8,6 +8,7 @@
 	xmlns="https://getpsalm.org/schema/config"
 	xsi:schemaLocation="https://getpsalm.org/schema/config"
 	errorBaseline="tests/psalm-baseline.xml"
+	phpVersion="8.0.2"
 >
 	<projectFiles>
 		<directory name="lib" />
@@ -21,7 +22,7 @@
 	<issueHandlers>
 		<UndefinedClass>
 			<errorLevel type="suppress">
-				<referencedClass name="OC" />
+				<referencedClass name="OC\Core\Command\Base" />
 			</errorLevel>
 		</UndefinedClass>
 		<UndefinedDocblockClass>

@@ -1,23 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.17.0@c620f6e80d0abfca532b00bda366062aaedf6e5d">
-  <file src="lib/Command/CreateSecret.php">
-    <UndefinedClass>
-      <code>Base</code>
-    </UndefinedClass>
-  </file>
-  <file src="lib/Command/DeleteSecret.php">
-    <UndefinedClass>
-      <code>Base</code>
-    </UndefinedClass>
-  </file>
-  <file src="lib/Command/ListSecret.php">
-    <UndefinedClass>
-      <code>Base</code>
-    </UndefinedClass>
-  </file>
-  <file src="lib/Command/Repair.php">
-    <UndefinedClass>
-      <code>Base</code>
-    </UndefinedClass>
-  </file>
-</files>
+<files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505"/>
