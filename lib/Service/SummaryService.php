@@ -137,7 +137,7 @@ class SummaryService {
 
 		foreach ($logEntries as $logEntry) {
 			if ($logEntry->getType() === LogEntry::TYPE_START) {
-				$time = (int) $logEntry->getDetails();
+				$time = (int)$logEntry->getDetails();
 				if ($startTimestamp > $time) {
 					$startTimestamp = $time;
 				}
@@ -148,11 +148,11 @@ class SummaryService {
 			} elseif ($logEntry->getType() === LogEntry::TYPE_SOLVED) {
 				$solved[] = $logEntry->getDetails();
 			} elseif ($logEntry->getType() === LogEntry::TYPE_ELEVATOR) {
-				$elevator = (int) $logEntry->getDetails();
+				$elevator = (int)$logEntry->getDetails();
 			}
 		}
 
-		if (($endTimestamp - $startTimestamp) < (int) $this->config->getAppValue('call_summary_bot', 'min-length', '60')) {
+		if (($endTimestamp - $startTimestamp) < (int)$this->config->getAppValue('call_summary_bot', 'min-length', '60')) {
 			// No call summary for short calls
 			return null;
 		}
