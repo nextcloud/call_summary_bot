@@ -61,7 +61,7 @@ class LogEntryMapper extends QBMapper {
 			->andWhere($query->expr()->eq('type', $query->createNamedParameter(LogEntry::TYPE_ATTENDEE)))
 			->setMaxResults(1);
 		$result = $query->executeQuery();
-		$hasAttendee = (bool) $result->fetchOne();
+		$hasAttendee = (bool)$result->fetchOne();
 		$result->closeCursor();
 
 		return $hasAttendee;

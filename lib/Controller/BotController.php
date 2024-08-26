@@ -138,14 +138,14 @@ class BotController extends OCSController {
 					$logEntry->setServer($server);
 					$logEntry->setToken($data['target']['id']);
 					$logEntry->setType(LogEntry::TYPE_START);
-					$logEntry->setDetails((string) $this->timeFactory->now()->getTimestamp());
+					$logEntry->setDetails((string)$this->timeFactory->now()->getTimestamp());
 					$this->logEntryMapper->insert($logEntry);
 
 					$logEntry = new LogEntry();
 					$logEntry->setServer($server);
 					$logEntry->setToken($data['target']['id']);
 					$logEntry->setType(LogEntry::TYPE_ELEVATOR);
-					$logEntry->setDetails((string) $data['object']['id']);
+					$logEntry->setDetails((string)$data['object']['id']);
 					$this->logEntryMapper->insert($logEntry);
 				}
 
