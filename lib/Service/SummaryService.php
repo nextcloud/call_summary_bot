@@ -39,6 +39,7 @@ class SummaryService {
 	public const CHECKED = '[x]';
 	public const LIST_PATTERN = '/^[-*]\s(\[[ x]])\s*/mi';
 	public const TASK_PATTERN = '/(^[-*]\s|^)(to[\s-]?do|task)s?\s*:/mi';
+	public const AGENDA_PATTERN = '/(^[-*]\s|^)(agenda|top|topic)\s*:/mi';
 
 	public function __construct(
 		protected IConfig $config,
@@ -105,11 +106,51 @@ class SummaryService {
 		return false;
 	}
 
-	protected function saveTask(string $server, string $token, string $text, bool $solved = false): void {
+	public function readAgendaFromMessage(string $message, array $messageData, string $server, array $data): bool {
+		$endOfFirstLine = strpos($message, "\n") ?: -1;
+		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
+
+		if (!preg_match(self::AGENDA_PATTERN, $firstLowerLine)) {
+			return false;
+		}
+
+		$placeholders = $replacements = [];
+		foreach ($messageData['parameters'] as $placeholder => $parameter) {
+			$placeholders[] = '{' . $placeholder . '}';
+			if ($parameter['type'] === 'user') {
+				if (str_contains($parameter['id'], ' ') || str_contains($parameter['id'], '/')) {
+					$replacements[] = '@"' . $parameter['id'] . '"';
+				} else {
+					$replacements[] = '@' . $parameter['id'];
+				}
+			} elseif ($parameter['type'] === 'call') {
+				$replacements[] = '@all';
+			} elseif ($parameter['type'] === 'guest') {
+				$replacements[] = '@' . $parameter['name'];
+			} else {
+				$replacements[] = $parameter['name'];
+			}
+		}
+
+		$parsedMessage = str_replace($placeholders, $replacements, $message);
+		$agendas = preg_split(self::AGENDA_PATTERN, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY);
+		foreach ($agendas as $agenda) {
+			$agendaText = trim($agenda);
+			if ($agendaText) {
+				// Only store when not empty
+				$this->saveTask($server, $data['target']['id'], $agendaText, agenda: true);
+			}
+		}
+
+		// React with thumbs up as we detected a task
+		return true;
+	}
+
+	protected function saveTask(string $server, string $token, string $text, bool $solved = false, bool $agenda = false): void {
 		$logEntry = new LogEntry();
 		$logEntry->setServer($server);
 		$logEntry->setToken($token);
-		$logEntry->setType($solved ? LogEntry::TYPE_SOLVED : LogEntry::TYPE_TODO);
+		$logEntry->setType($agenda ? LogEntry::TYPE_AGENDA : ($solved ? LogEntry::TYPE_SOLVED : LogEntry::TYPE_TODO));
 		$logEntry->setDetails($text);
 		$this->logEntryMapper->insert($logEntry);
 	}
@@ -187,6 +228,38 @@ class SummaryService {
 		}
 
 		return ['summary' => $summary, 'elevator' => $elevator];
+	}
+
+	/**
+	 * @param string $server
+	 * @param string $token
+	 * @param string $lang
+	 * @return ?string
+	 */
+	public function agenda(string $server, string $token, string $lang = 'en'): ?string {
+		$logEntries = $this->logEntryMapper->findByConversation($server, $token);
+		$this->logEntryMapper->deleteByConversation($server, $token);
+
+
+		$agenda = [];
+		foreach ($logEntries as $logEntry) {
+			if ($logEntry->getType() === LogEntry::TYPE_AGENDA) {
+				$agenda[] = $logEntry->getDetails();
+			}
+		}
+
+		if (empty($agenda)) {
+			return null;
+		}
+		$agenda = array_unique($agenda);
+
+		$l = $this->l10nFactory->get('call_summary_bot', $lang);
+		$summary = '# ' . $l->t('Agenda') . "\n\n";
+		foreach ($agenda as $item) {
+			$summary .= '- [ ] ' . $item . "\n";
+		}
+
+		return $summary;
 	}
 
 	protected function getTitle(IL10N $l, string $roomName): string {
