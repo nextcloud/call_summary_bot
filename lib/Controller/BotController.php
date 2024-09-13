@@ -119,12 +119,18 @@ class BotController extends OCSController {
 		$data = json_decode($body, true);
 
 		if ($data['type'] === 'Create' && $data['object']['name'] === 'message') {
-			if (!$this->logEntryMapper->hasActiveCall($server, $data['target']['id'])) {
-				return new DataResponse();
-			}
-
 			$messageData = json_decode($data['object']['content'], true);
 			$message = $messageData['message'];
+
+			if (!$this->logEntryMapper->hasActiveCall($server, $data['target']['id'])) {
+				$agendaDetected = $this->summaryService->readAgendaFromMessage($message, $messageData, $server, $data);
+
+				if ($agendaDetected) {
+					// React with thumbs up as we detected an agenda item
+					$this->sendReaction($server, $secret, $data);
+				}
+				return new DataResponse();
+			}
 
 			$taskDetected = $this->summaryService->readTasksFromMessage($message, $messageData, $server, $data);
 
@@ -136,6 +142,8 @@ class BotController extends OCSController {
 		} elseif ($data['type'] === 'Activity') {
 			if ($data['object']['name'] === 'call_joined' || $data['object']['name'] === 'call_started') {
 				if ($data['object']['name'] === 'call_started') {
+					$this->postAgenda($server, $secret, $random, $data, $lang);
+
 					$logEntry = new LogEntry();
 					$logEntry->setServer($server);
 					$logEntry->setToken($data['target']['id']);
@@ -179,7 +187,6 @@ class BotController extends OCSController {
 					$body = [
 						'message' => $summary['summary'],
 						'referenceId' => sha1($random),
-						'replyTo' => sha1($random),
 					];
 
 					if (!empty($summary['elevator'])) {
@@ -192,6 +199,19 @@ class BotController extends OCSController {
 			}
 		}
 		return new DataResponse();
+	}
+
+	protected function postAgenda(string $server, string $secret, string $random, array $data, string $lang): void {
+		$agenda = $this->summaryService->agenda($server, $data['target']['id'], $lang);
+		if ($agenda !== null) {
+			$body = [
+				'message' => $agenda,
+				'referenceId' => sha1($random),
+			];
+
+			// Generate and post summary
+			$this->sendResponse($server, $secret, $body, $data);
+		}
 	}
 
 	protected function sendResponse(string $server, string $secret, array $body, array $data): void {
