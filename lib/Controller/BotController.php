@@ -40,6 +40,7 @@ use OCP\Http\Client\IClientService;
 use OCP\ICertificateManager;
 use OCP\IConfig;
 use OCP\IRequest;
+use OCP\L10N\IFactory;
 use Psr\Log\LoggerInterface;
 
 class BotController extends OCSController {
@@ -51,6 +52,7 @@ class BotController extends OCSController {
 		IRequest $request,
 		protected IClientService $clientService,
 		protected ITimeFactory $timeFactory,
+		protected IFactory $l10nFactory,
 		protected LogEntryMapper $logEntryMapper,
 		protected SummaryService $summaryService,
 		protected IConfig $config,
@@ -153,7 +155,20 @@ class BotController extends OCSController {
 				$logEntry->setServer($server);
 				$logEntry->setToken($data['target']['id']);
 				$logEntry->setType(LogEntry::TYPE_ATTENDEE);
-				$logEntry->setDetails($data['actor']['name']);
+
+				$displayName = $data['actor']['name'];
+				if (str_starts_with($data['actor']['id'], 'guests/')) {
+					if ($displayName === '') {
+						return new DataResponse();
+					}
+					$l = $this->l10nFactory->get('call_summary_bot', $lang);
+					$displayName = $l->t('%s (guest)', $displayName);
+				} elseif (str_starts_with($data['actor']['id'], 'federated_users/')) {
+					$cloudIdServer = explode('@', $data['actor']['id']);
+					$displayName .= ' (' . array_pop($cloudIdServer) . ')';
+				}
+
+				$logEntry->setDetails($displayName);
 				if ($logEntry->getDetails()) {
 					// Only store when not empty
 					$this->logEntryMapper->insert($logEntry);
