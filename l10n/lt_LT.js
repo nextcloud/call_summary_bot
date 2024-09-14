@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (svečias)",
     "__language_name__" : "Lietuvių",
     "Attendees" : "Kviestiniai",
     "Tasks" : "Užduotys"

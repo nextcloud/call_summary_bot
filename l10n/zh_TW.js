@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s（訪客）",
     "__language_name__" : "正體中文（臺灣）",
     "Call summary" : "通話摘要",
     "Call summary (%s)" : "通話摘要 (%s)",

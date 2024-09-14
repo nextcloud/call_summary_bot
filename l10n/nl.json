@@ -1,4 +1,5 @@
 { "translations": {
+    "%s (guest)" : "%s (gast)",
     "__language_name__" : "Nederlands",
     "Attendees" : "Deelnemers",
     "Tasks" : "Taken"

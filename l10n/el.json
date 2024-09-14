@@ -1,4 +1,5 @@
 { "translations": {
+    "%s (guest)" : "%s (επισκέπτης)",
     "__language_name__" : "Ελληνικά",
     "Attendees" : "Συμμετέχοντες",
     "Tasks" : "Εργασίες"

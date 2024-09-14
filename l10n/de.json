@@ -1,4 +1,5 @@
 { "translations": {
+    "%s (guest)" : "%s (Gast) ",
     "__language_name__" : "Deutsch (Persönlich: Du)",
     "Call summary" : "Protokoll",
     "Call summary (%s)" : "Protokoll (%s)",

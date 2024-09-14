@@ -1,4 +1,5 @@
 { "translations": {
+    "%s (guest)" : "%s (gestur)",
     "__language_name__" : "Íslenska",
     "Attendees" : "Þátttakendur",
     "Tasks" : "Verkefni"

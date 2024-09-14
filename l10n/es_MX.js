@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (invitado)",
     "__language_name__" : "Español (México)",
     "Attendees" : "Asistentes",
     "Tasks" : "Tareas"

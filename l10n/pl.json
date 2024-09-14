@@ -1,4 +1,5 @@
 { "translations": {
+    "%s (guest)" : "%s (gość)",
     "__language_name__" : "Polski",
     "Attendees" : "Uczestnicy",
     "Tasks" : "Zadania"

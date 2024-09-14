@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (gost)",
     "__language_name__" : "Slovenščina",
     "Call summary" : "Povzetek klica",
     "Call summary (%s)" : "Povzetek klica (%s)",

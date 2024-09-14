@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (gonbidatua)",
     "__language_name__" : "Euskara",
     "Call summary" : "Deiaren laburpena",
     "Call summary (%s)" : "Deiaren laburpena (%s)",

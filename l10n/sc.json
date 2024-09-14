@@ -1,4 +1,5 @@
 { "translations": {
+    "%s (guest)" : "%s (persone invitada)",
     "__language_name__" : "sardu",
     "Attendees" : "Partetzipantes",
     "Tasks" : "Fainas"

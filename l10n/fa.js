@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (مهمان)",
     "__language_name__" : "فارسى",
     "Call summary" : "خلاصه تماس",
     "Call summary (%s)" : "خلاصه تماس (%s)",
