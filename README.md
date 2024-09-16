@@ -4,7 +4,22 @@ The call summary bot posts an overview message after the call listing all partic
 
 ## Usage
 
-- Any message starting with a Markdown todo `- [ ] ` or the keywords `task:` or `todo:` during a call will be recognized as a task
+### Before a call
+
+- The bot can be used to also collect agenda points and topics with the following keywords:
+  - `agenda`
+  - `topic`
+  - `top`
+- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword
+
+### During a call
+
+- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:
+  - Open todos: `- [ ]`, `- todo:`, `- task:`
+  - Solved todos: `- [x]`
+  - Notes: `- note:`
+  - Reports: `- report:`
+  - Decisions: `- decision:`
 - You can also post multiple tasks in a single message, just put each on its own line starting with a keyword
 - At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message
 

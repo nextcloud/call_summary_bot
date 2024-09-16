@@ -35,10 +35,16 @@ use OCP\IL10N;
 use OCP\L10N\IFactory;
 
 class SummaryService {
-	public const UNCHECKED = '[ ]';
-	public const CHECKED = '[x]';
-	public const LIST_PATTERN = '/^[-*]\s(\[[ x]])\s*/mi';
-	public const TASK_PATTERN = '/(^[-*]\s|^)(to[\s-]?do|task)s?\s*:/mi';
+	public const LIST_PATTERN = '/^[-*]\s(\[[ x]])[^\S\n]*/mi';
+	public const TODO_UNSOLVED_PATTERN = '/^[-*]\s\[ ][^\S\n]*/mi';
+	public const TODO_SOLVED_PATTERN = '/^[-*]\s\[x][^\S\n]*/mi';
+
+	public const SUMMARY_PATTERN = '/(?:^[-*]\s|^)(to[\s-]?do|solved|task|note|report|decision)s?\s*:/mi';
+	public const TODO_PATTERN = '/^(to[\s-]?do|task)$/i';
+	public const SOLVED_PATTERN = '/^solved$/i';
+	public const NOTE_PATTERN = '/^note$/i';
+	public const REPORT_PATTERN = '/^report$/i';
+	public const DECISION_PATTERN = '/^decision$/i';
 	public const AGENDA_PATTERN = '/(^[-*]\s|^)(agenda|top|topic)\s*:/mi';
 
 	public function __construct(
@@ -55,10 +61,9 @@ class SummaryService {
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
 		if (!preg_match(self::LIST_PATTERN, $firstLowerLine)
-			&& !preg_match(self::TASK_PATTERN, $firstLowerLine)) {
+			&& !preg_match(self::SUMMARY_PATTERN, $firstLowerLine)) {
 			return false;
 		}
-
 
 		$placeholders = $replacements = [];
 		foreach ($messageData['parameters'] as $placeholder => $parameter) {
@@ -79,23 +84,32 @@ class SummaryService {
 		}
 
 		$parsedMessage = str_replace($placeholders, $replacements, $message);
-		if (!preg_match(self::LIST_PATTERN, $firstLowerLine)) {
-			$parsedMessage = preg_replace(self::TASK_PATTERN, '- [ ] ', $parsedMessage);
-		}
+		$parsedMessage = preg_replace(self::TODO_SOLVED_PATTERN, '- solved: ', $parsedMessage);
+		$parsedMessage = preg_replace(self::TODO_UNSOLVED_PATTERN, '- todo: ', $parsedMessage);
 
-		if (str_starts_with($parsedMessage, '- [ ] ') || str_starts_with($parsedMessage, '- [x] ')) {
-			$todos = preg_split(self::LIST_PATTERN, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-			$nextTodoSolved = false;
+		if (preg_match(self::SUMMARY_PATTERN, $parsedMessage)) {
+			$todos = preg_split(self::SUMMARY_PATTERN, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+			$nextEntry = null;
 			foreach ($todos as $todo) {
-				if ($todo === self::UNCHECKED || $todo === self::CHECKED) {
-					$nextTodoSolved = $todo === self::CHECKED;
-					continue;
-				}
-
-				$todoText = trim($todo);
-				if ($todoText) {
-					// Only store when not empty
-					$this->saveTask($server, $data['target']['id'], $todoText, $nextTodoSolved);
+				if (preg_match(self::TODO_PATTERN, $todo)) {
+					$nextEntry = LogEntry::TYPE_TODO;
+				} elseif (preg_match(self::SOLVED_PATTERN, $todo)) {
+					$nextEntry = LogEntry::TYPE_SOLVED;
+				} elseif (preg_match(self::SOLVED_PATTERN, $todo)) {
+					$nextEntry = LogEntry::TYPE_SOLVED;
+				} elseif (preg_match(self::NOTE_PATTERN, $todo)) {
+					$nextEntry = LogEntry::TYPE_NOTE;
+				} elseif (preg_match(self::REPORT_PATTERN, $todo)) {
+					$nextEntry = LogEntry::TYPE_REPORT;
+				} elseif (preg_match(self::DECISION_PATTERN, $todo)) {
+					$nextEntry = LogEntry::TYPE_DECISION;
+				} elseif ($nextEntry !== null) {
+					$todoText = trim($todo);
+					if ($todoText) {
+						// Only store when not empty
+						$this->saveTask($server, $data['target']['id'], $todoText, $nextEntry);
+					}
+					$nextEntry = null;
 				}
 			}
 
@@ -138,7 +152,7 @@ class SummaryService {
 			$agendaText = trim($agenda);
 			if ($agendaText) {
 				// Only store when not empty
-				$this->saveTask($server, $data['target']['id'], $agendaText, agenda: true);
+				$this->saveTask($server, $data['target']['id'], $agendaText, LogEntry::TYPE_AGENDA);
 			}
 		}
 
@@ -146,11 +160,11 @@ class SummaryService {
 		return true;
 	}
 
-	protected function saveTask(string $server, string $token, string $text, bool $solved = false, bool $agenda = false): void {
+	protected function saveTask(string $server, string $token, string $text, string $type): void {
 		$logEntry = new LogEntry();
 		$logEntry->setServer($server);
 		$logEntry->setToken($token);
-		$logEntry->setType($agenda ? LogEntry::TYPE_AGENDA : ($solved ? LogEntry::TYPE_SOLVED : LogEntry::TYPE_TODO));
+		$logEntry->setType($type);
 		$logEntry->setDetails($text);
 		$this->logEntryMapper->insert($logEntry);
 	}
@@ -173,7 +187,7 @@ class SummaryService {
 		$endTimestamp = $endDateTime->getTimestamp();
 		$startTimestamp = $endTimestamp;
 
-		$attendees = $todos = $solved = [];
+		$attendees = $todos = $solved = $notes = $decisions = $reports = [];
 		$elevator = null;
 
 		foreach ($logEntries as $logEntry) {
@@ -188,6 +202,12 @@ class SummaryService {
 				$todos[] = $logEntry->getDetails();
 			} elseif ($logEntry->getType() === LogEntry::TYPE_SOLVED) {
 				$solved[] = $logEntry->getDetails();
+			} elseif ($logEntry->getType() === LogEntry::TYPE_NOTE) {
+				$notes[] = $logEntry->getDetails();
+			} elseif ($logEntry->getType() === LogEntry::TYPE_DECISION) {
+				$decisions[] = $logEntry->getDetails();
+			} elseif ($logEntry->getType() === LogEntry::TYPE_REPORT) {
+				$reports[] = $logEntry->getDetails();
 			} elseif ($logEntry->getType() === LogEntry::TYPE_ELEVATOR) {
 				$elevator = (int)$logEntry->getDetails();
 			}
@@ -224,6 +244,30 @@ class SummaryService {
 			}
 			foreach ($todos as $todo) {
 				$summary .= '- [ ] ' . $todo . "\n";
+			}
+		}
+
+		if (!empty($notes)) {
+			$summary .= "\n";
+			$summary .= '## ' . $l->t('Notes') . "\n";
+			foreach ($notes as $note) {
+				$summary .= '- ' . $note . "\n";
+			}
+		}
+
+		if (!empty($reports)) {
+			$summary .= "\n";
+			$summary .= '## ' . $l->t('Reports') . "\n";
+			foreach ($reports as $report) {
+				$summary .= '- ' . $report . "\n";
+			}
+		}
+
+		if (!empty($decisions)) {
+			$summary .= "\n";
+			$summary .= '## ' . $l->t('Decisions') . "\n";
+			foreach ($decisions as $decision) {
+				$summary .= '- ' . $decision . "\n";
 			}
 		}
 

@@ -43,6 +43,9 @@ class LogEntry extends Entity {
 	public const TYPE_ELEVATOR = 'elevator';
 	public const TYPE_TODO = 'todo';
 	public const TYPE_SOLVED = 'solved';
+	public const TYPE_NOTE = 'note';
+	public const TYPE_REPORT = 'report';
+	public const TYPE_DECISION = 'decision';
 	public const TYPE_AGENDA = 'agenda';
 
 	/** @var string */
