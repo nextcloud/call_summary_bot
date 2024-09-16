@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.0.0 - 2024-09-16
+### Added
+- Agenda: You can now collect topics for the agenda list before the call and the bot will post it once the call was started
+- Reports, Notes and Decisions: You can now post additional bullet-list items that are summarized at the end of the call
+- Timezone: Admins can now configure a timezone for the summary messages
+
+### Fixed
+- Add a note for federated users and guests in the attendee list
+
 ## 1.2.0 - 2024-07-25
 ### Added
 - Nextcloud 30 compatibility
