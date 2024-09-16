@@ -23,6 +23,13 @@ The call summary bot posts an overview message after the call listing all partic
 - You can also post multiple tasks in a single message, just put each on its own line starting with a keyword
 - At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message
 
+> [!TIP]
+> By default, the call summary will use UTC timezone for dates and times, as it has to be the same for all users at the moment.
+> If most of your users are from the same timezone, you can set a default timezone:
+> ```shell
+> sudo -u www-data php occ config:app:set 'call_summary_bot' 'timezone' --value 'Europe/Berlin'
+> ```
+
 > [!NOTE]
 > By default, only calls lasting at least 60 seconds are summarized. For easier quick testing this can be reduced to 0 seconds with the following command:
 > ```shell

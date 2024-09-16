@@ -221,14 +221,27 @@ class SummaryService {
 		$attendees = array_unique($attendees);
 		sort($attendees);
 
-		$startDate = $this->dateTimeFormatter->formatDate($startTimestamp, 'full', null, $libL10N);
-		$startTime = $this->dateTimeFormatter->formatTime($startTimestamp, 'short', null, $libL10N);
-		$endTime = $this->dateTimeFormatter->formatTime($endTimestamp, 'short', null, $libL10N);
+		$systemDefault = $this->config->getSystemValueString('default_timezone', 'UTC');
+		$timezoneString = $this->config->getAppValue('call_summary_bot', 'timezone', $systemDefault);
+		$timezone = null;
+		if ($timezoneString !== 'UTC') {
+			try {
+				$timezone = new \DateTimeZone($timezoneString);
+			} catch (\Throwable) {
+			}
+		}
 
+		$startDate = $this->dateTimeFormatter->formatDate($startTimestamp, 'full', $timezone, $libL10N);
+		$startTime = $this->dateTimeFormatter->formatTime($startTimestamp, 'short', $timezone, $libL10N);
+		$endTime = $this->dateTimeFormatter->formatTime($endTimestamp, 'short', $timezone, $libL10N);
 
 		$summary = '# ' . $this->getTitle($l, $roomName) . "\n\n";
-		$summary .= $startDate . ' · ' . $startTime  . ' – ' . $endTime
-			. ' (' . $endDateTime->getTimezone()->getName() . ")\n";
+		$summary .= $startDate . ' · ' . $startTime  . ' – ' . $endTime;
+		if ($timezone !== null) {
+			$summary .= ' (' . $timezone->getName() . ")\n";
+		} else {
+			$summary .= ' (' . $endDateTime->getTimezone()->getName() . ")\n";
+		}
 
 		$summary .= "\n";
 		$summary .= '## ' . $l->t('Attendees') . "\n";
