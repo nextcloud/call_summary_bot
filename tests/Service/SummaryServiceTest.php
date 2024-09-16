@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace OCA\CallSummaryBot\Tests\Service;
 
+use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
 use OCA\CallSummaryBot\Service\SummaryService;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -88,52 +89,52 @@ class SummaryServiceTest extends TestCase {
 			[
 				'- [ ] task1' . "\n" . '- [ ] ' . "\n" . '- [x]' . "\t",
 				['task1'],
-				[false],
+				[LogEntry::TYPE_TODO],
 			],
 			[
 				'- [ ] task1' . "\n" . '- [ ] task2',
 				['task1', 'task2'],
-				[false, false],
+				[LogEntry::TYPE_TODO, LogEntry::TYPE_TODO],
 			],
 			[
 				'- [ ] task1' . "\n" . '- [x] task2',
 				['task1', 'task2'],
-				[false, true],
+				[LogEntry::TYPE_TODO, LogEntry::TYPE_SOLVED],
 			],
 			[
 				'- [x] task1' . "\n" . '- [ ] task2',
 				['task1', 'task2'],
-				[true, false],
+				[LogEntry::TYPE_SOLVED, LogEntry::TYPE_TODO],
 			],
 			[
 				'- [ ] task1',
 				['task1'],
-				[false],
+				[LogEntry::TYPE_TODO],
 			],
 			[
 				'* task: task1',
 				['task1'],
-				[false],
+				[LogEntry::TYPE_TODO],
 			],
 			[
 				'TODOs: task1',
 				['task1'],
-				[false],
+				[LogEntry::TYPE_TODO],
 			],
 			[
 				'to-do: task1',
 				['task1'],
-				[false],
+				[LogEntry::TYPE_TODO],
 			],
 			[
 				'- to do : task1',
 				['task1'],
-				[false],
+				[LogEntry::TYPE_TODO],
 			],
 			[
-				'- to do : task1' . "\n" . '* task: task2' . "\n" . '* [x] task3',
-				['task1', 'task2', 'task3'],
-				[false, false, true],
+				'- to do : task1' . "\n" . '* task: task2' . "\n" . '* [x] task3' . "\n" . '* report: report1' . "\n" . '- note: note1' . "\n" . '- decision: decision1',
+				['task1', 'task2', 'task3', 'report1', 'note1', 'decision1'],
+				[LogEntry::TYPE_TODO, LogEntry::TYPE_TODO, LogEntry::TYPE_SOLVED, LogEntry::TYPE_REPORT, LogEntry::TYPE_NOTE, LogEntry::TYPE_DECISION],
 			],
 		];
 	}
@@ -141,15 +142,18 @@ class SummaryServiceTest extends TestCase {
 	/**
 	 * @dataProvider dataReadTasksFromMessage
 	 */
-	public function testReadTasksFromMessage(string $message, array $tasks, array $solved): void {
+	public function testReadTasksFromMessage(string $message, array $tasks, array $types): void {
 		$service = $this->getService(['saveTask']);
 
 		if (!empty($tasks)) {
 			$i = 0;
 			$service->method('saveTask')
-				->willReturnCallback(function (string $server, string $token, string $text, bool $solvedFlag) use ($tasks, $solved, &$i) {
+				->willReturnCallback(function (string $server, string $token, string $text, string $type) use ($tasks, $types, &$i) {
+					if (!isset($tasks[$i])) {
+						$this->fail($type . '/' . $text . ' not found in Array' . print_r($tasks, true));
+					}
 					$this->assertEquals($tasks[$i], $text);
-					$this->assertEquals($solved[$i], $solvedFlag);
+					$this->assertEquals($types[$i], $type);
 					$i++;
 				});
 		} else {
