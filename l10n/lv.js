@@ -4,6 +4,7 @@ OC.L10N.register(
     "%s (guest)" : "%s (viesis)",
     "__language_name__" : "Latviešu",
     "Attendees" : "Apmeklētāji",
-    "Tasks" : "Uzdevumi"
+    "Tasks" : "Uzdevumi",
+    "Notes" : "Piezīmes"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

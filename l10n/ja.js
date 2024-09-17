@@ -4,6 +4,8 @@ OC.L10N.register(
     "%s (guest)" : "%s(ゲスト)",
     "__language_name__" : "日本語 (Japanese)",
     "Attendees" : "参加者",
-    "Tasks" : "タスク"
+    "Tasks" : "タスク",
+    "Notes" : "Notes",
+    "Reports" : "報告"
 },
 "nplurals=1; plural=0;");

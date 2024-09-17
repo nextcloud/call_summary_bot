@@ -4,6 +4,8 @@ OC.L10N.register(
     "%s (guest)" : "%s (gæst)",
     "__language_name__" : "Dansk",
     "Attendees" : "Deltagere",
-    "Tasks" : "Opgaver"
+    "Tasks" : "Opgaver",
+    "Notes" : "Noter",
+    "Reports" : "Raporter"
 },
 "nplurals=2; plural=(n != 1);");

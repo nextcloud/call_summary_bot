@@ -2,6 +2,8 @@
     "%s (guest)" : "%s (gæst)",
     "__language_name__" : "Dansk",
     "Attendees" : "Deltagere",
-    "Tasks" : "Opgaver"
+    "Tasks" : "Opgaver",
+    "Notes" : "Noter",
+    "Reports" : "Raporter"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

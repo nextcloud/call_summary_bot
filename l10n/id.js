@@ -5,6 +5,7 @@ OC.L10N.register(
     "Call summary (%s)" : "Ringkasan panggilan ( %s )",
     "Attendees" : "Peserta",
     "Tasks" : "Tugas",
+    "Notes" : "Catatan",
     "Call summary - {title}" : "Ringkasan panggilan - {judul}",
     "Call summary bot" : "Bot ringkasan panggilan"
 },

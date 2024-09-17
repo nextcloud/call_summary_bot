@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "__language_name__" : "ភាសាខ្មែរ",
     "Attendees" : "អ្នក​ចូលរួម",
-    "Tasks" : "ភារកិច្ច"
+    "Tasks" : "ភារកិច្ច",
+    "Reports" : "របាយការណ៍"
 },
 "nplurals=1; plural=0;");

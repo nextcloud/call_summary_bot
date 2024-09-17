@@ -1,6 +1,7 @@
 { "translations": {
     "__language_name__" : "ქართული",
     "Attendees" : "დამსწრეები",
-    "Tasks" : "დავალებები"
+    "Tasks" : "დავალებები",
+    "Notes" : "ჩანაწერები"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

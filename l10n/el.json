@@ -2,6 +2,8 @@
     "%s (guest)" : "%s (επισκέπτης)",
     "__language_name__" : "Ελληνικά",
     "Attendees" : "Συμμετέχοντες",
-    "Tasks" : "Εργασίες"
+    "Tasks" : "Εργασίες",
+    "Notes" : "Σημειώσεις",
+    "Reports" : "Αναφορές"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

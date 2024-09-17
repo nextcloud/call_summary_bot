@@ -4,6 +4,8 @@ OC.L10N.register(
     "%s (guest)" : "%s (gast)",
     "__language_name__" : "Nederlands",
     "Attendees" : "Deelnemers",
-    "Tasks" : "Taken"
+    "Tasks" : "Taken",
+    "Notes" : "Notities",
+    "Reports" : "Rapporten"
 },
 "nplurals=2; plural=(n != 1);");

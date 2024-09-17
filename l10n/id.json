@@ -3,6 +3,7 @@
     "Call summary (%s)" : "Ringkasan panggilan ( %s )",
     "Attendees" : "Peserta",
     "Tasks" : "Tugas",
+    "Notes" : "Catatan",
     "Call summary - {title}" : "Ringkasan panggilan - {judul}",
     "Call summary bot" : "Bot ringkasan panggilan"
 },"pluralForm" :"nplurals=1; plural=0;"

@@ -3,6 +3,7 @@
     "Call summary (%s)" : "Дуудлагын хураангуй (%s)",
     "Attendees" : "Оролцогчид",
     "Tasks" : "Даалгавар",
+    "Notes" : "Шинэ ",
     "Call summary - {title}" : "Дуудлагын хураангуй - {title}",
     "Call summary bot" : "Дуудлагын хураангуйн бот"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

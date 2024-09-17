@@ -4,6 +4,8 @@ OC.L10N.register(
     "%s (guest)" : "%s (guest)",
     "__language_name__" : "Slovenčina",
     "Attendees" : "Účastníci",
-    "Tasks" : "Úlohy"
+    "Tasks" : "Úlohy",
+    "Notes" : "Poznámky",
+    "Reports" : "Zostavy"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

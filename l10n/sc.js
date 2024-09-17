@@ -4,6 +4,7 @@ OC.L10N.register(
     "%s (guest)" : "%s (persone invitada)",
     "__language_name__" : "sardu",
     "Attendees" : "Partetzipantes",
-    "Tasks" : "Fainas"
+    "Tasks" : "Fainas",
+    "Notes" : "Notas"
 },
 "nplurals=2; plural=(n != 1);");

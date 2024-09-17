@@ -4,6 +4,8 @@ OC.L10N.register(
     "%s (guest)" : "%s (επισκέπτης)",
     "__language_name__" : "Ελληνικά",
     "Attendees" : "Συμμετέχοντες",
-    "Tasks" : "Εργασίες"
+    "Tasks" : "Εργασίες",
+    "Notes" : "Σημειώσεις",
+    "Reports" : "Αναφορές"
 },
 "nplurals=2; plural=(n != 1);");

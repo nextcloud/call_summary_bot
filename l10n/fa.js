@@ -8,6 +8,8 @@ OC.L10N.register(
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "ربات خلاصه تماس یک پیام کلی را پس از تماس ارسال می کند که همه شرکت کنندگان را فهرست می کند و وظایف را مشخص می کند",
     "Attendees" : "شرکت کنندگان",
     "Tasks" : "وظایف",
+    "Notes" : "یادداشت‌ها",
+    "Reports" : "Reports",
     "Call summary - {title}" : "خلاصه تماس - {title}",
     "Call summary bot" : "ربات خلاصه تماس"
 },

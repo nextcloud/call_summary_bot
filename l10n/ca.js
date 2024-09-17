@@ -4,6 +4,7 @@ OC.L10N.register(
     "%s (guest)" : "%s (convidat)",
     "__language_name__" : "__language_name__",
     "Attendees" : "Assistents",
-    "Tasks" : "Tasques"
+    "Tasks" : "Tasques",
+    "Reports" : "Informes"
 },
 "nplurals=2; plural=(n != 1);");

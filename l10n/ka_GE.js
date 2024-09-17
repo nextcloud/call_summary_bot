@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "__language_name__" : "ქართული",
     "Attendees" : "დამსწრეები",
-    "Tasks" : "დავალებები"
+    "Tasks" : "დავალებები",
+    "Notes" : "ჩანაწერები"
 },
 "nplurals=2; plural=(n!=1);");

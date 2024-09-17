@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "__language_name__" : "ไทย",
     "Attendees" : "ผู้เข้าร่วมกิจกรรม",
-    "Tasks" : "งาน"
+    "Tasks" : "งาน",
+    "Notes" : "โน้ต"
 },
 "nplurals=1; plural=0;");
