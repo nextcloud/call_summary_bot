@@ -6,7 +6,7 @@
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Der Anruf-Zusammenfassungs-Bot veröffentlicht nach der Unterhaltung eine Übersichtsnachricht, in der alle Teilnehmenden und die Aufgaben aufgeführt sind",
     "Attendees" : "Teilnehmende",
     "Tasks" : "Aufgaben",
-    "Notes" : "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
+    "Notes" : "Notizen",
     "Reports" : "Berichte",
     "Call summary - {title}" : "Protokoll - {title}",
     "Call summary bot" : "Protokoll Bot"

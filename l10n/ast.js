@@ -6,6 +6,8 @@ OC.L10N.register(
     "Call summary" : "Resume de llamaes",
     "Call summary (%s)" : "Resume de llamaes (%s)",
     "Attendees" : "Asistentes",
-    "Tasks" : "Xeres"
+    "Tasks" : "Xeres",
+    "Notes" : "Notes",
+    "Reports" : "Informes"
 },
 "nplurals=2; plural=(n != 1);");
