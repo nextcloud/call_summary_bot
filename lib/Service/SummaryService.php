@@ -236,7 +236,7 @@ class SummaryService {
 		$endTime = $this->dateTimeFormatter->formatTime($endTimestamp, 'short', $timezone, $libL10N);
 
 		$summary = '# ' . $this->getTitle($l, $roomName) . "\n\n";
-		$summary .= $startDate . ' · ' . $startTime  . ' – ' . $endTime;
+		$summary .= $startDate . ' · ' . $startTime . ' – ' . $endTime;
 		if ($timezone !== null) {
 			$summary .= ' (' . $timezone->getName() . ")\n";
 		} else {
