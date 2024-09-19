@@ -8,7 +8,7 @@
 	"description": "Call summary bot",
 	"license": "AGPL",
 	"require-dev": {
-		"nextcloud/coding-standard": "^1.1",
+		"nextcloud/coding-standard": "^1.3.1",
 		"nextcloud/ocp": "dev-stable28",
 		"phpunit/phpunit": "^9.6",
 		"psalm/phar": "^5.13"
