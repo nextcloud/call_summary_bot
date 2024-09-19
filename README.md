@@ -1,4 +1,10 @@
+<!--
+  - SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-License-Identifier: CC0-1.0
+-->
 # Call Summary Bot
+
+[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/call_summary_bot)](https://api.reuse.software/info/github.com/nextcloud/call_summary_bot)
 
 The call summary bot posts an overview message after the call listing all participants and outlining tasks
 
