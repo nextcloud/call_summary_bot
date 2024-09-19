@@ -10,6 +10,8 @@ OC.L10N.register(
     "Tasks" : "Uppgifter",
     "Notes" : "Anteckning",
     "Reports" : "Rapporter",
+    "Decisions" : "Beslut",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Samtalssammanfattning - {title}",
     "Call summary bot" : "Samtalssammanfattning bot"
 },
