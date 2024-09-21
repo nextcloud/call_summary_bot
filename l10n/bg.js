@@ -4,6 +4,8 @@ OC.L10N.register(
     "%s (guest)" : "%s (гост)",
     "__language_name__" : "Български",
     "Attendees" : "Участници",
-    "Tasks" : "Задачи"
+    "Tasks" : "Задачи",
+    "Notes" : "Бележки",
+    "Reports" : "Доклади"
 },
 "nplurals=2; plural=(n != 1);");

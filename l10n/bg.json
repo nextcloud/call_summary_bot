@@ -2,6 +2,8 @@
     "%s (guest)" : "%s (гост)",
     "__language_name__" : "Български",
     "Attendees" : "Участници",
-    "Tasks" : "Задачи"
+    "Tasks" : "Задачи",
+    "Notes" : "Бележки",
+    "Reports" : "Доклади"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
