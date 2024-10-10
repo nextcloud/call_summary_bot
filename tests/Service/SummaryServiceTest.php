@@ -62,7 +62,7 @@ class SummaryServiceTest extends TestCase {
 		);
 	}
 
-	public function dataReadTasksFromMessage(): array {
+	public static function dataReadTasksFromMessage(): array {
 		return [
 			[
 				'hi',
@@ -147,7 +147,7 @@ class SummaryServiceTest extends TestCase {
 		self::assertEquals(!empty($tasks), $service->readTasksFromMessage($message, ['parameters' => []], 'server', ['target' => ['id' => 't0k3n']]));
 	}
 
-	public function dataGetTitle(): array {
+	public static function dataGetTitle(): array {
 		return [
 			// Default cases
 			[

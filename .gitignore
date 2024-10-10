@@ -16,6 +16,7 @@
 /.php-cs-fixer.cache
 
 /tests/.phpunit.result.cache
+/tests/.phpunit.cache
 /tests/Integration/output
 /tests/Integration/vendor
 
