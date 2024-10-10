@@ -4,15 +4,14 @@
 		 timeoutForMediumTests="900"
 		 timeoutForLargeTests="900"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
-		 cacheDirectory=".phpunit.cache">
-  <testsuite name="Call Summary Bot Tests">
-    <directory>.</directory>
-  </testsuite>
-  <source>
-    <include>
-      <directory>../../call_summary_bot/appinfo</directory>
-      <directory>../../call_summary_bot/lib</directory>
-    </include>
-  </source>
+		 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+	<testsuite name="Call Summary Bot Tests">
+		<directory>.</directory>
+	</testsuite>
+	<coverage>
+		<include>
+			<directory suffix=".php">../../call_summary_bot/appinfo</directory>
+			<directory suffix=".php">../../call_summary_bot/lib</directory>
+		</include>
+	</coverage>
 </phpunit>
