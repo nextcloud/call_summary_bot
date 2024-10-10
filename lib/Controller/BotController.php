@@ -226,7 +226,7 @@ class BotController extends OCSController {
 			$response = $client->post(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/message', $options);
 			$this->logger->info('Response: ' . $response->getBody());
 		} catch (\Exception $exception) {
-			$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
+			$this->logger->info($exception::class . ': ' . $exception->getMessage());
 		}
 	}
 
@@ -262,7 +262,7 @@ class BotController extends OCSController {
 			$response = $client->post(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/reaction/' . $data['object']['id'], $options);
 			$this->logger->info('Response: ' . $response->getBody());
 		} catch (\Exception $exception) {
-			$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
+			$this->logger->info($exception::class . ': ' . $exception->getMessage());
 		}
 	}
 
@@ -298,7 +298,7 @@ class BotController extends OCSController {
 			$response = $client->delete(rtrim($server, '/') . '/ocs/v2.php/apps/spreed/api/v1/bot/' . $data['target']['id'] . '/reaction/' . $data['object']['id'], $options);
 			$this->logger->info('Response: ' . $response->getBody());
 		} catch (\Exception $exception) {
-			$this->logger->info(get_class($exception) . ': ' . $exception->getMessage());
+			$this->logger->info($exception::class . ': ' . $exception->getMessage());
 		}
 	}
 }

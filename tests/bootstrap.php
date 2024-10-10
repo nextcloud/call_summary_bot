@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../lib/base.php';
 // Fix for "Autoload path not allowed: .../call_summary_bot/tests/testcase.php"
 \OC_App::loadApp('call_summary_bot');
 
-if (!class_exists('\PHPUnit\Framework\TestCase')) {
+if (!class_exists(\PHPUnit\Framework\TestCase::class)) {
 	require_once('PHPUnit/Autoload.php');
 }
 

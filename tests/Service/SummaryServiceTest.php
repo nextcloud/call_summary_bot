@@ -131,7 +131,7 @@ class SummaryServiceTest extends TestCase {
 		if (!empty($tasks)) {
 			$i = 0;
 			$service->method('saveTask')
-				->willReturnCallback(function (string $server, string $token, string $text, string $type) use ($tasks, $types, &$i) {
+				->willReturnCallback(function (string $server, string $token, string $text, string $type) use ($tasks, $types, &$i): void {
 					if (!isset($tasks[$i])) {
 						$this->fail($type . '/' . $text . ' not found in Array' . print_r($tasks, true));
 					}
@@ -186,9 +186,7 @@ class SummaryServiceTest extends TestCase {
 	public function testGetTitle(string $roomName, string $title): void {
 		$l = $this->createMock(IL10N::class);
 		$l->method('t')
-			->willReturnCallback(function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(fn($string, $args) => vsprintf($string, $args));
 
 		$service = $this->getService();
 
