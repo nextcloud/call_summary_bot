@@ -56,6 +56,7 @@ appstore: dev-setup
 	--exclude=/src \
 	--exclude=/tests \
 	--exclude=/vendor \
+	--exclude=/vendor-bin \
 	--exclude=/.eslintrc.js \
 	--exclude=/.l10nignore \
 	--exclude=/.php-cs-fixer.cache \
@@ -72,6 +73,7 @@ appstore: dev-setup
 	--exclude=/package-lock.json \
 	--exclude=/psalm.xml \
 	--exclude=/README.md \
+	--exclude=/rector.php \
 	--exclude=/stylelint.config.js \
 	--exclude=/webpack.js \
 	$(project_dir)/ $(sign_dir)/$(app_name)

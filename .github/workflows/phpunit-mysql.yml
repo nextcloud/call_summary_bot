@@ -97,6 +97,13 @@ jobs:
         with:
           path: apps/${{ env.APP_NAME }}
 
+      - name: Skip rector on PHP 8.0
+        if: matrix.php-versions == '8.0'
+        continue-on-error: true
+        working-directory: apps/${{ env.APP_NAME }}
+        run: |
+          rm -rf vendor-bin/rector
+
       - name: Set up php ${{ matrix.php-versions }}
         uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231 # v2.31.1
         with:

@@ -65,7 +65,7 @@ class BotService {
 		);
 		try {
 			$this->dispatcher->dispatchTyped($event);
-		} catch (\Throwable $e) {
+		} catch (\Throwable) {
 		}
 	}
 
@@ -95,7 +95,7 @@ class BotService {
 		);
 		try {
 			$this->dispatcher->dispatchTyped($event);
-		} catch (\Throwable $e) {
+		} catch (\Throwable) {
 		}
 	}
 }
