@@ -186,7 +186,7 @@ class SummaryServiceTest extends TestCase {
 	public function testGetTitle(string $roomName, string $title): void {
 		$l = $this->createMock(IL10N::class);
 		$l->method('t')
-			->willReturnCallback(fn($string, $args) => vsprintf($string, $args));
+			->willReturnCallback(fn ($string, $args) => vsprintf($string, $args));
 
 		$service = $this->getService();
 

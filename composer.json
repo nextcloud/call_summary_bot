@@ -35,6 +35,12 @@
 		"psalm:fix": "psalm.phar --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
 		"rector:check": "rector --dry-run",
 		"rector:fix": "rector",
-		"test:unit": "phpunit --color -c tests/phpunit.xml"
+		"test:unit": "phpunit --color -c tests/phpunit.xml",
+		"post-install-cmd": [
+			"@composer bin all install --ansi"
+		],
+		"post-update-cmd": [
+			"@composer bin all update --ansi"
+		]
 	}
 }
