@@ -10,6 +10,8 @@ OC.L10N.register(
     "Tasks" : "Úlohy",
     "Notes" : "Poznámky",
     "Reports" : "Výkazy",
+    "Decisions" : "Rozhodnutí",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Souhrn hovoru – {title}",
     "Call summary bot" : "Automat pro souhrn hovoru"
 },
