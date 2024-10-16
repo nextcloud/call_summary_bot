@@ -7,6 +7,7 @@ OC.L10N.register(
     "Call summary (%s)" : "Puhelun yhteenveto (%s)",
     "Attendees" : "Osallistujat",
     "Tasks" : "Tehtävät",
+    "Notes" : "Muistiinpanot",
     "Reports" : "Raportit",
     "Call summary - {title}" : "Puhelun yhteenveto - {title}",
     "Call summary bot" : "Puhelun yhteenveto -botti"
