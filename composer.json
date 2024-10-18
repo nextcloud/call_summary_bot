@@ -36,6 +36,7 @@
 		"rector:check": "rector --dry-run",
 		"rector:fix": "rector",
 		"test:unit": "phpunit --color -c tests/phpunit.xml",
+		"bin": "echo 'bamarni/composer-bin-plugin is a dev dependency and not installed'",
 		"post-install-cmd": [
 			"@composer bin all install --ansi"
 		],
