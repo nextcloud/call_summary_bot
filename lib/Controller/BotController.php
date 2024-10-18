@@ -148,7 +148,7 @@ class BotController extends OCSController {
 				$logEntry->setType(LogEntry::TYPE_ATTENDEE);
 
 				$displayName = $data['actor']['name'];
-				if (str_starts_with($data['actor']['id'], 'guests/')) {
+				if (str_starts_with($data['actor']['id'], 'guests/') || str_starts_with($data['actor']['id'], 'emails/')) {
 					if ($displayName === '') {
 						return new DataResponse();
 					}
