@@ -10,6 +10,8 @@ OC.L10N.register(
     "Tasks" : "Tâches",
     "Notes" : "Notes",
     "Reports" : "Rapports",
+    "Decisions" : "Décisions",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Résumé de l'appel - {title}",
     "Call summary bot" : "Robot de synthèse d'appel"
 },
