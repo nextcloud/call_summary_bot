@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "%s (guest)" : "%s (viesis)",
     "__language_name__" : "Latviešu",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Zvanu apkopojuma robotprogrammatūra izveido pārskata ziņojumu pēc zvana, uzskaitot visus dalībniekus un izklāstot uzdevumus",
     "Attendees" : "Apmeklētāji",
     "Tasks" : "Uzdevumi",
     "Notes" : "Piezīmes"
