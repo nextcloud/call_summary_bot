@@ -15,7 +15,7 @@ use OCP\IDBConnection;
 /**
  * @method LogEntry mapRowToEntity(array $row)
  * @method LogEntry findEntity(IQueryBuilder $query)
- * @method LogEntry[] findEntities(IQueryBuilder $query)
+ * @method list<LogEntry> findEntities(IQueryBuilder $query)
  * @template-extends QBMapper<LogEntry>
  */
 class LogEntryMapper extends QBMapper {
