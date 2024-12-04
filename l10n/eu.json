@@ -8,6 +8,8 @@
     "Tasks" : "Zereginak",
     "Notes" : "Oharrak",
     "Reports" : "Txostenak",
+    "Decisions" : "Erabakiak",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Deiaren laburpena - {title}",
     "Call summary bot" : "Deiaren laburpen bot-a"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

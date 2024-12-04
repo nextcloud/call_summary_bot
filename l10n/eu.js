@@ -10,6 +10,8 @@ OC.L10N.register(
     "Tasks" : "Zereginak",
     "Notes" : "Oharrak",
     "Reports" : "Txostenak",
+    "Decisions" : "Erabakiak",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Deiaren laburpena - {title}",
     "Call summary bot" : "Deiaren laburpen bot-a"
 },
