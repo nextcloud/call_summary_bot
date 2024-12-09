@@ -5,6 +5,7 @@ OC.L10N.register(
     "__language_name__" : "__language_name__",
     "Attendees" : "Assistents",
     "Tasks" : "Tasques",
+    "Notes" : "Notes",
     "Reports" : "Informes"
 },
 "nplurals=2; plural=(n != 1);");
