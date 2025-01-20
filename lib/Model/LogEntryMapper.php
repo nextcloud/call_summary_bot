@@ -26,20 +26,20 @@ class LogEntryMapper extends QBMapper {
 	/**
 	 * @return LogEntry[]
 	 */
-	public function findByConversation(string $server, string $token): array {
+	public function findByConversation(string $token): array {
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
-			->where($query->expr()->eq('server', $query->createNamedParameter($server)))
+			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
 			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)));
 		return $this->findEntities($query);
 	}
 
-	public function hasActiveCall(string $server, string $token): bool {
+	public function hasActiveCall(string $token): bool {
 		$query = $this->db->getQueryBuilder();
 		$query->select($query->expr()->literal(1))
 			->from($this->getTableName())
-			->where($query->expr()->eq('server', $query->createNamedParameter($server)))
+			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
 			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
 			->andWhere($query->expr()->eq('type', $query->createNamedParameter(LogEntry::TYPE_ATTENDEE)))
 			->setMaxResults(1);
@@ -50,10 +50,10 @@ class LogEntryMapper extends QBMapper {
 		return $hasAttendee;
 	}
 
-	public function deleteByConversation(string $server, string $token): void {
+	public function deleteByConversation(string $token): void {
 		$query = $this->db->getQueryBuilder();
 		$query->delete($this->getTableName())
-			->where($query->expr()->eq('server', $query->createNamedParameter($server)))
+			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
 			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)));
 		$query->executeStatement();
 	}

@@ -131,7 +131,7 @@ class SummaryServiceTest extends TestCase {
 		if (!empty($tasks)) {
 			$i = 0;
 			$service->method('saveTask')
-				->willReturnCallback(function (string $server, string $token, string $text, string $type) use ($tasks, $types, &$i): void {
+				->willReturnCallback(function (string $token, string $text, string $type) use ($tasks, $types, &$i): void {
 					if (!isset($tasks[$i])) {
 						$this->fail($type . '/' . $text . ' not found in Array' . print_r($tasks, true));
 					}
@@ -144,7 +144,7 @@ class SummaryServiceTest extends TestCase {
 				->method('saveTask');
 		}
 
-		self::assertEquals(!empty($tasks), $service->readTasksFromMessage($message, ['parameters' => []], 'server', ['target' => ['id' => 't0k3n']]));
+		self::assertEquals(!empty($tasks), $service->readTasksFromMessage($message, ['parameters' => []], ['target' => ['id' => 't0k3n']]));
 	}
 
 	public static function dataGetTitle(): array {

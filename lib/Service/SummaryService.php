@@ -39,7 +39,7 @@ class SummaryService {
 	) {
 	}
 
-	public function readTasksFromMessage(string $message, array $messageData, string $server, array $data): bool {
+	public function readTasksFromMessage(string $message, array $messageData, array $data): bool {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
@@ -90,7 +90,7 @@ class SummaryService {
 					$todoText = trim($todo);
 					if ($todoText) {
 						// Only store when not empty
-						$this->saveTask($server, $data['target']['id'], $todoText, $nextEntry);
+						$this->saveTask($data['target']['id'], $todoText, $nextEntry);
 					}
 					$nextEntry = null;
 				}
@@ -103,7 +103,7 @@ class SummaryService {
 		return false;
 	}
 
-	public function readAgendaFromMessage(string $message, array $messageData, string $server, array $data): bool {
+	public function readAgendaFromMessage(string $message, array $messageData, array $data): bool {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
@@ -135,7 +135,7 @@ class SummaryService {
 			$agendaText = trim($agenda);
 			if ($agendaText) {
 				// Only store when not empty
-				$this->saveTask($server, $data['target']['id'], $agendaText, LogEntry::TYPE_AGENDA);
+				$this->saveTask($data['target']['id'], $agendaText, LogEntry::TYPE_AGENDA);
 			}
 		}
 
@@ -143,9 +143,9 @@ class SummaryService {
 		return true;
 	}
 
-	protected function saveTask(string $server, string $token, string $text, string $type): void {
+	protected function saveTask(string $token, string $text, string $type): void {
 		$logEntry = new LogEntry();
-		$logEntry->setServer($server);
+		$logEntry->setServer('local');
 		$logEntry->setToken($token);
 		$logEntry->setType($type);
 		$logEntry->setDetails($text);
@@ -153,15 +153,14 @@ class SummaryService {
 	}
 
 	/**
-	 * @param string $server
 	 * @param string $token
 	 * @param string $roomName
 	 * @param string $lang
 	 * @return array{summary: string, elevator: ?int}|null
 	 */
-	public function summarize(string $server, string $token, string $roomName, string $lang = 'en'): ?array {
-		$logEntries = $this->logEntryMapper->findByConversation($server, $token);
-		$this->logEntryMapper->deleteByConversation($server, $token);
+	public function summarize(string $token, string $roomName, string $lang = 'en'): ?array {
+		$logEntries = $this->logEntryMapper->findByConversation($token);
+		$this->logEntryMapper->deleteByConversation($token);
 
 		$libL10N = $this->l10nFactory->get('lib', $lang);
 		$l = $this->l10nFactory->get('call_summary_bot', $lang);
@@ -271,14 +270,13 @@ class SummaryService {
 	}
 
 	/**
-	 * @param string $server
 	 * @param string $token
 	 * @param string $lang
 	 * @return ?string
 	 */
-	public function agenda(string $server, string $token, string $lang = 'en'): ?string {
-		$logEntries = $this->logEntryMapper->findByConversation($server, $token);
-		$this->logEntryMapper->deleteByConversation($server, $token);
+	public function agenda(string $token, string $lang = 'en'): ?string {
+		$logEntries = $this->logEntryMapper->findByConversation($token);
+		$this->logEntryMapper->deleteByConversation($token);
 
 
 		$agenda = [];

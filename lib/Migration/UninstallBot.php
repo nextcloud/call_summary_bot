@@ -41,7 +41,7 @@ class UninstallBot implements IRepairStep {
 		if ($secretData) {
 			$secretArray = json_decode($secretData, true, 512, JSON_THROW_ON_ERROR);
 			if ($secretArray['secret']) {
-				$this->service->uninstallBot($secretArray['secret'], $backend);
+				$this->service->uninstallBot($secretArray['secret']);
 			}
 		}
 	}
