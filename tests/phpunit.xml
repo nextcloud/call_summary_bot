@@ -4,14 +4,14 @@
 		 timeoutForMediumTests="900"
 		 timeoutForLargeTests="900"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+		 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
 	<testsuite name="Call Summary Bot Tests">
 		<directory>.</directory>
 	</testsuite>
-	<coverage>
+	<source>
 		<include>
 			<directory suffix=".php">../../call_summary_bot/appinfo</directory>
 			<directory suffix=".php">../../call_summary_bot/lib</directory>
 		</include>
-	</coverage>
+	</source>
 </phpunit>
