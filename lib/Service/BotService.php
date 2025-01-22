@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace OCA\CallSummaryBot\Service;
 
+use OCA\CallSummaryBot\AppInfo\Application;
 use OCA\CallSummaryBot\Model\Bot;
 use OCA\Talk\Events\BotInstallEvent;
 use OCA\Talk\Events\BotUninstallEvent;
@@ -60,7 +61,7 @@ class BotService {
 		$event = new BotInstallEvent(
 			$l->t('Call summary'),
 			$secret . str_replace('_', '', $lang),
-			$this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]),
+			'nextcloudapp://' . Application::APP_ID . '/' . $lang,
 			$l->t('Call summary (%s)', $langName) . ' - ' . $l->t('The call summary bot posts an overview message after the call listing all participants and outlining tasks'),
 		);
 		try {
@@ -69,29 +70,26 @@ class BotService {
 		}
 	}
 
-	public function uninstallBot(string $secret, string $backend): void {
+	public function uninstallBot(string $secret): void {
 		foreach (Bot::SUPPORTED_LANGUAGES as $lang) {
-			$this->uninstallLanguage($secret, $backend, $lang);
+			$this->uninstallLanguage($secret, $lang);
 		}
 	}
 
-	protected function uninstallLanguage(string $secret, string $backend, string $lang): void {
-		$absoluteUrl = $this->url->getAbsoluteURL('');
-		$backendUrl = rtrim($backend, '/') . '/' . substr($this->url->linkToOCSRouteAbsolute('call_summary_bot.Bot.receiveWebhook', ['lang' => $lang]), strlen($absoluteUrl));
-
+	protected function uninstallLanguage(string $secret, string $lang): void {
 		$event = new BotUninstallEvent(
 			$secret . str_replace('_', '', $lang),
-			$backendUrl,
+			'nextcloudapp://' . Application::APP_ID . '/' . $lang,
 		);
 		try {
 			$this->dispatcher->dispatchTyped($event);
-		} catch (\Throwable $e) {
+		} catch (\Throwable) {
 		}
 
 		// Also remove legacy secret bots
 		$event = new BotUninstallEvent(
 			$secret,
-			$backendUrl,
+			'nextcloudapp://' . Application::APP_ID . '/' . $lang,
 		);
 		try {
 			$this->dispatcher->dispatchTyped($event);
