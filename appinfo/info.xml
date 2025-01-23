@@ -46,16 +46,13 @@
 	<screenshot>https://raw.githubusercontent.com/nextcloud/call_summary_bot/main/docs/agenda.png</screenshot>
 
 	<dependencies>
-		<nextcloud min-version="28" max-version="31" />
+		<nextcloud min-version="28" max-version="30" />
 	</dependencies>
 
 	<repair-steps>
 		<install>
 			<step>OCA\CallSummaryBot\Migration\InstallBot</step>
 		</install>
-		<uninstall>
-			<step>OCA\CallSummaryBot\Migration\UninstallBot</step>
-		</uninstall>
 	</repair-steps>
 
 	<commands>
