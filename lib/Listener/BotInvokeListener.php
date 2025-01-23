@@ -41,11 +41,11 @@ class BotInvokeListener implements IEventListener {
 			return;
 		}
 
-		if (!str_starts_with($event->getBotUrl(), Application::APP_ID . '/')) {
+		if (!str_starts_with($event->getBotUrl(), 'nextcloudapp://' . Application::APP_ID . '/')) {
 			return;
 		}
 
-		[$appId, $lang] = explode('/', $event->getBotUrl(), 2);
+		[,, $appId, $lang] = explode('/', $event->getBotUrl(), 4);
 		if ($appId !== Application::APP_ID || !in_array($lang, Bot::SUPPORTED_LANGUAGES, true)) {
 			return;
 		}
