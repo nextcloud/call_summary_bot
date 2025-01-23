@@ -5,6 +5,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.0.0 - 2025-01-23
+### Changed
+- Nextcloud 31 required
+- Rewritten to utilize the new Events for bots to reduce server requests
+
 ## 2.0.0 - 2024-09-16
 ### Added
 - Agenda: You can now collect topics for the agenda list before the call and the bot will post it once the call was started
