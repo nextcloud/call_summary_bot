@@ -5,6 +5,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.0.1 - 2025-01-23
+### Fixed
+- No longer uninstall the bot when disabling the app
+
 ## 2.0.0 - 2024-09-16
 ### Added
 - Agenda: You can now collect topics for the agenda list before the call and the bot will post it once the call was started

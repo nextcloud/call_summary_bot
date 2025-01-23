@@ -27,7 +27,7 @@
 - You can also post multiple tasks in a single message, just put each on its own line starting with a keyword
 - At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message]]></description>
 
-	<version>2.1.0-dev.0</version>
+	<version>2.0.1</version>
 	<licence>agpl</licence>
 
 	<author>Joas Schilling</author>
