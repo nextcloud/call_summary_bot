@@ -5,6 +5,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.0.1 - 2025-01-23
+### Fixed
+- Fix typo in new event handling
+- Fix missing event feature flag on new install
+- No longer uninstall the bot when disabling the app
+
 ## 3.0.0 - 2025-01-23
 ### Changed
 - Nextcloud 31 required

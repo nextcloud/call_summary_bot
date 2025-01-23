@@ -27,7 +27,7 @@
 - You can also post multiple tasks in a single message, just put each on its own line starting with a keyword
 - At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message]]></description>
 
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<licence>agpl</licence>
 
 	<author>Joas Schilling</author>
@@ -57,8 +57,5 @@
 		<install>
 			<step>OCA\CallSummaryBot\Migration\InstallBot</step>
 		</install>
-		<uninstall>
-			<step>OCA\CallSummaryBot\Migration\UninstallBot</step>
-		</uninstall>
 	</repair-steps>
 </info>

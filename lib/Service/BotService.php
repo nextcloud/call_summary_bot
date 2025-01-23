@@ -63,6 +63,7 @@ class BotService {
 			$secret . str_replace('_', '', $lang),
 			'nextcloudapp://' . Application::APP_ID . '/' . $lang,
 			$l->t('Call summary (%s)', $langName) . ' - ' . $l->t('The call summary bot posts an overview message after the call listing all participants and outlining tasks'),
+			features: 4, // EVENT
 		);
 		try {
 			$this->dispatcher->dispatchTyped($event);

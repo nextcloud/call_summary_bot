@@ -6,6 +6,16 @@
 
 namespace OCA\Talk\Events {
 	class BotInstallEvent extends \OCP\EventDispatcher\Event {
+		public function __construct(
+			protected string $name,
+			protected string $secret,
+			protected string $url,
+			protected string $description = '',
+			protected ?int $features = null,
+		) {
+			parent::__construct();
+		}
+
 		public function getName(): string {
 		}
 
