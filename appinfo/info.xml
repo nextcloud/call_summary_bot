@@ -57,8 +57,5 @@
 		<install>
 			<step>OCA\CallSummaryBot\Migration\InstallBot</step>
 		</install>
-		<uninstall>
-			<step>OCA\CallSummaryBot\Migration\UninstallBot</step>
-		</uninstall>
 	</repair-steps>
 </info>
