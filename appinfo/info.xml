@@ -27,7 +27,7 @@
 - You can also post multiple tasks in a single message, just put each on its own line starting with a keyword
 - At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message]]></description>
 
-	<version>3.0.1</version>
+	<version>3.1.0-dev.0</version>
 	<licence>agpl</licence>
 
 	<author>Joas Schilling</author>
@@ -50,7 +50,7 @@
 	<screenshot>https://raw.githubusercontent.com/nextcloud/call_summary_bot/main/docs/agenda.png</screenshot>
 
 	<dependencies>
-		<nextcloud min-version="31" max-version="31" />
+		<nextcloud min-version="31" max-version="32" />
 	</dependencies>
 
 	<repair-steps>
