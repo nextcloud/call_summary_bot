@@ -8,6 +8,8 @@
     "Tasks" : "Tareas",
     "Notes" : "Notas",
     "Reports" : "Informes",
+    "Decisions" : "Decisiones",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Resumen de la llamada - {title}",
     "Call summary bot" : "Bot del resumen de la llamada"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
