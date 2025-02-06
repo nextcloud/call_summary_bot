@@ -6,6 +6,7 @@ OC.L10N.register(
     "Attendees" : "Peserta",
     "Tasks" : "Tugas",
     "Notes" : "Catatan",
+    "Reports" : "Laporan",
     "Call summary - {title}" : "Ringkasan panggilan - {judul}",
     "Call summary bot" : "Bot ringkasan panggilan"
 },

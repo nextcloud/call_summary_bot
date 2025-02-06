@@ -4,6 +4,7 @@
     "Attendees" : "Peserta",
     "Tasks" : "Tugas",
     "Notes" : "Catatan",
+    "Reports" : "Laporan",
     "Call summary - {title}" : "Ringkasan panggilan - {judul}",
     "Call summary bot" : "Bot ringkasan panggilan"
 },"pluralForm" :"nplurals=1; plural=0;"
