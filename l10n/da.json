@@ -2,6 +2,7 @@
     "%s (guest)" : "%s (gæst)",
     "__language_name__" : "Dansk",
     "Call summary" : "Opkaldsoversigt",
+    "Call summary (%s)" : "Opkaldssammendrag (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Opkaldsoversigts bot'en sender en oversigtsmeddelelse efter opkaldet med alle deltagere og skitserede opgaver",
     "Attendees" : "Deltagere",
     "Tasks" : "Opgaver",
@@ -9,6 +10,8 @@
     "Reports" : "Raporter",
     "Decisions" : "Beslutninger",
     "Agenda" : "Dagsorden",
-    "Call summary - {title}" : "Opkaldsoversigt - {title}"
+    "Call summary - {title}" : "Opkaldsoversigt - {title}",
+    "Call summary bot" : "Opkaldssammendrags bot",
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Inden et opkald\n\n- Bot'en kan anvendes til også at samle agenda points og emner med de følgende nøgleord:\n  - `- agenda`\n  - `- emne`\n  - `- top`\n- Du kan også poste multiple opgaver i en enkelt besked. Blot placer hver på sin egen linje startende med et nøgleord\n\n### Under et opkald\n\n- Enhver besked der starter med en Markdown afkrydsningsboks eller et nøgleord under et opkald vil blive opdaget og anvendt i sammendraget:\n  - Åbne todos: `- [ ]`, `- todo:`, `- opgave:`\n  - Løste todos: `- [x]`\n  - Noter: `- note:`\n  - Rapporter: `- rapport:`\n  - Afgørelser: `- afgørelse:`\n- Du kan også poste multiple opgaver i en enkelt besked. Placer blot hver enkelt på sin egen linje startende med et nøgleord\n- Ved slutningen af et opkald, så vil bot,en lave et sammendrag af opkaldet og liste alle deltagere, såvel som opgaverne i en markdown chatbesked"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
