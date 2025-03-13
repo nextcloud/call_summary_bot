@@ -10,6 +10,8 @@ OC.L10N.register(
     "Tasks" : "任务",
     "Notes" : "附注",
     "Reports" : "报告",
+    "Decisions" : "决定",
+    "Agenda" : "日程",
     "Call summary - {title}" : "通话摘要 - {title}",
     "Call summary bot" : "通话摘要机器人"
 },
