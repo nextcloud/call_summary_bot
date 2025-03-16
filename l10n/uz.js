@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Attendees" : "Ishtirokchilar",
     "Tasks" : "Tasks",
-    "Notes" : "Notes"
+    "Notes" : "Notes",
+    "Reports" : "Hisobotlar"
 },
 "nplurals=1; plural=0;");

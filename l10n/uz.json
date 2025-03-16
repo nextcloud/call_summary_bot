@@ -1,6 +1,7 @@
 { "translations": {
     "Attendees" : "Ishtirokchilar",
     "Tasks" : "Tasks",
-    "Notes" : "Notes"
+    "Notes" : "Notes",
+    "Reports" : "Hisobotlar"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
