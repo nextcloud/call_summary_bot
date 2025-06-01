@@ -1,23 +1,21 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * SPDX-FileCopyrightText: 2016 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
+use OCP\App\IAppManager;
+use OCP\Server;
 
 if (!defined('PHPUNIT_RUN')) {
 	define('PHPUNIT_RUN', 1);
 }
 
 require_once __DIR__ . '/../../../lib/base.php';
+require_once __DIR__ . '/../../../tests/autoload.php';
 
-// Fix for "Autoload path not allowed: .../tests/lib/testcase.php"
-\OC::$loader->addValidRoot(OC::$SERVERROOT . '/tests');
-
-// Fix for "Autoload path not allowed: .../call_summary_bot/tests/testcase.php"
-\OC_App::loadApp('call_summary_bot');
-
-if (!class_exists(\PHPUnit\Framework\TestCase::class)) {
-	require_once('PHPUnit/Autoload.php');
-}
-
-OC_Hook::clear();
+Server::get(IAppManager::class)->enableApp('call_summary_bot');
+Server::get(IAppManager::class)->loadApp('call_summary_bot');
