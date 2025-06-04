@@ -10,6 +10,7 @@ OC.L10N.register(
     "Tasks" : "Naloge",
     "Notes" : "Beležke",
     "Reports" : "Poročila",
+    "Decisions" : "Odločitve",
     "Call summary - {title}" : "Povzetek klica – {title}",
     "Call summary bot" : "Vstavek za povzemanje klica"
 },
