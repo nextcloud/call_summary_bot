@@ -1,4 +1,6 @@
 { "translations": {
-    "Attendees" : "Wahudhuriaji"
+    "Attendees" : "Wahudhuriaji",
+    "Tasks" : "Kazi",
+    "Notes" : "Madokezo"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
