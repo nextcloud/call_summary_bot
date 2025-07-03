@@ -1,8 +1,19 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (mgeni)",
+    "__language_name__" : "_lugha_jina_",
+    "Call summary" : "Muhtasari wa simu",
+    "Call summary (%s)" : "Muhtasari wa simu (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Boti ya muhtasari wa simu huchapisha ujumbe wa muhtasari baada ya simu kuorodhesha washiriki wote na kuelezea majukumu",
     "Attendees" : "Wahudhuriaji",
     "Tasks" : "Kazi",
-    "Notes" : "Madokezo"
+    "Notes" : "Madokezo",
+    "Reports" : "Taarifa",
+    "Decisions" : "Maamuzi",
+    "Agenda" : "Ajenda",
+    "Call summary - {title}" : "Muhtasari wa simu-{title}",
+    "Call summary bot" : "Bot ya muhtasari wa simu",
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Kabla ya simu\n\n- Bot inaweza kutumika kukusanya vidokezo vya ajenda na mada kwa maneno muhimu yafuatayo:\n- `- ajenda`\n- `- mada`\n- `- juu`\n- Unaweza pia kuchapisha kazi nyingi katika ujumbe mmoja, weka kila moja kwenye mstari wake ukianza na neno kuu\n\n### Wakati wa simu\n\n- Ujumbe wowote unaoanza na kisanduku cha kuteua cha Markdown au neno kuu wakati wa simu utatambuliwa na kutumika katika muhtasari:\n- Fungua todos: `- [ ]`, `- todo:`, `- kazi:`\n- Todos zilizotatuliwa: `- [x]`\n- Vidokezo: `- kumbuka:`\n- Ripoti: `- ripoti:`\n- Maamuzi: `- uamuzi:`\n- Unaweza pia kuchapisha kazi nyingi katika ujumbe mmoja, weka kila moja kwenye mstari wake ukianza na neno kuu\n- Mwishoni mwa simu, roboti itafanya muhtasari na kuorodhesha waliohudhuria wote pamoja na majukumu katika ujumbe wa gumzo."
 },
 "nplurals=2; plural=(n != 1);");
