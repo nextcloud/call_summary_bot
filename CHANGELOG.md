@@ -5,6 +5,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.1.0 - 2025-08-29
+### Changed
+- Nextcloud 32 supported
+- Add author of agenda items to the list
+
+### Fixed
+- Don't post empty summary in one-to-one calls
+- Don't get stuck on missed one-to-one calls
+
 ## 3.0.1 - 2025-01-23
 ### Fixed
 - Fix typo in new event handling
