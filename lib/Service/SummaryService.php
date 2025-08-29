@@ -200,6 +200,16 @@ class SummaryService {
 			return null;
 		}
 
+		if (empty($todos)
+			&& empty($solved)
+			&& empty($notes)
+			&& empty($decisions)
+			&& empty($reports)
+			&& $this->isOneToOne($roomName)) {
+			// No call summary for empty 1-1 calls
+			return null;
+		}
+
 		$attendees = array_unique($attendees);
 		sort($attendees);
 
@@ -301,17 +311,25 @@ class SummaryService {
 	}
 
 	protected function getTitle(IL10N $l, string $roomName): string {
+		if ($this->isOneToOne($roomName)) {
+			return $l->t('Call summary');
+		}
+
+		return str_replace('{title}', $roomName, $l->t('Call summary - {title}'));
+	}
+
+	protected function isOneToOne(string $roomName): bool {
 		try {
 			$data = json_decode($roomName, true, flags: JSON_THROW_ON_ERROR);
 			if (is_array($data) && count($data) === 2 && isset($data[0]) && is_string($data[0]) && isset($data[1]) && is_string($data[1])) {
 				// Seems like the room name is a JSON map with the 2 user IDs of a 1-1 conversation,
 				// so we don't add it to the title to avoid things like:
 				// `Call summary - ["2991c735-4f9e-46e2-a107-7569dd19fdf8","42e6a9c2-a833-43f6-ab47-6b7004094912"]`
-				return $l->t('Call summary');
+				return true;
 			}
 		} catch (\JsonException) {
 		}
 
-		return str_replace('{title}', $roomName, $l->t('Call summary - {title}'));
+		return false;
 	}
 }
