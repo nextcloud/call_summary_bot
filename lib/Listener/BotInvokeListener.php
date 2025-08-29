@@ -119,6 +119,8 @@ class BotInvokeListener implements IEventListener {
 				if ($summary !== null) {
 					$event->addAnswer($summary['summary'], $summary['elevator']);
 				}
+			} elseif ($data['object']['name'] === 'call_missed') {
+				$this->logEntryMapper->deleteByConversation($data['target']['id']);
 			}
 		}
 	}
