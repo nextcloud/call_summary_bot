@@ -103,7 +103,7 @@ class SummaryService {
 		return false;
 	}
 
-	public function readAgendaFromMessage(string $message, array $messageData, array $data): bool {
+	public function readAgendaFromMessage(string $message, array $messageData, array $data, ?string $displayName): bool {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
@@ -135,6 +135,9 @@ class SummaryService {
 			$agendaText = trim($agenda);
 			if ($agendaText) {
 				// Only store when not empty
+				if ($displayName !== null && trim($displayName) !== '') {
+					$agendaText .= ' (' . $displayName . ')';
+				}
 				$this->saveTask($data['target']['id'], $agendaText, LogEntry::TYPE_AGENDA);
 			}
 		}

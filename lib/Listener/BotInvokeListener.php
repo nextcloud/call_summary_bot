@@ -60,7 +60,8 @@ class BotInvokeListener implements IEventListener {
 			$message = $messageData['message'];
 
 			if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
-				$agendaDetected = $this->summaryService->readAgendaFromMessage($message, $messageData, $data);
+				$displayName = $this->getAuthorDisplayName($data['actor']['name'], $data['actor']['id'], $lang);
+				$agendaDetected = $this->summaryService->readAgendaFromMessage($message, $messageData, $data, $displayName);
 
 				if ($agendaDetected) {
 					// React with thumbs up as we detected an agenda item
@@ -103,16 +104,9 @@ class BotInvokeListener implements IEventListener {
 				$logEntry->setToken($data['target']['id']);
 				$logEntry->setType(LogEntry::TYPE_ATTENDEE);
 
-				$displayName = $data['actor']['name'];
-				if (str_starts_with($data['actor']['id'], 'guests/') || str_starts_with($data['actor']['id'], 'emails/')) {
-					if ($displayName === '') {
-						return;
-					}
-					$l = $this->l10nFactory->get('call_summary_bot', $lang);
-					$displayName = $l->t('%s (guest)', $displayName);
-				} elseif (str_starts_with($data['actor']['id'], 'federated_users/')) {
-					$cloudIdServer = explode('@', $data['actor']['id']);
-					$displayName .= ' (' . array_pop($cloudIdServer) . ')';
+				$displayName = $this->getAuthorDisplayName($data['actor']['name'], $data['actor']['id'], $lang);
+				if ($displayName === null) {
+					return;
 				}
 
 				$logEntry->setDetails($displayName);
@@ -127,5 +121,21 @@ class BotInvokeListener implements IEventListener {
 				}
 			}
 		}
+	}
+
+	protected function getAuthorDisplayName(string $name, string $id, string $lang): ?string {
+		$displayName = $name;
+		if (str_starts_with($id, 'guests/') || str_starts_with($id, 'emails/')) {
+			if ($displayName === '') {
+				return null;
+			}
+			$l = $this->l10nFactory->get('call_summary_bot', $lang);
+			$displayName = $l->t('%s (guest)', $displayName);
+		} elseif (str_starts_with($id, 'federated_users/')) {
+			$cloudIdServer = explode('@', $id);
+			$displayName .= ' (' . array_pop($cloudIdServer) . ')';
+		}
+
+		return $displayName;
 	}
 }
