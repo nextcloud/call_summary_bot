@@ -3,9 +3,13 @@ OC.L10N.register(
     {
     "%s (guest)" : "%s (ospite)",
     "__language_name__" : "Italiano",
+    "Call summary" : "Riassunto della chiamata",
+    "Call summary (%s)" : "Riassunto della chiamata (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Il bot di riassunto delle chiamate pubblica un messaggio di sintesi dopo la chiamata, elencando tutti i partecipanti e descrivendo le attività.",
     "Attendees" : "Partecipanti",
     "Tasks" : "Attività",
     "Notes" : "Note",
-    "Reports" : "Reports"
+    "Reports" : "Reports",
+    "Call summary - {title}" : "Riassunto della chiamata - {title}"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
