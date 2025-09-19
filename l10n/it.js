@@ -10,6 +10,8 @@ OC.L10N.register(
     "Tasks" : "Attività",
     "Notes" : "Note",
     "Reports" : "Reports",
+    "Decisions" : "Decisioni",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Riassunto della chiamata - {title}"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
