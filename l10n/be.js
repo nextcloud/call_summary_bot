@@ -4,7 +4,7 @@ OC.L10N.register(
     "%s (guest)" : "%s (госць)",
     "__language_name__" : "Беларуская",
     "Attendees" : "Удзельнікі",
-    "Tasks" : "Задачы",
+    "Tasks" : "Заданні",
     "Notes" : "Нататкі",
     "Reports" : "Справаздачы",
     "Decisions" : "Рашэнні"
