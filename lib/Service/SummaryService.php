@@ -11,6 +11,7 @@ namespace OCA\CallSummaryBot\Service;
 
 use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
+use OCP\App\IAppManager;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
 use OCP\IDateTimeFormatter;
@@ -29,6 +30,7 @@ class SummaryService {
 	public const REPORT_PATTERN = '/^report$/i';
 	public const DECISION_PATTERN = '/^decision$/i';
 	public const AGENDA_PATTERN = '/(^[-*]\s|^)(agenda|top|topic)\s*:/mi';
+	public const AGENDA_PATTERN_WITH_AGENDA_BOT = '/^[-*]\s(agenda|top|topic)\s*:/mi';
 
 	public function __construct(
 		protected IConfig $config,
@@ -36,6 +38,7 @@ class SummaryService {
 		protected ITimeFactory $timeFactory,
 		protected IDateTimeFormatter $dateTimeFormatter,
 		protected IFactory $l10nFactory,
+		protected IAppManager $appManager,
 	) {
 	}
 
@@ -107,7 +110,8 @@ class SummaryService {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
-		if (!preg_match(self::AGENDA_PATTERN, $firstLowerLine)) {
+		$agendaPattern = !$this->appManager->isEnabledForAnyone('agenda_bot') ? self::AGENDA_PATTERN : self::AGENDA_PATTERN_WITH_AGENDA_BOT;
+		if (!preg_match($agendaPattern, $firstLowerLine)) {
 			return false;
 		}
 
@@ -130,7 +134,7 @@ class SummaryService {
 		}
 
 		$parsedMessage = str_replace($placeholders, $replacements, $message);
-		$agendas = preg_split(self::AGENDA_PATTERN, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY);
+		$agendas = preg_split($agendaPattern, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY);
 		foreach ($agendas as $agenda) {
 			$agendaText = trim($agenda);
 			if ($agendaText) {
