@@ -110,7 +110,13 @@ class SummaryService {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
-		$agendaPattern = !$this->appManager->isEnabledForAnyone('agenda_bot') ? self::AGENDA_PATTERN : self::AGENDA_PATTERN_WITH_AGENDA_BOT;
+		// Todo: Update once Nextcloud 32 is required
+		if (method_exists($this->appManager, 'isEnabledForAnyone')) {
+			$agendaPattern = !$this->appManager->isEnabledForAnyone('agenda_bot') ? self::AGENDA_PATTERN : self::AGENDA_PATTERN_WITH_AGENDA_BOT;
+		} else {
+			$agendaPattern = !$this->appManager->isInstalled('agenda_bot') ? self::AGENDA_PATTERN : self::AGENDA_PATTERN_WITH_AGENDA_BOT;
+		}
+
 		if (!preg_match($agendaPattern, $firstLowerLine)) {
 			return false;
 		}
