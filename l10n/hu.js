@@ -10,6 +10,8 @@ OC.L10N.register(
     "Tasks" : "Feladatok",
     "Notes" : "Jegyzetek",
     "Reports" : "Jelentések",
+    "Decisions" : "Döntések",
+    "Agenda" : "Napirend",
     "Call summary - {title}" : "Hívásösszesítő – {title}",
     "Call summary bot" : "Hívásösszesítő bot"
 },

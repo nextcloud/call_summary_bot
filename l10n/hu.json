@@ -8,6 +8,8 @@
     "Tasks" : "Feladatok",
     "Notes" : "Jegyzetek",
     "Reports" : "Jelentések",
+    "Decisions" : "Döntések",
+    "Agenda" : "Napirend",
     "Call summary - {title}" : "Hívásösszesítő – {title}",
     "Call summary bot" : "Hívásösszesítő bot"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
