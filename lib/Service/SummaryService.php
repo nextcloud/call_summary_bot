@@ -42,7 +42,7 @@ class SummaryService {
 	) {
 	}
 
-	public function readTasksFromMessage(string $message, array $messageData, array $data): bool {
+	public function readTasksFromMessage(string $message, array $messageData, array $data, bool $hasAttachment, string $lang): bool {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
@@ -73,6 +73,12 @@ class SummaryService {
 		$parsedMessage = preg_replace(self::TODO_SOLVED_PATTERN, '- solved: ', $parsedMessage);
 		$parsedMessage = preg_replace(self::TODO_UNSOLVED_PATTERN, '- todo: ', $parsedMessage);
 
+		$hasAttachmentText = '';
+		if ($hasAttachment) {
+			$l = $this->l10nFactory->get('call_summary_bot', $lang);
+			$hasAttachmentText = ' *📎 ' . $l->t('with attachment') . '*';
+		}
+
 		if (preg_match(self::SUMMARY_PATTERN, $parsedMessage)) {
 			$todos = preg_split(self::SUMMARY_PATTERN, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 			$nextEntry = null;
@@ -91,6 +97,8 @@ class SummaryService {
 					$nextEntry = LogEntry::TYPE_DECISION;
 				} elseif ($nextEntry !== null) {
 					$todoText = trim($todo);
+					$todoText .= $hasAttachmentText;
+
 					if ($todoText) {
 						// Only store when not empty
 						$this->saveTask($data['target']['id'], $todoText, $nextEntry);
@@ -106,7 +114,7 @@ class SummaryService {
 		return false;
 	}
 
-	public function readAgendaFromMessage(string $message, array $messageData, array $data, ?string $displayName): bool {
+	public function readAgendaFromMessage(string $message, array $messageData, array $data, ?string $displayName, bool $hasAttachment, string $lang): bool {
 		$endOfFirstLine = strpos($message, "\n") ?: -1;
 		$firstLowerLine = strtolower(substr($message, 0, $endOfFirstLine));
 
@@ -139,6 +147,12 @@ class SummaryService {
 			}
 		}
 
+		$hasAttachmentText = '';
+		if ($hasAttachment) {
+			$l = $this->l10nFactory->get('call_summary_bot', $lang);
+			$hasAttachmentText = ' *📎 ' . $l->t('with attachment') . '*';
+		}
+
 		$parsedMessage = str_replace($placeholders, $replacements, $message);
 		$agendas = preg_split($agendaPattern, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY);
 		foreach ($agendas as $agenda) {
@@ -148,6 +162,7 @@ class SummaryService {
 				if ($displayName !== null && trim($displayName) !== '') {
 					$agendaText .= ' (' . $displayName . ')';
 				}
+				$agendaText .= $hasAttachmentText;
 				$this->saveTask($data['target']['id'], $agendaText, LogEntry::TYPE_AGENDA);
 			}
 		}

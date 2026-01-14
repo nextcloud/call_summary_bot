@@ -55,13 +55,20 @@ class BotInvokeListener implements IEventListener {
 
 	public function receiveWebhook(string $lang, BotInvokeEvent $event): void {
 		$data = $event->getMessage();
-		if ($data['type'] === 'Create' && $data['object']['name'] === 'message') {
+		if (($data['type'] === 'Create' && $data['object']['name'] === 'message')
+			// Nextcloud 33 and newer
+			|| ($data['type'] === 'Activity' && $data['object']['name'] === 'message')
+			// Nextcloud 32 and older
+			|| ($data['type'] === 'Activity' && $data['object']['name'] === '')) {
+
 			$messageData = json_decode($data['object']['content'], true);
 			$message = $messageData['message'];
 
+			$hasAttachment = isset($messageData['parameters']['file']);
+
 			if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
 				$displayName = $this->getAuthorDisplayName($data['actor']['name'], $data['actor']['id'], $lang);
-				$agendaDetected = $this->summaryService->readAgendaFromMessage($message, $messageData, $data, $displayName);
+				$agendaDetected = $this->summaryService->readAgendaFromMessage($message, $messageData, $data, $displayName, $hasAttachment, $lang);
 
 				if ($agendaDetected) {
 					// React with thumbs up as we detected an agenda item
@@ -70,7 +77,7 @@ class BotInvokeListener implements IEventListener {
 				return;
 			}
 
-			$taskDetected = $this->summaryService->readTasksFromMessage($message, $messageData, $data);
+			$taskDetected = $this->summaryService->readTasksFromMessage($message, $messageData, $data, $hasAttachment, $lang);
 
 			if ($taskDetected) {
 				// React with thumbs up as we detected a task
