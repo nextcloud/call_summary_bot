@@ -5,6 +5,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.2.0 - 2026-01-15
+### Changed
+- Nextcloud 33 supported
+- Update dependencies
+- Update translations
+
+### Fixed
+- Correctly track messages with attachments for agenda items, todos, decisions and results
+
 ## 3.1.0 - 2025-08-29
 ### Changed
 - Nextcloud 32 supported
