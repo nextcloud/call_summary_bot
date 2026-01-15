@@ -149,7 +149,7 @@ class SummaryServiceTest extends TestCase {
 				->method('saveTask');
 		}
 
-		self::assertEquals(!empty($tasks), $service->readTasksFromMessage($message, ['parameters' => []], ['target' => ['id' => 't0k3n']]));
+		self::assertEquals(!empty($tasks), $service->readTasksFromMessage($message, ['parameters' => []], ['target' => ['id' => 't0k3n']], false, 'en'));
 	}
 
 	public static function dataGetTitle(): array {
