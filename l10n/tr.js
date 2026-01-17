@@ -6,6 +6,7 @@ OC.L10N.register(
     "Call summary" : "Çağrı özeti",
     "Call summary (%s)" : "Çağrı özeti (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Çağrı özeti botu, çağrıdan sonra tüm katılımcıları listeleyen ve görevleri özetleyen bir özet iletisi gönderir.",
+    "with attachment" : "ek dosyası olan",
     "Attendees" : "Katılanlar",
     "Tasks" : "Görevler",
     "Notes" : "Notlar",

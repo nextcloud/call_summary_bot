@@ -4,6 +4,7 @@
     "Call summary" : "Achoimre glaonna",
     "Call summary (%s)" : "Achoimre ar an nglao (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Postálann an bot achoimre glaonna teachtaireacht forbhreathnú tar éis an ghlao ina liostaítear na rannpháirtithe go léir agus ag cur síos ar na tascanna",
+    "with attachment" : "le ceangaltán",
     "Attendees" : "Lucht freastail",
     "Tasks" : "Tascanna",
     "Notes" : "Nótaí",
