@@ -6,6 +6,7 @@ OC.L10N.register(
     "Call summary" : "通話摘要",
     "Call summary (%s)" : "通話摘要 (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "通話摘要機器人在通話後張貼概述訊息，列出所有參與者並概述任務",
+    "with attachment" : "包含附件",
     "Attendees" : "參與者",
     "Tasks" : "任務",
     "Notes" : "備註",
