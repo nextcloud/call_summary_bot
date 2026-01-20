@@ -6,6 +6,7 @@ OC.L10N.register(
     "Call summary" : "Resumo da chamada",
     "Call summary (%s)" : "Resumo da chamada (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "O bot de resumo de chamadas publica uma mensagem de visão geral após a chamada, listando todos os participantes e descrevendo as tarefas",
+    "with attachment" : "com anexo:",
     "Attendees" : "Participantes",
     "Tasks" : "Tarefas",
     "Notes" : "Notas ",
