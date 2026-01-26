@@ -1,10 +1,10 @@
 OC.L10N.register(
     "call_summary_bot",
     {
-    "%s (guest)" : "% s (مېھمان)",
+    "%s (guest)" : "%s (مېھمان)",
     "__language_name__" : "ئۇيغۇرچە",
     "Call summary" : "چاقىرىش خۇلاسىسى",
-    "Call summary (%s)" : "چاقىرىش خۇلاسىسى (% s)",
+    "Call summary (%s)" : "چاقىرىش خۇلاسىسى (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "چاقىرىش خۇلاسىسى بوت تېلېفوندىن كېيىن بارلىق قاتناشقۇچىلار ۋە تىزىملىكتىكى ۋەزىپىلەرنى كۆرسىتىپ بەرگەندىن كېيىن ئومۇمىي ئۇچۇر يوللايدۇ",
     "Attendees" : "قاتناشقۇچىلار",
     "Tasks" : "ۋەزىپەلەر",
