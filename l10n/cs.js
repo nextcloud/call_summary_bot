@@ -6,6 +6,7 @@ OC.L10N.register(
     "Call summary" : "Shrnutí hovoru",
     "Call summary (%s)" : "Shrnutí hovoru (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Automat pošle po ukončení hovoru souhrnnou zprávu se seznamem všech účastníků a vytyčení úkolů",
+    "with attachment" : "s přílohou",
     "Attendees" : "Účastníci",
     "Tasks" : "Úlohy",
     "Notes" : "Poznámky",
