@@ -6,6 +6,7 @@ OC.L10N.register(
     "Call summary" : "Muhtasari wa simu",
     "Call summary (%s)" : "Muhtasari wa simu (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Boti ya muhtasari wa simu huchapisha ujumbe wa muhtasari baada ya simu kuorodhesha washiriki wote na kuelezea majukumu",
+    "with attachment" : "na kiambatanisho",
     "Attendees" : "Wahudhuriaji",
     "Tasks" : "Kazi",
     "Notes" : "Madokezo",
