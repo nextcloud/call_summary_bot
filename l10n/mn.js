@@ -5,6 +5,7 @@ OC.L10N.register(
     "__language_name__" : "__хэлний_нэр__",
     "Call summary" : "Дуудлагын хураангуй",
     "Call summary (%s)" : "Дуудлагын хураангуй (%s)",
+    "with attachment" : "хавсралттай",
     "Attendees" : "Оролцогчид",
     "Tasks" : "Даалгавар",
     "Notes" : "Шинэ ",
