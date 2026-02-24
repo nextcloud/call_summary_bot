@@ -5,6 +5,7 @@ OC.L10N.register(
     "__language_name__" : "__хэлний_нэр__",
     "Call summary" : "Дуудлагын хураангуй",
     "Call summary (%s)" : "Дуудлагын хураангуй (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Дуудлагын хураангуй бот нь дуудлага дууссаны дараа бүх оролцогчдыг жагсааж, даалгавруудыг тоймлосон ерөнхий мессеж нийтэлдэг",
     "with attachment" : "хавсралттай",
     "Attendees" : "Оролцогчид",
     "Tasks" : "Даалгавар",
@@ -13,6 +14,7 @@ OC.L10N.register(
     "Decisions" : "Шийдвэрүүд",
     "Agenda" : "Хөтөлбөр",
     "Call summary - {title}" : "Дуудлагын хураангуй - {title}",
-    "Call summary bot" : "Дуудлагын хураангуйн бот"
+    "Call summary bot" : "Дуудлагын хураангуйн бот",
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Дуудлагын өмнө\n\n- Ботыг дараах түлхүүр үгсийг ашиглан хэлэлцэх асуудал, сэдвүүдийг цуглуулахад мөн ашиглаж болно:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- Нэг мессежид олон даалгавар нийтэлж болно, зүгээр л тус бүрийг түлхүүр үгээс эхэлж тусдаа мөрөнд бичнэ үү\n\n### Дуудлагын үед\n\n- Дуудлагын үед Markdown чекбокс эсвэл түлхүүр үгээр эхэлсэн аливаа мессеж таньж хураангуйд ашиглагдана:\n  - Нээлттэй хийх зүйлс: `- [ ]`, `- todo:`, `- task:`\n  - Шийдэгдсэн хийх зүйлс: `- [x]`\n  - Тэмдэглэлүүд: `- note:`\n  - Тайлангууд: `- report:`\n  - Шийдвэрүүд: `- decision:`\n- Нэг мессежид олон даалгавар нийтэлж болно, зүгээр л тус бүрийг түлхүүр үгээс эхэлж тусдаа мөрөнд бичнэ үү\n- Дуудлагын эцэст бот хураангуй гаргаж, бүх оролцогчдыг болон даалгавруудыг markdown чат мессежид жагсаана"
 },
 "nplurals=2; plural=(n != 1);");
