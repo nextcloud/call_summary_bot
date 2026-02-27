@@ -30,6 +30,11 @@ class LogEntry extends Entity {
 	public const TYPE_REPORT = 'report';
 	public const TYPE_DECISION = 'decision';
 	public const TYPE_AGENDA = 'agenda';
+	public const TYPE_SETTING_IGNORE_SILENT = 'setting_ignore_silent';
+
+	public const DETAILS_IGNORE_SILENT_MUTED = 'muted';
+	public const DETAILS_IGNORE_SILENT_HINT_POSTED = 'hint';
+	public const DETAILS_IGNORE_SILENT_STILL_POST = 'post';
 
 	/** @var string */
 	protected $server;

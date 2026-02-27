@@ -64,6 +64,18 @@ class BotInvokeListener implements IEventListener {
 			$messageData = json_decode($data['object']['content'], true);
 			$message = $messageData['message'];
 
+			if ($message === Bot::COMMAND_SILENT_MUTED
+				|| $message === Bot::COMMAND_SILENT_POST) {
+				$this->logEntryMapper->deleteSetting($data['target']['id'], LogEntry::TYPE_SETTING_IGNORE_SILENT);
+				$this->setSetting(
+					$data['target']['id'],
+					LogEntry::TYPE_SETTING_IGNORE_SILENT,
+					$message === Bot::COMMAND_SILENT_MUTED ? LogEntry::DETAILS_IGNORE_SILENT_MUTED : LogEntry::DETAILS_IGNORE_SILENT_STILL_POST
+				);
+				$event->addReaction($message === Bot::COMMAND_SILENT_MUTED ? '🔕' : '📝');
+				return;
+			}
+
 			$hasAttachment = isset($messageData['parameters']['file']);
 
 			if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
@@ -86,9 +98,27 @@ class BotInvokeListener implements IEventListener {
 		} elseif ($data['type'] === 'Activity') {
 			if ($data['object']['name'] === 'call_joined' || $data['object']['name'] === 'call_started') {
 				if ($data['object']['name'] === 'call_started') {
+					$settings = $this->logEntryMapper->getSetting($data['target']['id'], LogEntry::TYPE_SETTING_IGNORE_SILENT);
+					if ($settings === LogEntry::DETAILS_IGNORE_SILENT_MUTED && $this->isSilentCallSystemMessage($data['object']['content'])) {
+						// Skip on silent calls when agenda is muted
+						return;
+					}
+
 					$agenda = $this->summaryService->agenda($data['target']['id'], $lang);
 					if ($agenda !== null) {
 						$event->addAnswer($agenda, true);
+
+						if ($settings === null && $this->isSilentCallSystemMessage($data['object']['content'])) {
+							$l = $this->l10nFactory->get('call_summary_bot', $lang);
+							$hint = $l->t("Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To later enable it later again post {command_continue}");
+							$event->addAnswer(str_replace(
+								['{reaction_ignore}', '{command_ignore}', '{reaction_continue}', '{command_continue}'],
+								['🔕', '`' . Bot::COMMAND_SILENT_MUTED . '`', '📝', '`' . Bot::COMMAND_SILENT_POST . '`'],
+								$hint
+							));
+
+							$this->setSetting($data['target']['id'], LogEntry::TYPE_SETTING_IGNORE_SILENT, LogEntry::DETAILS_IGNORE_SILENT_HINT_POSTED);
+						}
 					}
 
 					$logEntry = new LogEntry();
@@ -104,6 +134,8 @@ class BotInvokeListener implements IEventListener {
 					$logEntry->setType(LogEntry::TYPE_ELEVATOR);
 					$logEntry->setDetails((string)$data['object']['id']);
 					$this->logEntryMapper->insert($logEntry);
+				} elseif (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
+					return;
 				}
 
 				$logEntry = new LogEntry();
@@ -122,11 +154,21 @@ class BotInvokeListener implements IEventListener {
 					$this->logEntryMapper->insert($logEntry);
 				}
 			} elseif ($data['object']['name'] === 'call_ended' || $data['object']['name'] === 'call_ended_everyone') {
+				if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
+					// Skip on silent calls when agenda is muted
+					return;
+				}
+
 				$summary = $this->summaryService->summarize($data['target']['id'], $data['target']['name'], $lang);
 				if ($summary !== null) {
 					$event->addAnswer($summary['summary'], $summary['elevator']);
 				}
 			} elseif ($data['object']['name'] === 'call_missed') {
+				if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
+					// Skip on silent calls when agenda is muted
+					return;
+				}
+
 				$this->logEntryMapper->deleteByConversation($data['target']['id']);
 			}
 		}
@@ -146,5 +188,25 @@ class BotInvokeListener implements IEventListener {
 		}
 
 		return $displayName;
+	}
+
+	protected function isSilentCallSystemMessage(string $content): bool {
+		$systemMessage = json_decode($content, true);
+		if (is_array($systemMessage) && isset($systemMessage['message'])) {
+			$talkL10N = $this->l10nFactory->get('spreed', 'en', 'en');
+			if ($systemMessage['message'] === $talkL10N->t('{actor} started a silent call')) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function setSetting(string $token, string $type, string $details) {
+		$logEntry = new LogEntry();
+		$logEntry->setServer('local');
+		$logEntry->setToken($token);
+		$logEntry->setType($type);
+		$logEntry->setDetails($details);
+		$this->logEntryMapper->insert($logEntry);
 	}
 }
