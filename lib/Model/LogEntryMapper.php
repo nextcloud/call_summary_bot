@@ -50,11 +50,39 @@ class LogEntryMapper extends QBMapper {
 		return $hasAttendee;
 	}
 
+	/**
+	 * @psalm-return LogEntry::DETAIL_*|null
+	 */
+	public function getSetting(string $token, string $type): ?string {
+		$query = $this->db->getQueryBuilder();
+		$query->select('details')
+			->from($this->getTableName())
+			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
+			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
+			->andWhere($query->expr()->eq('type', $query->createNamedParameter($type)))
+			->setMaxResults(1);
+		$result = $query->executeQuery();
+		$setting = $result->fetchOne();
+		$result->closeCursor();
+
+		return $setting ?: null;
+	}
+
+	public function deleteSetting(string $token, string $setting): void {
+		$query = $this->db->getQueryBuilder();
+		$query->delete($this->getTableName())
+			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
+			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
+			->andWhere($query->expr()->eq('type', $query->createNamedParameter($setting)));
+		$query->executeStatement();
+	}
+
 	public function deleteByConversation(string $token): void {
 		$query = $this->db->getQueryBuilder();
 		$query->delete($this->getTableName())
 			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
-			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)));
+			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
+			->andWhere($query->expr()->neq('type', $query->createNamedParameter(LogEntry::TYPE_SETTING_IGNORE_SILENT)));
 		$query->executeStatement();
 	}
 }
