@@ -1,5 +1,6 @@
 { "translations": {
     "%s (guest)" : "%s (vendég)",
+    "{actor} started a silent call" : "{actor} néma hívást indított",
     "__language_name__" : "Magyar",
     "Call summary" : "Hívásösszesítő",
     "Call summary (%s)" : "Hívásösszesítő (%s)",

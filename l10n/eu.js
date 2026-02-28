@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (gonbidatua)",
+    "{actor} started a silent call" : "{actor}(e)k dei isil bat hasi du",
     "__language_name__" : "Euskara",
     "Call summary" : "Deiaren laburpena",
     "Call summary (%s)" : "Deiaren laburpena (%s)",

@@ -1,5 +1,6 @@
 { "translations": {
     "%s (guest)" : "%s (guest)",
+    "{actor} started a silent call" : "{actor} started a silent call",
     "__language_name__" : "ຂີ້ຕົວະ",
     "Call summary" : "Call summary",
     "Call summary (%s)" : "Call summary (%s)",

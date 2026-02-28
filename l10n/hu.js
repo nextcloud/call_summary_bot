@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (vendég)",
+    "{actor} started a silent call" : "{actor} néma hívást indított",
     "__language_name__" : "Magyar",
     "Call summary" : "Hívásösszesítő",
     "Call summary (%s)" : "Hívásösszesítő (%s)",

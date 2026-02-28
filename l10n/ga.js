@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (aoi)",
+    "{actor} started a silent call" : "chuir {actor} tús le glao ciúin",
     "__language_name__" : "__language_name__",
     "Call summary" : "Achoimre glaonna",
     "Call summary (%s)" : "Achoimre ar an nglao (%s)",

@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s（訪客）",
+    "{actor} started a silent call" : "{actor} 發起了無聲通話",
     "__language_name__" : "正體中文（香港）",
     "Call summary" : "通話摘要",
     "Call summary (%s)" : "通話摘要 (%s)",

@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (επισκέπτης)",
+    "{actor} started a silent call" : "Ο/Η {actor} ξεκίνησε μια σιωπηλή κλήση",
     "__language_name__" : "Ελληνικά",
     "Call summary" : "Περίληψη κλήσης",
     "Call summary (%s)" : "Περίληψη κλήσης (%s)",

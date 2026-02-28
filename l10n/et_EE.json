@@ -1,5 +1,6 @@
 { "translations": {
     "%s (guest)" : "%s (külaline)",
+    "{actor} started a silent call" : "{actor} helistas vaikselt",
     "__language_name__" : "Eesti",
     "Call summary" : "Kõne kokkuvõte",
     "Call summary (%s)" : "Kõne  kokkuvõte (%s)",

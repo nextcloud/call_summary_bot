@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (مېھمان)",
+    "{actor} started a silent call" : "{actor} جىمجىت تېلېفون باشلىدى",
     "__language_name__" : "ئۇيغۇرچە",
     "Call summary" : "چاقىرىش خۇلاسىسى",
     "Call summary (%s)" : "چاقىرىش خۇلاسىسى (%s)",

@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (convidat)",
+    "{actor} started a silent call" : "{actor} ha iniciat una trucada silenciosa",
     "__language_name__" : "__language_name__",
     "Call summary" : "Resum de la trucada",
     "Call summary (%s)" : "Resum de la trucada (%s)",
