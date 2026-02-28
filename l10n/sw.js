@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (mgeni)",
+    "{actor} started a silent call" : "{actor} alianza kuita kimya kimya ",
     "__language_name__" : "_lugha_jina_",
     "Call summary" : "Muhtasari wa simu",
     "Call summary (%s)" : "Muhtasari wa simu (%s)",

@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (svečias)",
+    "{actor} started a silent call" : "{actor} pradėjo tylų skambutį",
     "__language_name__" : "Lietuvių",
     "Attendees" : "Kviestiniai",
     "Tasks" : "Užduotys",

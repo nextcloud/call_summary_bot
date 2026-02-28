@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (konuk)",
+    "{actor} started a silent call" : "{actor} bir sessiz çağrı başlattı",
     "__language_name__" : "Türkçe",
     "Call summary" : "Çağrı özeti",
     "Call summary (%s)" : "Çağrı özeti (%s)",

@@ -1,5 +1,6 @@
 { "translations": {
     "%s (guest)" : "%s (host)",
+    "{actor} started a silent call" : "{actor} zahájil(a) nevyzvánějící hovor",
     "__language_name__" : "Čeština",
     "Call summary" : "Shrnutí hovoru",
     "Call summary (%s)" : "Shrnutí hovoru (%s)",

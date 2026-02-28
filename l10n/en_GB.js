@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (guest)",
+    "{actor} started a silent call" : "{actor} started a silent call",
     "__language_name__" : "English (British English)",
     "Call summary" : "Call summary",
     "Call summary (%s)" : "Call summary (%s)",
