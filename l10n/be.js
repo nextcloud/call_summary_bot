@@ -2,6 +2,7 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (госць)",
+    "{actor} started a silent call" : "{actor} пачаў(-ла) бязгучны выклік",
     "__language_name__" : "Беларуская",
     "Attendees" : "Удзельнікі",
     "Tasks" : "Заданні",
