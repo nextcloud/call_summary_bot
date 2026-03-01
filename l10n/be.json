@@ -1,5 +1,6 @@
 { "translations": {
     "%s (guest)" : "%s (госць)",
+    "{actor} started a silent call" : "{actor} пачаў(-ла) бязгучны выклік",
     "__language_name__" : "Беларуская",
     "Attendees" : "Удзельнікі",
     "Tasks" : "Заданні",
