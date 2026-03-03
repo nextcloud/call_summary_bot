@@ -110,7 +110,7 @@ class BotInvokeListener implements IEventListener {
 
 						if ($settings === null && $this->isSilentCallSystemMessage($data['object']['content'])) {
 							$l = $this->l10nFactory->get('call_summary_bot', $lang);
-							$hint = $l->t("Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To later enable it later again post {command_continue}");
+							$hint = $l->t("Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}");
 							$event->addAnswer(str_replace(
 								['{reaction_ignore}', '{command_ignore}', '{reaction_continue}', '{command_continue}'],
 								['🔕', '`' . Bot::COMMAND_SILENT_MUTED . '`', '📝', '`' . Bot::COMMAND_SILENT_POST . '`'],
