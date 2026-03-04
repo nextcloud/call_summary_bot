@@ -1,5 +1,4 @@
 { "translations": {
-    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To later enable it later again post {command_continue}" : "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To later enable it later again post {command_continue}",
     "%s (guest)" : "%s (guest)",
     "{actor} started a silent call" : "{actor} started a silent call",
     "__language_name__" : "English (British English)",

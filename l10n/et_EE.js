@@ -7,6 +7,7 @@ OC.L10N.register(
     "Call summary" : "Kõne kokkuvõte",
     "Call summary (%s)" : "Kõne  kokkuvõte (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "See robot postitab kõne lõppedes kõikidele kõnes osalejatele ülevaatliku sõnumi, osalejate ja ülesannete andmetega",
+    "with attachment" : "manused",
     "Attendees" : "Osalejad",
     "Tasks" : "Ülesanded",
     "Notes" : "Märkmed",
