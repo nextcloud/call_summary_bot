@@ -1,7 +1,6 @@
 OC.L10N.register(
     "call_summary_bot",
     {
-    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To later enable it later again post {command_continue}" : "Sessiz çağrılar yok sayılabilir ve gündemi tetiklemez..\n\n- {reaction_ignore} Sessiz çağrıları yok saymak için {command_ignore} gönderin.\n- {reaction_continue} Daha sonra yeniden etkinleştirmek için {command_continue} gönderin",
     "%s (guest)" : "%s (konuk)",
     "{actor} started a silent call" : "{actor} bir sessiz çağrı başlattı",
     "__language_name__" : "Türkçe",
