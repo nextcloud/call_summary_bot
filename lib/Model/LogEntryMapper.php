@@ -77,12 +77,16 @@ class LogEntryMapper extends QBMapper {
 		$query->executeStatement();
 	}
 
-	public function deleteByConversation(string $token): void {
+	public function deleteByConversation(string $token, bool $keepAgenda = true): void {
 		$query = $this->db->getQueryBuilder();
 		$query->delete($this->getTableName())
 			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
 			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
 			->andWhere($query->expr()->neq('type', $query->createNamedParameter(LogEntry::TYPE_SETTING_IGNORE_SILENT)));
+
+		if ($keepAgenda) {
+			$query->andWhere($query->expr()->neq('type', $query->createNamedParameter(LogEntry::TYPE_AGENDA)));
+		}
 		$query->executeStatement();
 	}
 }
