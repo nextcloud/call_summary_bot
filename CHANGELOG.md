@@ -5,6 +5,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.3.0 - 2026-03-05
+### Added
+- Allow to ignore silent calls from the agenda, so that coworking sessions don't trigger the agenda
+- Allow queuing agenda items for the next call when a call is going on
+- Allow previewing the agenda of the next meeting
+
 ## 3.2.0 - 2026-01-15
 ### Changed
 - Nextcloud 33 supported
