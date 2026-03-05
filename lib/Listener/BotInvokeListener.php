@@ -76,6 +76,18 @@ class BotInvokeListener implements IEventListener {
 				return;
 			}
 
+			if ($message === Bot::COMMAND_AGENDA_PREVIEW) {
+				$agenda = $this->summaryService->agenda($data['target']['id'], $lang, true);
+				if ($agenda !== null) {
+					$event->addAnswer($agenda, true, true);
+				} else {
+					$l = $this->l10nFactory->get('call_summary_bot', $lang);
+					$hint = trim($l->t('No agenda items scheduled'));
+					$event->addAnswer('*' . $hint . '*', true, true);
+				}
+				return;
+			}
+
 			$hasAttachment = isset($messageData['parameters']['file']);
 
 			if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
