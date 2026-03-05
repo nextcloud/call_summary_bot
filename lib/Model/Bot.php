@@ -12,6 +12,7 @@ namespace OCA\CallSummaryBot\Model;
 class Bot {
 	public const COMMAND_SILENT_MUTED = '!agenda silent muted';
 	public const COMMAND_SILENT_POST = '!agenda silent post';
+	public const COMMAND_AGENDA_PREVIEW = '!agenda';
 
 	public const SUPPORTED_LANGUAGES = [
 		'en',

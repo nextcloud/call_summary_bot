@@ -312,10 +312,11 @@ class SummaryService {
 	 * @param string $lang
 	 * @return ?string
 	 */
-	public function agenda(string $token, string $lang = 'en'): ?string {
+	public function agenda(string $token, string $lang = 'en', bool $preview = false): ?string {
 		$logEntries = $this->logEntryMapper->findByConversation($token);
-		$this->logEntryMapper->deleteByConversation($token);
-
+		if (!$preview) {
+			$this->logEntryMapper->deleteByConversation($token);
+		}
 
 		$agenda = [];
 		foreach ($logEntries as $logEntry) {
