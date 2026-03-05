@@ -89,23 +89,26 @@ class BotInvokeListener implements IEventListener {
 			}
 
 			$hasAttachment = isset($messageData['parameters']['file']);
+			$hasActiveCall = $this->logEntryMapper->hasActiveCall($data['target']['id']);
+			$displayName = $this->getAuthorDisplayName($data['actor']['name'], $data['actor']['id'], $lang);
+			$agendaDetected = $this->summaryService->readAgendaFromMessage($message, $messageData, $data, $displayName, $hasAttachment, $lang);
 
-			if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
-				$displayName = $this->getAuthorDisplayName($data['actor']['name'], $data['actor']['id'], $lang);
-				$agendaDetected = $this->summaryService->readAgendaFromMessage($message, $messageData, $data, $displayName, $hasAttachment, $lang);
-
-				if ($agendaDetected) {
-					// React with thumbs up as we detected an agenda item
+			if ($agendaDetected) {
+				// React with thumbs up as we detected an agenda item
+				if ($hasActiveCall) {
+					$event->addReaction('⏭️');
+				} else {
 					$event->addReaction('👍');
 				}
-				return;
 			}
 
-			$taskDetected = $this->summaryService->readTasksFromMessage($message, $messageData, $data, $hasAttachment, $lang);
+			if ($hasActiveCall) {
+				$taskDetected = $this->summaryService->readTasksFromMessage($message, $messageData, $data, $hasAttachment, $lang);
 
-			if ($taskDetected) {
-				// React with thumbs up as we detected a task
-				$event->addReaction('👍');
+				if ($taskDetected) {
+					// React with thumbs up as we detected a task
+					$event->addReaction('👍');
+				}
 			}
 		} elseif ($data['type'] === 'Activity') {
 			if ($data['object']['name'] === 'call_joined' || $data['object']['name'] === 'call_started') {

@@ -314,9 +314,7 @@ class SummaryService {
 	 */
 	public function agenda(string $token, string $lang = 'en', bool $preview = false): ?string {
 		$logEntries = $this->logEntryMapper->findByConversation($token);
-		if (!$preview) {
-			$this->logEntryMapper->deleteByConversation($token);
-		}
+		$this->logEntryMapper->deleteByConversation($token, $preview);
 
 		$agenda = [];
 		foreach ($logEntries as $logEntry) {
