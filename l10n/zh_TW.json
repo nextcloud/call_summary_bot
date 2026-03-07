@@ -1,4 +1,5 @@
 { "translations": {
+    "No agenda items scheduled" : "暫未安排議程項目",
     "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "靜音通話可被忽略，且不會觸發日程安排。\n\n- {reaction_ignore} 張貼 {command_ignore} 以忽略靜音通話。\n- {reaction_continue} 稍後再次啟用，張貼 {command_continue}",
     "%s (guest)" : "%s（訪客）",
     "{actor} started a silent call" : "{actor} 發起了無聲通話",
