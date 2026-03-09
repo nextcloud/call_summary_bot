@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "No agenda items scheduled" : "Níl aon mhíreanna clár oibre sceidealaithe",
     "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Is féidir neamhaird a dhéanamh de ghlaonna ciúine agus ní chuirfidh siad tús leis an gclár oibre.\n\n- {reaction_ignore} Postáil {command_ignore} chun neamhaird a dhéanamh de ghlaonna ciúine.\n- {reaction_continue} Chun é a chumasú arís níos déanaí, postáil {command_continue}",
     "%s (guest)" : "%s (aoi)",
     "{actor} started a silent call" : "chuir {actor} tús le glao ciúin",
