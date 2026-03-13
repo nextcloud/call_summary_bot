@@ -1,4 +1,5 @@
 { "translations": {
+    "No agenda items scheduled" : "Ühtegi päevakorrapunkti pole ajastatud",
     "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Vaikseid kõnesid saad eirata ja need ei käivita päevakavaga seotud toiminguid.\n\n- {reaction_ignore}Vaiksete kõnede eiramiseks tee selline postitus {command_ignore}.\n- {reaction_continue}Kui tahad hiljem uuesti sisse lülitada, siis postita {command_continue}",
     "%s (guest)" : "%s (külaline)",
     "{actor} started a silent call" : "{actor} helistas vaikselt",
