@@ -1,6 +1,8 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "No agenda items scheduled" : "Nenaplánovány žádné položky agendy",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Tiché hovory je možné ignorovat a nespouštějí agendu.\n\n- {reaction_ignore} Zašlete příspěvek {command_ignore} pro ignorování tichých hovorů.\n- {reaction_continue} Pro opětovné povolení později zašlete příspěvek {command_continue}",
     "%s (guest)" : "%s (host)",
     "{actor} started a silent call" : "{actor} zahájil(a) nevyzvánějící hovor",
     "__language_name__" : "Čeština",
