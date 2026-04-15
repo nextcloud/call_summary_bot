@@ -264,7 +264,7 @@ class SummaryService {
 		}
 
 		$summary .= "\n";
-		$summary .= '## ' . $l->t('Attendees') . "\n";
+		$summary .= '## ' . $l->t('Attendees') . ' (' . count($attendees) . ")\n";
 		foreach ($attendees as $attendee) {
 			$summary .= '- ' . $attendee . "\n";
 		}
