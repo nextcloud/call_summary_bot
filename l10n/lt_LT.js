@@ -4,7 +4,7 @@ OC.L10N.register(
     "%s (guest)" : "%s (svečias)",
     "{actor} started a silent call" : "{actor} pradėjo tylų skambutį",
     "__language_name__" : "Lietuvių",
-    "Attendees" : "Kviestiniai",
+    "Attendees" : "Dalyviai",
     "Tasks" : "Užduotys",
     "Notes" : "Užrašai"
 },
