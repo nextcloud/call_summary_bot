@@ -2,8 +2,15 @@
     "%s (guest)" : "%s (svečias)",
     "{actor} started a silent call" : "{actor} pradėjo tylų skambutį",
     "__language_name__" : "Lietuvių",
+    "Call summary" : "Skambučio santrauka",
+    "Call summary (%s)" : "Skambučio santrauka (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Skambučių apibendrinimo botas po skambučio paskelbia apžvalgą, kurioje išvardijami visi dalyviai ir apibūdinamos užduotys",
     "Attendees" : "Dalyviai",
     "Tasks" : "Užduotys",
-    "Notes" : "Užrašai"
+    "Notes" : "Užrašai",
+    "Reports" : "Ataskaitos",
+    "Decisions" : "Sprendimai",
+    "Agenda" : "Darbotvarkė",
+    "Call summary - {title}" : "Skambučio santrauka - {title}"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }
