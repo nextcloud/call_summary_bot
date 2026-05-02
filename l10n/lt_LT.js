@@ -1,18 +1,23 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "No agenda items scheduled" : "Darbotvarkėje nėra numatytų klausimų",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Tylūs skambučiai gali būti ignoruojami ir nesukelia darbotvarkės veikimo.\n\n- {reaction_ignore} Parašykite pranešimą {command_ignore}, kad ignoruotumėte tylius skambučius.\n- {reaction_continue} Norėdami vėliau vėl įjungti šią funkciją, parašykite pranešimą {command_continue}",
     "%s (guest)" : "%s (svečias)",
     "{actor} started a silent call" : "{actor} pradėjo tylų skambutį",
     "__language_name__" : "Lietuvių",
     "Call summary" : "Skambučio santrauka",
     "Call summary (%s)" : "Skambučio santrauka (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Skambučių apibendrinimo botas po skambučio paskelbia apžvalgą, kurioje išvardijami visi dalyviai ir apibūdinamos užduotys",
+    "with attachment" : "su priedu",
     "Attendees" : "Dalyviai",
     "Tasks" : "Užduotys",
     "Notes" : "Užrašai",
     "Reports" : "Ataskaitos",
     "Decisions" : "Sprendimai",
     "Agenda" : "Darbotvarkė",
-    "Call summary - {title}" : "Skambučio santrauka - {title}"
+    "Call summary - {title}" : "Skambučio santrauka - {title}",
+    "Call summary bot" : "Skambučių apžvalgos botas",
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Prieš pokalbį\n\n- Botą taip pat galima naudoti darbotvarkės punktams ir temoms rinkti, naudojant šiuos raktinius žodžius:\n- `- agenda` (darbotvarkė)\n- `- topic` (tema)\n- `- top` (viršuje)\n- Vienoje žinutėje taip pat galite nurodyti keletą užduočių – tiesiog kiekvieną įrašykite atskiroje eilutėje, pradėdami nuo raktinio žodžio\n\n### Pokalbio metu\n\n- Bet kuri žinutė, prasidedanti Markdown žymės langeliu arba raktažodžiu pokalbio metu, bus atpažinta ir panaudota santraukoje:\n- Atviros užduotys: `- [ ]`, `- todo:`, `- task:`\n- Išspręstos užduotys: `- [x]`\n- Pastabos: `- note:`\n- Ataskaitos: `- report:`\n- Sprendimai: `- decision:`\n- Taip pat galite į vieną žinutę įtraukti kelis uždavinius, tiesiog kiekvieną įrašykite į atskirą eilutę, pradėdami nuo raktažodžio\n- Pokalbio pabaigoje botas jį apibendrins ir Markdown pokalbio žinutėje išvardys visus dalyvius bei uždavinius"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");
