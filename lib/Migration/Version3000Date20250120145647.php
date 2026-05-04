@@ -47,13 +47,13 @@ class Version3000Date20250120145647 extends SimpleMigrationStep {
 
 		$result = $select->executeQuery();
 		while ($row = $result->fetch()) {
-			$urlParts = explode('/', $row['url']);
+			$urlParts = explode('/', (string)$row['url']);
 			$url = 'nextcloudapp://call_summary_bot/' . array_pop($urlParts);
 			$update->setParameter('url', $url)
 				->setParameter('url_hash', sha1($url))
 				->setParameter('features', 4, IQueryBuilder::PARAM_INT)
 				->setParameter('id', $row['id'], IQueryBuilder::PARAM_INT);
-			$result1 = $update->executeStatement();
+			$update->executeStatement();
 		}
 		$result->closeCursor();
 	}

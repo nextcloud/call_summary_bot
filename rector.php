@@ -15,8 +15,8 @@ return RectorConfig::configure()
 		__DIR__ . '/lib',
 		__DIR__ . '/tests',
 	])
-	->withPhpSets(php80: true)
+	->withPhpSets(php81: true)
 	->withSets([
-		NextcloudSets::NEXTCLOUD_27,
+		NextcloudSets::NEXTCLOUD_31,
 	])
 	->withTypeCoverageLevel(0);
