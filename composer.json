@@ -34,7 +34,7 @@
 		"psalm:clear": "psalm --clear-cache && psalm --clear-global-cache",
 		"psalm:fix": "psalm --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
 		"rector:check": "rector --dry-run",
-		"rector:fix": "rector",
+		"rector:fix": "rector && composer cs:fix",
 		"test:unit": "phpunit --color -c tests/phpunit.xml",
 		"bin": "echo 'bamarni/composer-bin-plugin is a dev dependency and not installed'",
 		"post-install-cmd": [

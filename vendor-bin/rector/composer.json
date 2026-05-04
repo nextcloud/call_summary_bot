@@ -8,5 +8,11 @@
 	"require-dev": {
 		"nextcloud/rector": "^0.5.0",
 		"rector/rector": "^2.0.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"OCP\\": "vendor/nextcloud/ocp/OCP/",
+			"NCU\\": "vendor/nextcloud/ocp/NCU/"
+		}
 	}
 }
