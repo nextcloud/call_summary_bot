@@ -12,6 +12,7 @@ namespace OCA\CallSummaryBot\Service;
 use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
 use OCP\App\IAppManager;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
 use OCP\IDateTimeFormatter;
@@ -39,6 +40,7 @@ class SummaryService {
 		protected IDateTimeFormatter $dateTimeFormatter,
 		protected IFactory $l10nFactory,
 		protected IAppManager $appManager,
+		private readonly IAppConfig $appConfig,
 	) {
 	}
 
@@ -55,7 +57,7 @@ class SummaryService {
 		foreach ($messageData['parameters'] as $placeholder => $parameter) {
 			$placeholders[] = '{' . $placeholder . '}';
 			if ($parameter['type'] === 'user') {
-				if (str_contains($parameter['id'], ' ') || str_contains($parameter['id'], '/')) {
+				if (str_contains((string)$parameter['id'], ' ') || str_contains((string)$parameter['id'], '/')) {
 					$replacements[] = '@"' . $parameter['id'] . '"';
 				} else {
 					$replacements[] = '@' . $parameter['id'];
@@ -71,7 +73,7 @@ class SummaryService {
 
 		$parsedMessage = str_replace($placeholders, $replacements, $message);
 		$parsedMessage = preg_replace(self::TODO_SOLVED_PATTERN, '- solved: ', $parsedMessage);
-		$parsedMessage = preg_replace(self::TODO_UNSOLVED_PATTERN, '- todo: ', $parsedMessage);
+		$parsedMessage = preg_replace(self::TODO_UNSOLVED_PATTERN, '- todo: ', (string)$parsedMessage);
 
 		$hasAttachmentText = '';
 		if ($hasAttachment) {
@@ -79,8 +81,8 @@ class SummaryService {
 			$hasAttachmentText = ' *📎 ' . $l->t('with attachment') . '*';
 		}
 
-		if (preg_match(self::SUMMARY_PATTERN, $parsedMessage)) {
-			$todos = preg_split(self::SUMMARY_PATTERN, $parsedMessage, flags: PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+		if (preg_match(self::SUMMARY_PATTERN, (string)$parsedMessage)) {
+			$todos = preg_split(self::SUMMARY_PATTERN, (string)$parsedMessage, flags: PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 			$nextEntry = null;
 			foreach ($todos as $todo) {
 				if (preg_match(self::TODO_PATTERN, $todo)) {
@@ -133,7 +135,7 @@ class SummaryService {
 		foreach ($messageData['parameters'] as $placeholder => $parameter) {
 			$placeholders[] = '{' . $placeholder . '}';
 			if ($parameter['type'] === 'user') {
-				if (str_contains($parameter['id'], ' ') || str_contains($parameter['id'], '/')) {
+				if (str_contains((string)$parameter['id'], ' ') || str_contains((string)$parameter['id'], '/')) {
 					$replacements[] = '@"' . $parameter['id'] . '"';
 				} else {
 					$replacements[] = '@' . $parameter['id'];
@@ -223,7 +225,7 @@ class SummaryService {
 			}
 		}
 
-		if (($endTimestamp - $startTimestamp) < (int)$this->config->getAppValue('call_summary_bot', 'min-length', '60')) {
+		if (($endTimestamp - $startTimestamp) < $this->appConfig->getAppValueInt('min-length', 60)) {
 			// No call summary for short calls
 			return null;
 		}
@@ -242,7 +244,7 @@ class SummaryService {
 		sort($attendees);
 
 		$systemDefault = $this->config->getSystemValueString('default_timezone', 'UTC');
-		$timezoneString = $this->config->getAppValue('call_summary_bot', 'timezone', $systemDefault);
+		$timezoneString = $this->appConfig->getAppValueString('timezone', $systemDefault);
 		$timezone = null;
 		if ($timezoneString !== 'UTC') {
 			try {

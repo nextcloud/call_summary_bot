@@ -82,7 +82,7 @@ class BotInvokeListener implements IEventListener {
 					$event->addAnswer($agenda, true, true);
 				} else {
 					$l = $this->l10nFactory->get('call_summary_bot', $lang);
-					$hint = trim($l->t('No agenda items scheduled'));
+					$hint = trim((string)$l->t('No agenda items scheduled'));
 					$event->addAnswer('*' . $hint . '*', true, true);
 				}
 				return;
