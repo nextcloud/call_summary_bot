@@ -14,14 +14,12 @@ use OCA\Talk\Events\BotInstallEvent;
 use OCA\Talk\Events\BotUninstallEvent;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\EventDispatcher\IEventDispatcher;
-use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\L10N\IFactory;
 use OCP\Security\ISecureRandom;
 
 class BotService {
 	public function __construct(
-		protected IConfig $config,
 		protected IURLGenerator $url,
 		protected IEventDispatcher $dispatcher,
 		protected IFactory $l10nFactory,
@@ -33,7 +31,7 @@ class BotService {
 	public function installBot(string $backend): void {
 		$id = sha1($backend);
 
-		$secretData = $this->appConfig->getAppValueString('call_summary_bot', 'secret_' . $id);
+		$secretData = $this->appConfig->getAppValueString('secret_' . $id);
 		if ($secretData) {
 			$secretArray = json_decode($secretData, true, 512, JSON_THROW_ON_ERROR);
 			$secret = $secretArray['secret'] ?? $this->random->generate(64, ISecureRandom::CHAR_HUMAN_READABLE);
@@ -44,7 +42,7 @@ class BotService {
 			$this->installLanguage($secret, $lang);
 		}
 
-		$this->appConfig->setAppValueString('call_summary_bot', 'secret_' . $id, json_encode([
+		$this->appConfig->setAppValueString('secret_' . $id, json_encode([
 			'id' => $id,
 			'secret' => $secret,
 			'backend' => $backend,

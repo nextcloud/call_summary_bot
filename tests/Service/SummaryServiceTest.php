@@ -12,6 +12,7 @@ use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
 use OCA\CallSummaryBot\Service\SummaryService;
 use OCP\App\IAppManager;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
 use OCP\IDateTimeFormatter;
@@ -27,6 +28,7 @@ class SummaryServiceTest extends TestCase {
 	protected IDateTimeFormatter&MockObject $dateFormatter;
 	protected IFactory&MockObject $l10nFactory;
 	protected IAppManager&MockObject $appManager;
+	protected IAppConfig&MockObject $appConfig;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -36,6 +38,7 @@ class SummaryServiceTest extends TestCase {
 		$this->dateFormatter = $this->createMock(IDateTimeFormatter::class);
 		$this->l10nFactory = $this->createMock(IFactory::class);
 		$this->appManager = $this->createMock(IAppManager::class);
+		$this->appConfig = $this->createMock(IAppConfig::class);
 	}
 
 	/**
@@ -52,6 +55,7 @@ class SummaryServiceTest extends TestCase {
 					$this->dateFormatter,
 					$this->l10nFactory,
 					$this->appManager,
+					$this->appConfig,
 				])
 				->onlyMethods($methods)
 				->getMock();
@@ -64,6 +68,7 @@ class SummaryServiceTest extends TestCase {
 			$this->dateFormatter,
 			$this->l10nFactory,
 			$this->appManager,
+			$this->appConfig,
 		);
 	}
 
