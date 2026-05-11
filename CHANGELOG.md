@@ -5,6 +5,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.4.0 - 2026-05-11
+### Changed
+- Nextcloud 34 supported
+- Update dependencies
+- Update translations
+
 ## 3.3.0 - 2026-03-05
 ### Added
 - Allow to ignore silent calls from the agenda, so that coworking sessions don't trigger the agenda
