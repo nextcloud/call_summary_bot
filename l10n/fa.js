@@ -13,7 +13,7 @@ OC.L10N.register(
     "Attendees" : "شرکت کنندگان",
     "Tasks" : "وظایف",
     "Notes" : "یادداشت‌ها",
-    "Reports" : "Reports",
+    "Reports" : "گزارش‌ها",
     "Decisions" : "تصمیم‌ها",
     "Agenda" : "دستور جلسه",
     "Call summary - {title}" : "خلاصه تماس - {title}",
