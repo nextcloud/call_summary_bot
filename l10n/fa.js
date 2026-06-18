@@ -1,16 +1,16 @@
 OC.L10N.register(
     "call_summary_bot",
     {
-    "No agenda items scheduled" : "هیچ موردی برای دستور جلسه زمان‌بندی نشده است",
-    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "تماس‌های بی‌صدا می‌توانند نادیده گرفته شوند و دستور جلسه را فعال نکنند.\n\n- {reaction_ignore} برای نادیده‌گرفتن تماس‌های بی‌صدا، {command_ignore} را ارسال کنید.\n- {reaction_continue} برای فعال‌کردن دوباره آن در آینده، {command_continue} را ارسال کنید",
+    "No agenda items scheduled" : "هیچ موردی در دستور جلسه ثبت نشده است",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "تماس‌های بی‌صدا قابل چشم‌پوشی هستند و دستور جلسه را فعال نمی‌کنند.",
     "%s (guest)" : "%s (مهمان)",
-    "{actor} started a silent call" : "{actor} یک تماس بی‌صدا را شروع کرد",
-    "__language_name__" : "فارسى",
+    "{actor} started a silent call" : "{actor} یک تماس بی‌صدا شروع کرد",
+    "__language_name__" : "__language_name__",
     "Call summary" : "خلاصه تماس",
     "Call summary (%s)" : "خلاصه تماس (%s)",
-    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "ربات خلاصه تماس یک پیام کلی را پس از تماس ارسال می کند که همه شرکت کنندگان را فهرست می کند و وظایف را مشخص می کند",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "ربات خلاصه تماس پس از پایان تماس، پیامی کلی شامل فهرست همه شرکت‌کنندگان و وظایف ارسال می‌کند",
     "with attachment" : "با پیوست",
-    "Attendees" : "شرکت کنندگان",
+    "Attendees" : "شرکت‌کنندگان",
     "Tasks" : "وظایف",
     "Notes" : "یادداشت‌ها",
     "Reports" : "گزارش‌ها",
@@ -18,6 +18,6 @@ OC.L10N.register(
     "Agenda" : "دستور جلسه",
     "Call summary - {title}" : "خلاصه تماس - {title}",
     "Call summary bot" : "ربات خلاصه تماس",
-    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### پیش از تماس\n\n- از bot می‌توان برای گردآوری موردهای دستور جلسه و موضوع‌ها با کلیدواژه‌های زیر هم استفاده کرد:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- همچنین می‌توانید چند کار را در یک پیام ارسال کنید؛ فقط هرکدام را در خط جداگانه و با یک کلیدواژه شروع کنید\n\n### هنگام تماس\n\n- هر پیامی که هنگام تماس با checkbox در Markdown یا یک کلیدواژه شروع شود، شناسایی و در خلاصه استفاده می‌شود:\n  - کارهای باز: `- [ ]`، `- todo:`، `- task:`\n  - کارهای انجام‌شده: `- [x]`\n  - یادداشت‌ها: `- note:`\n  - گزارش‌ها: `- report:`\n  - تصمیم‌ها: `- decision:`\n- همچنین می‌توانید چند کار را در یک پیام ارسال کنید؛ فقط هرکدام را در خط جداگانه و با یک کلیدواژه شروع کنید\n- در پایان تماس، bot آن را خلاصه می‌کند و همه شرکت‌کنندگان و کارها را در یک پیام گفت‌وگوی Markdown فهرست می‌کند"
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### قبل از تماس"
 },
 "nplurals=2; plural=(n > 1);");
