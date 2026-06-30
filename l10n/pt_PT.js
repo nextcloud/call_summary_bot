@@ -4,12 +4,15 @@ OC.L10N.register(
     "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "As chamadas silenciosas podem ser ignoradas e não acionar a agenda.\n\n- {reaction_ignore} Envie {command_ignore} para ignorar chamadas silenciosas.\n- {reaction_continue} Para ativá-las novamente mais tarde, envie {command_continue}",
     "%s (guest)" : "%s (convidado)",
     "__language_name__" : "Português",
+    "Call summary" : "Resumo da chamada",
+    "Call summary (%s)" : "Resumo da chamada (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "O bot de resumo da chamada posta uma mensagem de visão geral após a chamada, listando todos os participantes e descrevendo as tarefas",
     "Attendees" : "Participantes",
     "Tasks" : "Tarefas",
     "Notes" : "Notas",
     "Reports" : "Relatórios",
     "Decisions" : "Decisões",
-    "Call summary - {title}" : "Resumo da chamada - {title}"
+    "Call summary - {title}" : "Resumo da chamada - {title}",
+    "Call summary bot" : "Bot de resumo de chamadas"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
