@@ -6,14 +6,14 @@ OC.L10N.register(
     "__language_name__" : "Svenska",
     "Call summary" : "Samtalssammanfattning",
     "Call summary (%s)" : "Samtalssammanfattning (%s)",
-    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Samtalssammanfattningsboten publicerar ett översiktsmeddelande efter samtalet med en lista över alla deltagare och uppgifter",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Samtalssammanfattningsboten publicerar efter samtalet en översikt med alla deltagare och en sammanställning av uppgifterna",
     "Attendees" : "Deltagare",
     "Tasks" : "Uppgifter",
-    "Notes" : "Anteckning",
+    "Notes" : "Anteckningar",
     "Reports" : "Rapporter",
     "Decisions" : "Beslut",
     "Agenda" : "Agenda",
-    "Call summary - {title}" : "Samtalssammanfattning - {title}",
-    "Call summary bot" : "Samtalssammanfattning bot"
+    "Call summary - {title}" : "Samtalssammanfattning – {title}",
+    "Call summary bot" : "Samtalssammanfattningsbot"
 },
 "nplurals=2; plural=(n != 1);");
