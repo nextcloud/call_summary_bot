@@ -1,10 +1,13 @@
 { "translations": {
+    "No agenda items scheduled" : "Aucun point à l’ordre du jour n’est planifié",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Les appels silencieux peuvent être ignorés et ne déclenchent pas l’ordre du jour.\n\n- {reaction_ignore} Publiez {command_ignore} pour ignorer les appels silencieux.\n- {reaction_continue} Pour le réactiver plus tard, publiez {command_continue}",
     "%s (guest)" : "%s (invité)",
     "{actor} started a silent call" : "{actor} a lancé un appel silencieux",
     "__language_name__" : "Français",
     "Call summary" : "Résumé de l'appel",
     "Call summary (%s)" : "Résumé de l'appel (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Le robot chargé de résumer l'appel publie un message de synthèse après l'appel, énumérant tous les participants et décrivant les tâches à accomplir.",
+    "with attachment" : "avec pièce jointe",
     "Attendees" : "Participants",
     "Tasks" : "Tâches",
     "Notes" : "Notes",
