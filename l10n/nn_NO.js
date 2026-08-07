@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "__language_name__" : "Nynorsk",
     "Attendees" : "Deltakarar",
-    "Tasks" : "Oppgåver"
+    "Tasks" : "Oppgåver",
+    "Notes" : "Notat"
 },
 "nplurals=2; plural=(n != 1);");

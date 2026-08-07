@@ -1,6 +1,7 @@
 { "translations": {
     "__language_name__" : "Nynorsk",
     "Attendees" : "Deltakarar",
-    "Tasks" : "Oppgåver"
+    "Tasks" : "Oppgåver",
+    "Notes" : "Notat"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
