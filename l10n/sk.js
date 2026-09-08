@@ -1,12 +1,15 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "No agenda items scheduled" : "Nie sú naplánované žiadne body programu",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Tiché hovory možno ignorovať a nespúšťať nimi program.\n\n- {reaction_ignore} Ak chcete ignorovať tiché hovory, odošlite {command_ignore}.\n- {reaction_continue} Ak ho chcete neskôr znova povoliť, odošlite {command_continue}",
     "%s (guest)" : "%s (guest)",
     "{actor} started a silent call" : "{actor} začal tichý rozhovor",
     "__language_name__" : "Slovenčina",
     "Call summary" : "Zhrnutie hovoru",
     "Call summary (%s)" : "Zhrnutie hovoru (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Bot so súhrnom hovoru uverejní po hovore súhrnnú správu so zoznamom všetkých účastníkov a načrtnutím úloh",
+    "with attachment" : "s prílohou",
     "Attendees" : "Účastníci",
     "Tasks" : "Úlohy",
     "Notes" : "Poznámky",
