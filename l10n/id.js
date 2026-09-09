@@ -1,12 +1,18 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (tamu)",
+    "{actor} started a silent call" : "{actor} memulai panggilan senyap",
     "__language_name__" : "Bahasa Indonesia",
+    "Call summary" : "Ringkasan panggilan",
     "Call summary (%s)" : "Ringkasan panggilan ( %s )",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Bot ringkasan panggilan memposting pesan ringkasan setelah panggilan yang mencantumkan semua peserta dan menguraikan tugas",
     "Attendees" : "Peserta",
     "Tasks" : "Tugas",
     "Notes" : "Catatan",
     "Reports" : "Laporan",
+    "Decisions" : "Keputusan",
+    "Agenda" : "Agenda",
     "Call summary - {title}" : "Ringkasan panggilan - {judul}",
     "Call summary bot" : "Bot ringkasan panggilan"
 },
