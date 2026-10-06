@@ -1,12 +1,15 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "No agenda items scheduled" : "Der er ikke planlagt nogen punkter på dagsordenen",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Lydløse opkald kan ignoreres, så de ikke udløser dagsordenen.\n\n- {reaction_ignore} Skriv {command_ignore} for at ignorere lydløse opkald.\n- {reaction_continue} Skriv {command_continue} for at slå det til igen senere",
     "%s (guest)" : "%s (gæst)",
-    "{actor} started a silent call" : "{actor} startede et stille opkald",
+    "{actor} started a silent call" : "{actor} startede et lydløst opkald",
     "__language_name__" : "Dansk",
     "Call summary" : "Opkaldsoversigt",
     "Call summary (%s)" : "Opkaldssammendrag (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Opkaldsoversigts bot'en sender en oversigtsmeddelelse efter opkaldet med alle deltagere og skitserede opgaver",
+    "with attachment" : "med vedhæftning",
     "Attendees" : "Deltagere",
     "Tasks" : "Opgaver",
     "Notes" : "Noter",
