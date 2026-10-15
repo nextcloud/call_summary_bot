@@ -1,18 +1,23 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "No agenda items scheduled" : "Нет запланированных пунктов повестки",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Беззвучные вызовы можно игнорировать, чтобы они не запускали повестку.\n\n- {reaction_ignore} Отправьте {command_ignore}, чтобы игнорировать беззвучные вызовы.\n- {reaction_continue} Чтобы позже включить снова, отправьте {command_continue}",
     "%s (guest)" : "%s (гость)",
-    "{actor} started a silent call" : "{actor} начал(а) тихий вызов",
+    "{actor} started a silent call" : "{actor} начал(а) беззвучный вызов",
     "__language_name__" : "Русский",
-    "Call summary" : "Резюме вызова",
-    "Call summary (%s)" : "Резюме вызова (%s)",
-    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Бот для резюме вызова публикует обзорное сообщение сразу после вызова с перечислением всех участников и описанием задач",
+    "Call summary" : "Итоги вызова",
+    "Call summary (%s)" : "Итоги вызова (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Бот итогов вызова публикует после вызова обзорное сообщение со списком всех участников и задач",
+    "with attachment" : "с вложением",
     "Attendees" : "Участники",
     "Tasks" : "Задачи",
     "Notes" : "Заметки",
     "Reports" : "Отчёты",
-    "Decisions" : "Итоги",
-    "Agenda" : "Агенда",
-    "Call summary - {title}" : "Резюме вызова - {title}"
+    "Decisions" : "Решения",
+    "Agenda" : "Повестка",
+    "Call summary - {title}" : "Итоги вызова — {title}",
+    "Call summary bot" : "Бот итогов вызова",
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Перед вызовом\n\n- С помощью бота можно также собирать пункты повестки и темы по ключевым словам:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- В одном сообщении можно отправить несколько задач: каждую с новой строки, начиная с ключевого слова\n\n### Во время вызова\n\n- Любое сообщение во время вызова, которое начинается с флажка Markdown или ключевого слова, будет распознано и попадёт в итоги:\n  - Открытые задачи: `- [ ]`, `- todo:`, `- task:`\n  - Выполненные задачи: `- [x]`\n  - Заметки: `- note:`\n  - Отчёты: `- report:`\n  - Решения: `- decision:`\n- В одном сообщении можно отправить несколько задач: каждую с новой строки, начиная с ключевого слова\n- По окончании вызова бот подведёт итоги и перечислит всех участников и задачи в сообщении чата в формате Markdown"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");
