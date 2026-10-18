@@ -1,6 +1,7 @@
 OC.L10N.register(
     "call_summary_bot",
     {
+    "%s (guest)" : "%s (invitat)",
     "__language_name__" : "Română",
     "Attendees" : "Participanți",
     "Tasks" : "Sarcini",
