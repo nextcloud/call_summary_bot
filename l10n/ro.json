@@ -1,4 +1,5 @@
 { "translations": {
+    "%s (guest)" : "%s (invitat)",
     "__language_name__" : "Română",
     "Attendees" : "Participanți",
     "Tasks" : "Sarcini",
