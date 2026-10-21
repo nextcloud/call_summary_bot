@@ -2,13 +2,13 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "No agenda items scheduled" : "Zamanlanmış bir günlük ögesi yok",
-    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Sessiz çağrılar yok sayılabilir ve gündemi tetiklemez.\n\n- {reaction_ignore} Sessiz çağrıları yok saymak için {command_ignore} gönderin.\n- {reaction_continue} Daha sonra yeniden etkinleştirmek için {command_continue} gönderin",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Sessiz aramalar yok sayılabilir ve gündemi tetiklemez.\n\n- {reaction_ignore} Sessiz aramaları yok saymak için {command_ignore} gönderin.\n- {reaction_continue} Daha sonra yeniden etkinleştirmek için {command_continue} gönderin",
     "%s (guest)" : "%s (konuk)",
-    "{actor} started a silent call" : "{actor} bir sessiz çağrı başlattı",
+    "{actor} started a silent call" : "{actor} bir sessiz arama başlattı",
     "__language_name__" : "Türkçe",
-    "Call summary" : "Çağrı özeti",
-    "Call summary (%s)" : "Çağrı özeti (%s)",
-    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Çağrı özeti botu, çağrıdan sonra tüm katılımcıları listeleyen ve görevleri özetleyen bir özet iletisi gönderir.",
+    "Call summary" : "Arama özeti",
+    "Call summary (%s)" : "Arama özeti (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Arama özeti robotu, aramadan sonra tüm katılımcıları listeleyen ve görevleri özetleyen bir özet iletisi gönderir.",
     "with attachment" : "ek dosyası olan",
     "Attendees" : "Katılanlar",
     "Tasks" : "Görevler",
@@ -16,8 +16,8 @@ OC.L10N.register(
     "Reports" : "Raporlar",
     "Decisions" : "Kararlar",
     "Agenda" : "Gündem",
-    "Call summary - {title}" : "Çağrı özeti - {title}",
-    "Call summary bot" : "Çağrı özeti botu",
-    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Bir çağrıdan önce\n\n- Bot, aşağıdaki anahtar sözcüklerle gündem başlıklarını ve konularını toplamak için de kullanılabilir:\n- `- agenda`\n- `- topic`\n- `- top`\n- Ayrıca tek bir iletide birden fazla görev verebilirsiniz. Her görevi bir anahtar sözcükle başlayarak kendi satırına koymanız yeterlidir\n\n### Bir çağrı sırasında\n\n- Bir Markdown işaret kutusu veya bir çağrı sırasında bir anahtar sözcükle başlayan herhangi bir ileti, özette tanınır ve kullanılır:\n- Açık yapılacak işler: `- [ ]`, `- todo:`, `- task:`\n- Tamamlanmış yapılacak işler: `- [x]`\n- Notlar: `- note:`\n- Raporlar: `- report:`\n- Kararlar: `- decision:`\n- Ayrıca tek bir iletide birden fazla görev verebilirsiniz. Her görevi bir anahtar sözcükle başlayarak kendi satırına koymanız yeterlidir\n- Çağrının sonunda bot, özeti çıkararak tüm katılımcılar ile görevleri bir markdown sohbet iletisinde ​​listeler"
+    "Call summary - {title}" : "Arama özeti - {title}",
+    "Call summary bot" : "Arama özeti robotu",
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Bir aramadan önce\n\n- Robot, aşağıdaki anahtar sözcüklerle gündem başlıklarını ve konularını toplamak için de kullanılabilir:\n- `- agenda`\n- `- topic`\n- `- top`\n- Ayrıca tek bir iletide birden fazla görev verebilirsiniz. Her görevi bir anahtar sözcükle başlayarak kendi satırına koymanız yeterlidir\n\n### Bir arama sırasında\n\n- Bir Markdown işaret kutusu veya bir arama sırasında bir anahtar sözcükle başlayan herhangi bir ileti, özette tanınır ve kullanılır:\n- Açık yapılacak işler: `- [ ]`, `- todo:`, `- task:`\n- Tamamlanmış yapılacak işler: `- [x]`\n- Notlar: `- note:`\n- Raporlar: `- report:`\n- Kararlar: `- decision:`\n- Ayrıca tek bir iletide birden fazla görev verebilirsiniz. Her görevi bir anahtar sözcükle başlayarak kendi satırına koymanız yeterlidir\n- Robot, aramanın sonunda, özeti çıkararak tüm katılımcılar ile görevleri bir Markdown sohbet iletisinde ​​listeler"
 },
 "nplurals=2; plural=(n > 1);");
