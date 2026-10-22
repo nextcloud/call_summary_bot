@@ -2,9 +2,17 @@ OC.L10N.register(
     "call_summary_bot",
     {
     "%s (guest)" : "%s (invitat)",
+    "{actor} started a silent call" : "{actor} a pornit un apel silențios",
     "__language_name__" : "Română",
+    "Call summary" : "Rezumatul apelului",
+    "Call summary (%s)" : "Rezumatul apelului (%s)",
+    "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Botul de rezumat al apelului publică după apel un mesaj de sinteză care listează toți participanții și schițează sarcinile",
     "Attendees" : "Participanți",
     "Tasks" : "Sarcini",
-    "Notes" : "Notițe"
+    "Notes" : "Notițe",
+    "Reports" : "Rapoarte",
+    "Decisions" : "Decizii",
+    "Agenda" : "Ordine de zi",
+    "Call summary - {title}" : "Rezumatul apelului - {title}"
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");
