@@ -1,16 +1,21 @@
 { "translations": {
+    "No agenda items scheduled" : "Niciun punct programat pe ordinea de zi",
+    "Silent calls can be ignored and not trigger the agenda.\n\n- {reaction_ignore} Post {command_ignore} to ignore silent calls.\n- {reaction_continue} To enable it again later post {command_continue}" : "Apelurile silențioase pot fi ignorate, ca să nu declanșeze ordinea de zi.\n\n- {reaction_ignore} Scrie {command_ignore} pentru a ignora apelurile silențioase.\n- {reaction_continue} Pentru a reactiva mai târziu, scrie {command_continue}",
     "%s (guest)" : "%s (invitat)",
     "{actor} started a silent call" : "{actor} a pornit un apel silențios",
     "__language_name__" : "Română",
     "Call summary" : "Rezumatul apelului",
     "Call summary (%s)" : "Rezumatul apelului (%s)",
     "The call summary bot posts an overview message after the call listing all participants and outlining tasks" : "Botul de rezumat al apelului publică după apel un mesaj de sinteză care listează toți participanții și schițează sarcinile",
+    "with attachment" : "cu atașament",
     "Attendees" : "Participanți",
     "Tasks" : "Sarcini",
     "Notes" : "Notițe",
     "Reports" : "Rapoarte",
     "Decisions" : "Decizii",
     "Agenda" : "Ordine de zi",
-    "Call summary - {title}" : "Rezumatul apelului - {title}"
+    "Call summary - {title}" : "Rezumatul apelului - {title}",
+    "Call summary bot" : "Bot pentru rezumatul apelurilor",
+    "### Before a call\n\n- The bot can be used to also collect agenda points and topics with the following keywords:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n\n### During a call\n\n- Any message starting with a Markdown checkbox or a keyword during a call will be recognized and used in the summary:\n  - Open todos: `- [ ]`, `- todo:`, `- task:`\n  - Solved todos: `- [x]`\n  - Notes: `- note:`\n  - Reports: `- report:`\n  - Decisions: `- decision:`\n- You can also post multiple tasks in a single message, just put each on its own line starting with a keyword\n- At the end of the call, the bot will summarize it and list all the attendees as well as the tasks in a markdown chat message" : "### Înainte de apel\n\n- Botul poate strânge și punctele și subiectele de pe ordinea de zi, cu următoarele cuvinte-cheie:\n  - `- agenda`\n  - `- topic`\n  - `- top`\n- Poți scrie și mai multe sarcini într-un singur mesaj: pune-le pe fiecare pe un rând separat, care începe cu un cuvânt-cheie\n\n### În timpul apelului\n\n- Orice mesaj trimis în timpul apelului care începe cu o casetă de bifare Markdown sau cu un cuvânt-cheie va fi recunoscut și folosit în rezumat:\n  - Sarcini deschise: `- [ ]`, `- todo:`, `- task:`\n  - Sarcini rezolvate: `- [x]`\n  - Notițe: `- note:`\n  - Rapoarte: `- report:`\n  - Decizii: `- decision:`\n- Poți scrie și mai multe sarcini într-un singur mesaj: pune-le pe fiecare pe un rând separat, care începe cu un cuvânt-cheie\n- La finalul apelului, botul îl va rezuma și va lista toți participanții, precum și sarcinile, într-un mesaj de chat în Markdown"
 },"pluralForm" :"nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));"
 }
