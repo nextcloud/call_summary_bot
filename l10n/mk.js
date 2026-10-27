@@ -5,6 +5,7 @@ OC.L10N.register(
     "{actor} started a silent call" : "{actor} стартуваше тивок повик",
     "__language_name__" : "Македонски",
     "Attendees" : "Присутни",
-    "Tasks" : "Задачи"
+    "Tasks" : "Задачи",
+    "Reports" : "Извештаи"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");
