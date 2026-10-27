@@ -5,6 +5,7 @@ OC.L10N.register(
     "__language_name__" : "Íslenska",
     "Attendees" : "Þátttakendur",
     "Tasks" : "Verkefni",
-    "Notes" : "Minnispunktar"
+    "Notes" : "Minnispunktar",
+    "Reports" : "Skýrslur"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
