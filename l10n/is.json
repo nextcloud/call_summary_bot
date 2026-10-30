@@ -3,6 +3,7 @@
     "__language_name__" : "Íslenska",
     "Attendees" : "Þátttakendur",
     "Tasks" : "Verkefni",
-    "Notes" : "Minnispunktar"
+    "Notes" : "Minnispunktar",
+    "Reports" : "Skýrslur"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }
