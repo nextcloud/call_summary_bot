@@ -190,6 +190,7 @@ class SummaryService {
 	 */
 	public function summarize(string $token, string $roomName, string $lang = 'en'): ?array {
 		$logEntries = $this->logEntryMapper->findByConversation($token);
+		$this->carryOverAgenda($token);
 		$this->logEntryMapper->deleteByConversation($token);
 
 		$libL10N = $this->l10nFactory->get('lib', $lang);
@@ -315,8 +316,20 @@ class SummaryService {
 	 * @return ?string
 	 */
 	public function agenda(string $token, string $lang = 'en', bool $preview = false): ?string {
+		if (!$preview) {
+			// Remove left-overs of previous calls that did not end properly
+			$this->carryOverAgenda($token);
+			$this->logEntryMapper->deleteByConversation($token);
+		}
+
 		$logEntries = $this->logEntryMapper->findByConversation($token);
-		$this->logEntryMapper->deleteByConversation($token, $preview);
+		if ($preview) {
+			$this->logEntryMapper->deleteByConversation($token);
+		} else {
+			// Remember which agenda items are posted, so the ones that are
+			// not marked as done can be carried over to the next call
+			$this->logEntryMapper->changeType($token, LogEntry::TYPE_AGENDA, LogEntry::TYPE_AGENDA_POSTED);
+		}
 
 		$agenda = [];
 		foreach ($logEntries as $logEntry) {
@@ -337,6 +350,43 @@ class SummaryService {
 		}
 
 		return $summary;
+	}
+
+	/**
+	 * Update the done state of the agenda items posted for the current call
+	 * based on the checkboxes in the (edited) agenda message
+	 */
+	public function updateAgendaFromMessage(string $token, string $message): void {
+		$done = $open = [];
+		foreach ($this->logEntryMapper->findByConversation($token) as $logEntry) {
+			if ($logEntry->getType() !== LogEntry::TYPE_AGENDA_POSTED
+				&& $logEntry->getType() !== LogEntry::TYPE_AGENDA_DONE) {
+				continue;
+			}
+
+			$pattern = '/^[-*]\s\[([ x])]\s' . preg_quote((string)$logEntry->getDetails(), '/') . '$/mi';
+			if (!preg_match($pattern, $message, $matches)) {
+				continue;
+			}
+
+			$isDone = $matches[1] !== ' ';
+			if ($isDone && $logEntry->getType() === LogEntry::TYPE_AGENDA_POSTED) {
+				$done[] = $logEntry->getId();
+			} elseif (!$isDone && $logEntry->getType() === LogEntry::TYPE_AGENDA_DONE) {
+				$open[] = $logEntry->getId();
+			}
+		}
+
+		$this->logEntryMapper->changeTypeOfEntries($done, LogEntry::TYPE_AGENDA_DONE);
+		$this->logEntryMapper->changeTypeOfEntries($open, LogEntry::TYPE_AGENDA_POSTED);
+	}
+
+	/**
+	 * Agenda items which were posted at the start of the call but not marked
+	 * as done, are put back on the agenda for the next call
+	 */
+	public function carryOverAgenda(string $token): void {
+		$this->logEntryMapper->changeType($token, LogEntry::TYPE_AGENDA_POSTED, LogEntry::TYPE_AGENDA);
 	}
 
 	protected function getTitle(IL10N $l, string $roomName): string {

@@ -17,6 +17,8 @@ The call summary bot posts an overview message after the call listing all partic
   - `- topic`
   - `- top`
 - You can also post multiple tasks in a single message, just put each on its own line starting with a keyword
+- When the call starts, the bot posts the agenda as a checklist. Moderators can tick the items that were discussed during the call.
+  All agenda items which were not ticked when the call ends are automatically put on the agenda for the next call.
 
 ![Screenshot showing the agenda being posted when the call was started](docs/agenda.png)
 

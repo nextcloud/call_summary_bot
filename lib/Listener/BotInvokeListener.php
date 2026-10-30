@@ -16,6 +16,8 @@ use OCA\CallSummaryBot\Model\LogEntryMapper;
 use OCA\CallSummaryBot\Service\SummaryService;
 use OCA\Talk\Events\BotInvokeEvent;
 use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\Comments\ICommentsManager;
+use OCP\Comments\NotFoundException;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\IConfig;
@@ -33,6 +35,7 @@ class BotInvokeListener implements IEventListener {
 		protected SummaryService $summaryService,
 		protected IConfig $config,
 		protected LoggerInterface $logger,
+		protected ICommentsManager $commentsManager,
 	) {
 	}
 
@@ -184,9 +187,39 @@ class BotInvokeListener implements IEventListener {
 					return;
 				}
 
+				$this->summaryService->carryOverAgenda($data['target']['id']);
 				$this->logEntryMapper->deleteByConversation($data['target']['id']);
+			} elseif ($data['object']['name'] === 'message_edited') {
+				if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
+					return;
+				}
+
+				$agendaMessage = $this->getEditedBotMessage((string)$data['object']['id'], $event->getBotUrl());
+				if ($agendaMessage !== null) {
+					$this->summaryService->updateAgendaFromMessage($data['target']['id'], $agendaMessage);
+				}
 			}
 		}
+	}
+
+	/**
+	 * Get the message of this bot that was edited (e.g. by ticking a checkbox
+	 * of the agenda) based on the "message_edited" system message
+	 */
+	protected function getEditedBotMessage(string $systemMessageId, string $botUrl): ?string {
+		try {
+			$systemMessage = $this->commentsManager->get($systemMessageId);
+			$editedMessage = $this->commentsManager->get($systemMessage->getParentId());
+		} catch (NotFoundException) {
+			return null;
+		}
+
+		if ($editedMessage->getActorType() !== 'bots'
+			|| $editedMessage->getActorId() !== 'bot-' . sha1($botUrl)) {
+			return null;
+		}
+
+		return $editedMessage->getMessage();
 	}
 
 	protected function getAuthorDisplayName(string $name, string $id, string $lang): ?string {
