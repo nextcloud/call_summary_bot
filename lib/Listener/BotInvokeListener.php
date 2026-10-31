@@ -13,6 +13,7 @@ use OCA\CallSummaryBot\AppInfo\Application;
 use OCA\CallSummaryBot\Model\Bot;
 use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
+use OCA\CallSummaryBot\Service\SummaryArchiveService;
 use OCA\CallSummaryBot\Service\SummaryService;
 use OCA\Talk\Events\BotInvokeEvent;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -31,6 +32,7 @@ class BotInvokeListener implements IEventListener {
 		protected IFactory $l10nFactory,
 		protected LogEntryMapper $logEntryMapper,
 		protected SummaryService $summaryService,
+		protected SummaryArchiveService $summaryArchiveService,
 		protected IConfig $config,
 		protected LoggerInterface $logger,
 	) {
@@ -84,6 +86,17 @@ class BotInvokeListener implements IEventListener {
 					$l = $this->l10nFactory->get('call_summary_bot', $lang);
 					$hint = trim((string)$l->t('No agenda items scheduled'));
 					$event->addAnswer('*' . $hint . '*', true, true);
+				}
+				return;
+			}
+
+			if ($this->summaryArchiveService->isCommand($message)) {
+				$answer = $this->summaryArchiveService->handleCommand($message, $data['target']['id'], $data['target']['name'], $data['actor']['id'], $lang);
+				if ($answer === null) {
+					// Export succeeded, details are sent as a notification to the requester only
+					$event->addReaction('📥');
+				} else {
+					$event->addAnswer($answer, true, true);
 				}
 				return;
 			}
@@ -176,7 +189,7 @@ class BotInvokeListener implements IEventListener {
 
 				$summary = $this->summaryService->summarize($data['target']['id'], $data['target']['name'], $lang);
 				if ($summary !== null) {
-					$event->addAnswer($summary['summary'], $summary['elevator']);
+					$event->addAnswer($summary['summary'], $summary['elevator'] ?? false, false, $summary['referenceId']);
 				}
 			} elseif ($data['object']['name'] === 'call_missed') {
 				if (!$this->logEntryMapper->hasActiveCall($data['target']['id'])) {
