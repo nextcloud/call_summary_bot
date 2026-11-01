@@ -110,7 +110,8 @@
                 "issues": "https://github.com/nextcloud-deps/ocp/issues",
                 "source": "https://github.com/nextcloud-deps/ocp/tree/stable31"
             },
-            "time": "2026-08-11T00:53:03+00:00"
+            "time": "2026-08-11T00:53:03+00:00",
+            "published-time": "2026-08-11T00:53:09+00:00"
         },
         {
             "name": "psr/clock",
@@ -326,5 +327,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
