@@ -33,6 +33,13 @@ The call summary bot posts an overview message after the call listing all partic
 
 ![Screenshot showing the chat log](docs/chatlog.png)
 
+### After calls
+
+- Post `!summaries` to list the latest call summaries of the conversation with a link to each call
+- Post `!summaries 2025` or `!summaries 2025-03` to only list the summaries of a year or month
+- Post `!summaries export` (optionally followed by a year or month) to save the summaries as a Markdown file in the "Call summaries" folder of your files. The bot reacts with 📥 and you receive a notification with a link to the file, so the file name is not posted to the conversation
+- Only summaries of calls that ended after updating to version 3.6.0 are available
+
 > [!TIP]
 > By default, the call summary will use UTC timezone for dates and times, as it has to be the same for all users at the moment.
 > If most of your users are from the same timezone, you can set a default timezone:

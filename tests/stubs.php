@@ -5,6 +5,24 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+namespace OC\Hooks {
+	/**
+	 * Private parent of OCP\Files\IRootFolder before Nextcloud 35
+	 */
+	interface Emitter {
+		public function listen($scope, $method, callable $callback);
+
+		public function removeListener($scope = null, $method = null, ?callable $callback = null);
+	}
+}
+
+namespace OCA\Talk {
+	class Room {
+		public function getToken(): string {
+		}
+	}
+}
+
 namespace OCA\Talk\Events {
 	class BotInstallEvent extends \OCP\EventDispatcher\Event {
 		public function __construct(
@@ -27,6 +45,19 @@ namespace OCA\Talk\Events {
 		}
 
 		public function getDescription(): string {
+		}
+	}
+
+	class RoomDeletedEvent extends \OCP\EventDispatcher\Event {
+		public function getRoom(): \OCA\Talk\Room {
+		}
+	}
+
+	class ChatMessageSentEvent extends \OCP\EventDispatcher\Event {
+		public function getRoom(): \OCA\Talk\Room {
+		}
+
+		public function getComment(): \OCP\Comments\IComment {
 		}
 	}
 
