@@ -202,4 +202,130 @@ class SummaryServiceTest extends TestCase {
 
 		self::assertEquals($title, self::invokePrivate($service, 'getTitle', [$l, $roomName]));
 	}
+
+	protected function createLogEntry(int $id, string $type, string $details): LogEntry {
+		$logEntry = new LogEntry();
+		$logEntry->setId($id);
+		$logEntry->setType($type);
+		$logEntry->setDetails($details);
+		return $logEntry;
+	}
+
+	public static function dataUpdateAgendaFromMessage(): array {
+		$agenda = '# Agenda' . "\n\n";
+		return [
+			'nothing ticked' => [
+				$agenda . '- [ ] Item 1' . "\n" . '- [ ] Item 2' . "\n",
+				[],
+				[],
+			],
+			'one ticked' => [
+				$agenda . '- [x] Item 1' . "\n" . '- [ ] Item 2' . "\n",
+				[1],
+				[],
+			],
+			'upper case and asterisk' => [
+				$agenda . '* [X] Item 1' . "\n" . '- [x] Item 2',
+				[1, 2],
+				[],
+			],
+			'unticked again' => [
+				$agenda . '- [ ] Item 1' . "\n" . '- [ ] Item 2' . "\n" . '- [ ] Item 3' . "\n",
+				[],
+				[3],
+			],
+			'prefix of other item is not matched' => [
+				$agenda . '- [x] Item 1 extended' . "\n" . '- [ ] Item 2' . "\n",
+				[],
+				[],
+			],
+			'multi-line item' => [
+				$agenda . '- [x] Item 1' . "\n" . '- [x] Item 4' . "\n" . 'second line' . "\n",
+				[1, 4],
+				[],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUpdateAgendaFromMessage
+	 */
+	public function testUpdateAgendaFromMessage(string $message, array $done, array $open): void {
+		$this->mapper->method('findByConversation')
+			->with('t0k3n')
+			->willReturn([
+				$this->createLogEntry(1, LogEntry::TYPE_AGENDA_POSTED, 'Item 1'),
+				$this->createLogEntry(2, LogEntry::TYPE_AGENDA_POSTED, 'Item 2'),
+				$this->createLogEntry(3, LogEntry::TYPE_AGENDA_DONE, 'Item 3'),
+				$this->createLogEntry(4, LogEntry::TYPE_AGENDA_POSTED, 'Item 4' . "\n" . 'second line'),
+				$this->createLogEntry(5, LogEntry::TYPE_AGENDA, 'Item 5'),
+				$this->createLogEntry(6, LogEntry::TYPE_TODO, 'Item 6'),
+			]);
+
+		$this->mapper->expects($this->exactly(2))
+			->method('changeTypeOfEntries')
+			->willReturnCallback(function (array $ids, string $type) use ($done, $open): void {
+				if ($type === LogEntry::TYPE_AGENDA_DONE) {
+					self::assertEquals($done, $ids);
+				} else {
+					self::assertEquals(LogEntry::TYPE_AGENDA_POSTED, $type);
+					self::assertEquals($open, $ids);
+				}
+			});
+
+		$this->getService()->updateAgendaFromMessage('t0k3n', $message);
+	}
+
+	public function testAgendaMarksItemsAsPosted(): void {
+		$l = $this->createMock(IL10N::class);
+		$l->method('t')
+			->willReturnArgument(0);
+		$this->l10nFactory->method('get')
+			->willReturn($l);
+
+		$this->mapper->method('findByConversation')
+			->willReturn([
+				$this->createLogEntry(1, LogEntry::TYPE_AGENDA, 'Item 1'),
+				$this->createLogEntry(2, LogEntry::TYPE_AGENDA, 'Item 2'),
+			]);
+
+		$changes = [];
+		$this->mapper->expects($this->exactly(2))
+			->method('changeType')
+			->willReturnCallback(function (string $token, string $from, string $to) use (&$changes): void {
+				$changes[] = [$from, $to];
+			});
+
+		self::assertEquals(
+			'# Agenda' . "\n\n" . '- [ ] Item 1' . "\n" . '- [ ] Item 2' . "\n",
+			$this->getService()->agenda('t0k3n')
+		);
+		self::assertEquals([
+			[LogEntry::TYPE_AGENDA_POSTED, LogEntry::TYPE_AGENDA],
+			[LogEntry::TYPE_AGENDA, LogEntry::TYPE_AGENDA_POSTED],
+		], $changes);
+	}
+
+	public function testAgendaPreviewKeepsAgenda(): void {
+		$l = $this->createMock(IL10N::class);
+		$l->method('t')
+			->willReturnArgument(0);
+		$this->l10nFactory->method('get')
+			->willReturn($l);
+
+		$this->mapper->method('findByConversation')
+			->willReturn([
+				$this->createLogEntry(1, LogEntry::TYPE_AGENDA, 'Item 1'),
+			]);
+		$this->mapper->expects($this->never())
+			->method('changeType');
+		$this->mapper->expects($this->once())
+			->method('deleteByConversation')
+			->with('t0k3n');
+
+		self::assertEquals(
+			'# Agenda' . "\n\n" . '- [ ] Item 1' . "\n",
+			$this->getService()->agenda('t0k3n', 'en', true)
+		);
+	}
 }
