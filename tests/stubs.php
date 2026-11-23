@@ -28,6 +28,9 @@ namespace OCA\Talk\Events {
 
 		public function getDescription(): string {
 		}
+
+		public function getFeatures(): int {
+		}
 	}
 
 	class BotUninstallEvent extends \OCP\EventDispatcher\Event {
@@ -39,21 +42,76 @@ namespace OCA\Talk\Events {
 	}
 
 	/**
+	 * @psalm-type ChatMessageParentData = array{
+	 *     type: 'Note',
+	 *     actor: array{
+	 *         type: 'Person',
+	 *         id: non-empty-string,
+	 *         name: non-empty-string,
+	 *     },
+	 *     object: array{
+	 *         type: 'Note',
+	 *         id: numeric-string,
+	 *         name: string,
+	 *         content: non-empty-string,
+	 *         mediaType: 'text/markdown'|'text/plain',
+	 *     },
+	 * }
 	 * @psalm-type ChatMessageData = array{
 	 *     type: 'Activity'|'Create',
 	 *     actor: array{
 	 *         type: 'Person',
 	 *         id: non-empty-string,
 	 *         name: non-empty-string,
-	 *         talkParticipantType: non-empty-string,
+	 *         talkParticipantType: numeric-string,
 	 *     },
 	 *     object: array{
 	 *         type: 'Note',
-	 *         id: non-empty-string,
+	 *         id: numeric-string,
 	 *         name: string,
 	 *         content: non-empty-string,
 	 *         mediaType: 'text/markdown'|'text/plain',
+	 *         inReplyTo?: ChatMessageParentData,
+	 *         threadId?: int,
 	 *     },
+	 *     target: array{
+	 *         type: 'Collection',
+	 *         id: non-empty-string,
+	 *         name: non-empty-string,
+	 *     },
+	 * }
+	 * @psalm-type ReactionMessageData = array{
+	 *     type: 'Like',
+	 *     actor: array{
+	 *         type: 'Person',
+	 *         id: non-empty-string,
+	 *         name: non-empty-string,
+	 *         talkParticipantType?: numeric-string,
+	 *     },
+	 *     object: array{
+	 *         type: 'Note',
+	 *         id: numeric-string,
+	 *         name: string,
+	 *         content: non-empty-string,
+	 *         mediaType: 'text/markdown'|'text/plain',
+	 *         inReplyTo?: ChatMessageParentData,
+	 *     },
+	 *     target: array{
+	 *         type: 'Collection',
+	 *         id: non-empty-string,
+	 *         name: non-empty-string,
+	 *     },
+	 *     content: string,
+	 * }
+	 * @psalm-type UndoReactionMessageData = array{
+	 *     type: 'Undo',
+	 *     actor: array{
+	 *         type: 'Person',
+	 *         id: non-empty-string,
+	 *         name: non-empty-string,
+	 *         talkParticipantType?: numeric-string,
+	 *     },
+	 *     object: ReactionMessageData,
 	 *     target: array{
 	 *         type: 'Collection',
 	 *         id: non-empty-string,
@@ -73,7 +131,7 @@ namespace OCA\Talk\Events {
 	 *         name: non-empty-string,
 	 *     },
 	 * }
-	 * @psalm-type InvocationData = ChatMessageData|BotManagementData
+	 * @psalm-type InvocationData = ChatMessageData|ReactionMessageData|UndoReactionMessageData|BotManagementData
 	 */
 	class BotInvokeEvent extends \OCP\EventDispatcher\Event {
 		public function getBotUrl(): string {
@@ -94,11 +152,11 @@ namespace OCA\Talk\Events {
 		public function getReactions(): array {
 		}
 
-		public function addAnswer(string $message, bool|int $reply = false, bool $silent = false, string $referenceId = ''): void {
+		public function addAnswer(string $message, bool|int $reply = false, bool $silent = false, string $referenceId = '', bool $thread = false, ?string $threadTitle = null): void {
 		}
 
 		/**
-		 * @return list<array{message: string, referenceId: string, reply: bool|int, silent: bool}>
+		 * @return list<array{message: string, referenceId: string, reply: bool|int, thread: bool, threadTitle: ?string, silent: bool}>
 		 */
 		public function getAnswers(): array {
 		}
