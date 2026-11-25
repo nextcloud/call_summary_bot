@@ -30,6 +30,10 @@ class LogEntry extends Entity {
 	public const TYPE_REPORT = 'report';
 	public const TYPE_DECISION = 'decision';
 	public const TYPE_AGENDA = 'agenda';
+	// Agenda items that were posted at the start of the currently running call
+	public const TYPE_AGENDA_POSTED = 'agenda_posted';
+	// Agenda items of the currently running call which were ticked in the agenda message
+	public const TYPE_AGENDA_DONE = 'agenda_done';
 	public const TYPE_SETTING_IGNORE_SILENT = 'setting_ignore_silent';
 
 	public const DETAILS_IGNORE_SILENT_MUTED = 'muted';

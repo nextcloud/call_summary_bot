@@ -31,7 +31,8 @@ class LogEntryMapper extends QBMapper {
 		$query->select('*')
 			->from($this->getTableName())
 			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
-			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)));
+			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
+			->orderBy('id', 'ASC');
 		return $this->findEntities($query);
 	}
 
@@ -77,16 +78,41 @@ class LogEntryMapper extends QBMapper {
 		$query->executeStatement();
 	}
 
-	public function deleteByConversation(string $token, bool $keepAgenda = true): void {
+	public function deleteByConversation(string $token): void {
 		$query = $this->db->getQueryBuilder();
 		$query->delete($this->getTableName())
 			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
 			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
-			->andWhere($query->expr()->neq('type', $query->createNamedParameter(LogEntry::TYPE_SETTING_IGNORE_SILENT)));
+			->andWhere($query->expr()->neq('type', $query->createNamedParameter(LogEntry::TYPE_SETTING_IGNORE_SILENT)))
+			->andWhere($query->expr()->neq('type', $query->createNamedParameter(LogEntry::TYPE_AGENDA)));
+		$query->executeStatement();
+	}
 
-		if ($keepAgenda) {
-			$query->andWhere($query->expr()->neq('type', $query->createNamedParameter(LogEntry::TYPE_AGENDA)));
+	/**
+	 * Change the type of all entries of a conversation from one type to another
+	 */
+	public function changeType(string $token, string $fromType, string $toType): void {
+		$query = $this->db->getQueryBuilder();
+		$query->update($this->getTableName())
+			->set('type', $query->createNamedParameter($toType))
+			->where($query->expr()->eq('server', $query->createNamedParameter('local')))
+			->andWhere($query->expr()->eq('token', $query->createNamedParameter($token)))
+			->andWhere($query->expr()->eq('type', $query->createNamedParameter($fromType)));
+		$query->executeStatement();
+	}
+
+	/**
+	 * @param int[] $ids
+	 */
+	public function changeTypeOfEntries(array $ids, string $toType): void {
+		if (empty($ids)) {
+			return;
 		}
+
+		$query = $this->db->getQueryBuilder();
+		$query->update($this->getTableName())
+			->set('type', $query->createNamedParameter($toType))
+			->where($query->expr()->in('id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
 		$query->executeStatement();
 	}
 }
