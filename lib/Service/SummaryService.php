@@ -11,6 +11,8 @@ namespace OCA\CallSummaryBot\Service;
 
 use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
+use OCA\CallSummaryBot\Model\Summary;
+use OCA\CallSummaryBot\Model\SummaryMapper;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -41,6 +43,7 @@ class SummaryService {
 		protected IFactory $l10nFactory,
 		protected IAppManager $appManager,
 		private readonly IAppConfig $appConfig,
+		protected SummaryMapper $summaryMapper,
 	) {
 	}
 
@@ -186,7 +189,7 @@ class SummaryService {
 	 * @param string $token
 	 * @param string $roomName
 	 * @param string $lang
-	 * @return array{summary: string, elevator: ?int}|null
+	 * @return array{summary: string, elevator: ?int, referenceId: string}|null
 	 */
 	public function summarize(string $token, string $roomName, string $lang = 'en'): ?array {
 		$logEntries = $this->logEntryMapper->findByConversation($token);
@@ -243,15 +246,7 @@ class SummaryService {
 		$attendees = array_unique($attendees);
 		sort($attendees);
 
-		$systemDefault = $this->config->getSystemValueString('default_timezone', 'UTC');
-		$timezoneString = $this->appConfig->getAppValueString('timezone', $systemDefault);
-		$timezone = null;
-		if ($timezoneString !== 'UTC') {
-			try {
-				$timezone = new \DateTimeZone($timezoneString);
-			} catch (\Throwable) {
-			}
-		}
+		$timezone = $this->getTimezone();
 
 		$startDate = $this->dateTimeFormatter->formatDate($startTimestamp, 'full', $timezone, $libL10N);
 		$startTime = $this->dateTimeFormatter->formatTime($startTimestamp, 'short', $timezone, $libL10N);
@@ -306,7 +301,37 @@ class SummaryService {
 			}
 		}
 
-		return ['summary' => $summary, 'elevator' => $elevator];
+		// Posted along with the summary, so the message ID can be stored once Talk created the message
+		$referenceId = bin2hex(random_bytes(32));
+		$this->storeSummary($token, $startTimestamp, $endTimestamp, $referenceId, count($attendees), $summary);
+
+		return ['summary' => $summary, 'elevator' => $elevator, 'referenceId' => $referenceId];
+	}
+
+	protected function storeSummary(string $token, int $startTimestamp, int $endTimestamp, string $referenceId, int $attendeeCount, string $text): void {
+		$summary = new Summary();
+		$summary->setToken($token);
+		$summary->setStartTime($startTimestamp);
+		$summary->setEndTime($endTimestamp);
+		$summary->setReferenceId($referenceId);
+		$summary->setAttendeeCount($attendeeCount);
+		$summary->setSummary($text);
+		$this->summaryMapper->insert($summary);
+	}
+
+	/**
+	 * The configured timezone, or null when UTC should be used
+	 */
+	public function getTimezone(): ?\DateTimeZone {
+		$systemDefault = $this->config->getSystemValueString('default_timezone', 'UTC');
+		$timezoneString = $this->appConfig->getAppValueString('timezone', $systemDefault);
+		if ($timezoneString !== 'UTC') {
+			try {
+				return new \DateTimeZone($timezoneString);
+			} catch (\Throwable) {
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -339,7 +364,7 @@ class SummaryService {
 		return $summary;
 	}
 
-	protected function getTitle(IL10N $l, string $roomName): string {
+	public function getTitle(IL10N $l, string $roomName): string {
 		if ($this->isOneToOne($roomName)) {
 			return $l->t('Call summary');
 		}
@@ -347,7 +372,7 @@ class SummaryService {
 		return str_replace('{title}', $roomName, $l->t('Call summary - {title}'));
 	}
 
-	protected function isOneToOne(string $roomName): bool {
+	public function isOneToOne(string $roomName): bool {
 		try {
 			$data = json_decode($roomName, true, flags: JSON_THROW_ON_ERROR);
 			if (is_array($data) && count($data) === 2 && isset($data[0]) && is_string($data[0]) && isset($data[1]) && is_string($data[1])) {

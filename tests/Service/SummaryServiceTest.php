@@ -10,6 +10,7 @@ namespace OCA\CallSummaryBot\Tests\Service;
 
 use OCA\CallSummaryBot\Model\LogEntry;
 use OCA\CallSummaryBot\Model\LogEntryMapper;
+use OCA\CallSummaryBot\Model\SummaryMapper;
 use OCA\CallSummaryBot\Service\SummaryService;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Services\IAppConfig;
@@ -29,6 +30,7 @@ class SummaryServiceTest extends TestCase {
 	protected IFactory&MockObject $l10nFactory;
 	protected IAppManager&MockObject $appManager;
 	protected IAppConfig&MockObject $appConfig;
+	protected SummaryMapper&MockObject $summaryMapper;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -39,6 +41,7 @@ class SummaryServiceTest extends TestCase {
 		$this->l10nFactory = $this->createMock(IFactory::class);
 		$this->appManager = $this->createMock(IAppManager::class);
 		$this->appConfig = $this->createMock(IAppConfig::class);
+		$this->summaryMapper = $this->createMock(SummaryMapper::class);
 	}
 
 	/**
@@ -56,6 +59,7 @@ class SummaryServiceTest extends TestCase {
 					$this->l10nFactory,
 					$this->appManager,
 					$this->appConfig,
+					$this->summaryMapper,
 				])
 				->onlyMethods($methods)
 				->getMock();
@@ -69,6 +73,7 @@ class SummaryServiceTest extends TestCase {
 			$this->l10nFactory,
 			$this->appManager,
 			$this->appConfig,
+			$this->summaryMapper,
 		);
 	}
 
